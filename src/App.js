@@ -5,7 +5,7 @@ import './App.css';
 
 const App = () => (
   <div className='App'>
-    <DogList/>
+    <DogList />
   </div>
 );
 

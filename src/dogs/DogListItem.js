@@ -1,12 +1,15 @@
 import React from 'react';
-import './TodoListItem.css';
 
-const DogListItem = ({ dog }) => (
-  <div className="todo-item-container">
-    <h3>Dog: {dog.name}</h3>
-    <div className="buttons-container">
-      <button className="completed-button">Mark As Completed</button>
-      <button className="remove-button">Remove</button>
+import './DogListItem.scss';
+
+const DogListItem = ({ dog, onRemovePressed }) => (
+  <div key={dog.name} className="dog-item-container">
+    <h3 align='left'>{dog.name}</h3>
+    <p align='left'>{dog.id}</p>
+    <div key={dog.name} className="buttons-container">
+      <button
+        className="remove-button"
+        onClick={() => onRemovePressed(dog.id)}>Remove</button>
     </div>
   </div>
 );
