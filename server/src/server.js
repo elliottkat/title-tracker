@@ -23,6 +23,16 @@ let fakeDogs = [{
     name: 'Flapjack',
     birthdate: 'August 1, 2020',
     sex: 'F'
+}, {
+    id: '3533f3e0-ea36-11eb-9a03-0242ac130003',
+    name: 'Petey',
+    birthdate: 'June 25, 2013',
+    sex: 'M'
+}, {
+    id: '3c96cfea-ea36-11eb-9a03-0242ac130003',
+    name: 'Whim',
+    birthdate: 'February 12, 2014',
+    sex: 'F'
 }];
 
 const app = express();

@@ -1,78 +1,52 @@
 import {
-  createTodo,
-  loadTodosInProgress,
-  loadTodosSuccess,
-  loadTodosFailure,
-  removeTodo,
-  markTodoAsCompleted,
-  markTodoAsInProgress
+  removeDog,
+  loadDogsInProgress,
+  loadDogsSuccess,
+  loadDogsFailure,
+  addDog
 } from './actions';
 
 export const displayAlert = text => () => {
   alert(text);
 };
 
-export const loadTodos = () => async (dispatch, getState) => {
+export const loadDogs = () => async dispatch => {
   try {
-    dispatch(loadTodosInProgress());
-    const response = await fetch('http://localhost:8081/todos');
-    const todos = await response.json();
-
-    dispatch(loadTodosSuccess(todos));
+    dispatch(loadDogsInProgress);
+    const response = await fetch('http://localhost:8080/dogs');
+    const dogs = await response.json();
+    dispatch(loadDogsSuccess(dogs));
   } catch (error) {
-    dispatch(loadTodosFailure());
+    dispatch(loadDogsFailure());
     dispatch(displayAlert(error));
   }
 };
 
-export const addTodoRequest = text => async dispatch => {
+export const addDogRequest = dog => async dispatch => {
   try {
-    const body = JSON.stringify({text});
-    const response = await fetch('http://localhost:8081/todos', {
+    const body = JSON.stringify(dog);
+    const response = await fetch('http://localhost:8080/dogs', {
       headers: {
         'Content-Type': 'application/json'
       },
-      method: 'post',
+      method: 'POST',
       body
     });
-    const todo = await response.json();
-    dispatch(createTodo(todo));
+    const addedDog = await response.json();
+    dispatch(addDog(addedDog));
   } catch (error) {
     dispatch(displayAlert(error));
   }
 };
 
-export const removeTodoRequest = id => async dispatch => {
+export const removeDogRequest = id => async dispatch => {
   try {
-    const response = await fetch(`http://localhost:8081/todos/${id}`, {
-      method: 'delete'
+    const response = await fetch(`http://localhost:8080/dogs/${id}`, {
+      method: 'DELETE'
     });
-    const removedTodo = await response.json();
-    dispatch(removeTodo(removedTodo));
-  } catch (error) {
-    dispatch(displayAlert(error));
-  }
-};
-
-export const markTodoAsCompletedRequest = id => async dispatch => {
-  try {
-    const response = await fetch(`http://localhost:8081/todos/${id}/completed`,{
-      method: 'post'
-    });
-    const updatedTodo = await response.json();
-    dispatch(markTodoAsCompleted(updatedTodo));
-  } catch (error) {
-    dispatch(displayAlert(error));
-  }
-};
-
-export const markTodoAsInProgressRequest = id => async dispatch => {
-  try {
-    const response = await fetch(`http://localhost:8081/todos/${id}/in-progress`,{
-      method: 'post'
-    });
-    const updatedTodo = await response.json();
-    dispatch(markTodoAsInProgress(updatedTodo));
+    const removedDog = await response.json();
+    console.log('removedDog:', removedDog);
+    dispatch(removeDog(removedDog.id));
   } catch (error) {
     dispatch(displayAlert(error));
   }

@@ -1,27 +1,44 @@
-import React, {useEffect, useState} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import DogListItem from './DogListItem';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
 
-const DogList = ({ dogs = [] }) => {
-  const [myDogs, setMyDogs] = useState([]);
-  const dispatch = useDispatch();
+import {getDogsLoading} from './actions';
+import {loadDogs, removeDogRequest} from './thunks';
+import DogListHeader from './DogListHeader';
+import TableBody from './TableBody';
+
+const DogList = ({dogs, isLoading, startLoadingDogs, onRemovePressed}) => {
+  const dogsToLoad = dogs.dogs || dogs;
   useEffect(() => {
-    (async function fetchDogs() {
-      const response = await fetch('http://localhost:8080/dogs?size=100', {
-        headers: {
-          Accept: 'application/json'
-        }
-      });
-      const json = await response.json();
-      console.log(json);
-    })();
-  }, [dogs]);
+    startLoadingDogs();
+  }, []);
 
-  return (
-  <div className="list-wrapper">
-    {dogs.map(dog => <DogListItem dog={dog} />)}
-  </div>
+  const loadingMessage = (
+    <div>Loading Dogs...</div>
   );
+
+  const content = (
+    <div
+      id="player-table-grid"
+      role="grid"
+      aria-label="Poker Players"
+      className="player-table"
+    >
+      <DogListHeader />
+      <TableBody dogs={dogsToLoad} onRemovePressed={onRemovePressed} />
+    </div>
+  )
+
+  return isLoading ? loadingMessage : content;
 };
 
-export default DogList;
+const mapStateToProps = state => ({
+  dogs: state.dogs,
+  isLoading: getDogsLoading(state)
+});
+
+const mapDispatchToProps = dispatch => ({
+  startLoadingDogs: () => dispatch(loadDogs()),
+  onRemovePressed: id => dispatch(removeDogRequest(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DogList);

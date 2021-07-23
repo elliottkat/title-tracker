@@ -6,7 +6,7 @@ import {
   removeTodo,
   markTodoAsCompleted,
   markTodoAsInProgress
-} from './actions/actions';
+} from './dogs/actions';
 
 export const displayAlert = text => () => {
   alert(text);
