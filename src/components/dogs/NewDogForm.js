@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {connect} from 'react-redux';
 
-import './NewDogForm.scss';
-import {addDogRequest} from './thunks';
+import '../../scss/NewDogForm.scss';
+import {addDogRequest} from '../../thunks/thunks';
 
 const NewDogForm = ({dogs, onAddPressed}) => {
   const allDogs = dogs.dogs || dogs;

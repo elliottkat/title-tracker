@@ -5,7 +5,7 @@ import {
   ADD_DOG,
   EDIT_DOG,
   REMOVE_DOG,
-} from './actions';
+} from '../actions/actions';
 
 export const dogs = (state = [], action) => {
   const {type, payload} = action;

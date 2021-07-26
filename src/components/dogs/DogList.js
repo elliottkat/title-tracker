@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 
-import {getDogsLoading} from './actions';
-import {loadDogs, editDogRequest, removeDogRequest} from './thunks';
+import {getDogsLoading} from '../../actions/actions';
+import {loadDogs, editDogRequest, removeDogRequest} from '../../thunks/thunks';
 import DogListHeader from './DogListHeader';
 import TableBody from './TableBody';
 
