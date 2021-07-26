@@ -1,14 +1,16 @@
 import React from 'react';
+
+import '../../scss/DogTable.scss';
 import NewDogForm from './NewDogForm';
 
-const DogListHeader = () => (
+const DogTableHeader = () => (
   <table
     id="dog-table-header"
     role="presentation"
     className="table table--fixed"
   >
     <thead>
-    <NewDogForm />
+    {/*<NewDogForm />*/}
     <tr role="row">
       <th role="columnheader" className="table__header table__player">
         Dog
@@ -21,4 +23,4 @@ const DogListHeader = () => (
   </table>
 );
 
-export default DogListHeader;
+export default DogTableHeader;

@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 
 import {getDogsLoading} from '../../actions/actions';
 import {loadDogs, editDogRequest, removeDogRequest} from '../../thunks/thunks';
-import DogListHeader from './DogListHeader';
-import TableBody from './TableBody';
+import DogTableHeader from './DogTableHeader';
+import DogTableBody from './DogTableBody';
 
 const DogList = ({dogs, isLoading, startLoadingDogs, onEditPressed, onRemovePressed}) => {
   const dogsToLoad = dogs.dogs || dogs;
@@ -23,8 +23,8 @@ const DogList = ({dogs, isLoading, startLoadingDogs, onEditPressed, onRemovePres
       aria-label="Dogs"
       className="dog-table"
     >
-      <DogListHeader />
-      <TableBody dogs={dogsToLoad} onEditPressed={onEditPressed} onRemovePressed={onRemovePressed} />
+      <DogTableHeader />
+      <DogTableBody dogs={dogsToLoad} onEditPressed={onEditPressed} onRemovePressed={onRemovePressed} />
     </div>
   )
 

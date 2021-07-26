@@ -1,11 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 // import { useDispatch } from 'react-redux';
 // import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import DogListItem from './DogListItem';
 
-const TableBody = ({ dogs, onEditPressed, onRemovePressed }) => {
-  // const dispatch = useDispatch();
+const DogTableBody = ({ dogs, onEditPressed, onRemovePressed }) => {
   return (
     <table
       id="dog-table-body"
@@ -19,8 +19,8 @@ const TableBody = ({ dogs, onEditPressed, onRemovePressed }) => {
   );
 };
 
-TableBody.propTypes = {
+DogTableBody.propTypes = {
   dogs: PropTypes.object.isRequired
 };
 
-export default TableBody;
+export default DogTableBody;
