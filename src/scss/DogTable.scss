@@ -1,9 +1,9 @@
 @import 'variables';
 
-$header-height: 2.5rem;
+$header-height: 0;
 
 .dog-table {
-  margin-top: 3.5rem;
+  margin-top: 2rem;
   padding-top: calc(#{$header-height} + 1px); // 1px for border of header
 }
 
@@ -13,16 +13,19 @@ $header-height: 2.5rem;
   width: 100%;
 
   &--fixed {
-    background-color: $pearl;
+    align-content: center;
     border-bottom: 1px solid $fog;
     left: 0;
     position: fixed;
-    top: 3.5rem;
+    top: 1px;
+    height: 50px;
     z-index: 1;
+    background-color: #009879;
+    color: #ffffff;
   }
 
   &--body {
-    background-color: $snow;
+    background-color: black;
   }
 
   &__row {
@@ -39,17 +42,38 @@ $header-height: 2.5rem;
   }
 
   &__header {
-    letter-spacing: 0.00937em;
-    line-height: 1.75rem;
+    line-height: 2rem;
     font-size: 1rem;
     font-weight: 600;
     height: $header-height;
-    text-align: left;
-    vertical-align: middle;
+    text-align: center;
+    align-content: center;
+    color: black;
   }
 
   &__button {
     text-align: center;
     width: 4rem;
   }
+}
+
+.styled-table {
+  margin: 25px 0;
+  font-size: 0.9em;
+  width: 100%;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+  z-index: 1;
+  position: fixed;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
 }

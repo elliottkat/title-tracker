@@ -8,7 +8,8 @@ import '../../scss/DogListItem.scss';
 const DogListItem = ({ dog, onEditPressed, onRemovePressed }) => (
   <div key={dog.name} className="dog-item-container">
     <h3 align='left'>{dog.name}</h3>
-    <p align='left'>{dog.id}</p>
+    <p align='left'>Birthday: {dog.birthdate}</p>
+    <p align='left'>Sex: {dog.sex}</p>
     <div key={dog.name} className="buttons-container">
       <button
         className="item-button"
