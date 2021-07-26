@@ -1,6 +1,6 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
-import DogList from './dogs/DogList';
+import DogList from './components/dogs/DogList';
 import './App.css';
 
 const App = () => (

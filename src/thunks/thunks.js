@@ -5,7 +5,7 @@ import {
   loadDogsInProgress,
   loadDogsSuccess,
   loadDogsFailure
-} from './actions';
+} from '../actions/actions';
 
 export const displayAlert = text => () => {
   alert(text);

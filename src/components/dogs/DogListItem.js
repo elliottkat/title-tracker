@@ -3,7 +3,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 
-import './DogListItem.scss';
+import '../../scss/DogListItem.scss';
 
 const DogListItem = ({ dog, onEditPressed, onRemovePressed }) => (
   <div key={dog.name} className="dog-item-container">

@@ -5,7 +5,7 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 
-import {dogs} from './dogs/reducers';
+import {dogs} from './reducers/reducers';
 
 const reducers = {
   dogs
