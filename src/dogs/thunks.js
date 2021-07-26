@@ -1,9 +1,10 @@
 import {
+  addDog,
+  editDog,
   removeDog,
   loadDogsInProgress,
   loadDogsSuccess,
-  loadDogsFailure,
-  addDog
+  loadDogsFailure
 } from './actions';
 
 export const displayAlert = text => () => {
@@ -34,6 +35,23 @@ export const addDogRequest = dog => async dispatch => {
     });
     const addedDog = await response.json();
     dispatch(addDog(addedDog));
+  } catch (error) {
+    dispatch(displayAlert(error));
+  }
+};
+
+export const editDogRequest = dog => async dispatch => {
+  try {
+    const body = JSON.stringify(dog);
+    const response = await fetch(`http://localhost:8080/dogs/${dog.id}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body
+    });
+    const editedDog = await response.json();
+    dispatch(editDog(editedDog));
   } catch (error) {
     dispatch(displayAlert(error));
   }

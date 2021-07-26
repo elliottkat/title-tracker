@@ -46,7 +46,7 @@ app.get('/dogs', (req, res) => {
 });
 
 // The route for getting a specific dog
-app.get('/dogs:id', (req, res) => {
+app.get('/dogs/:id', (req, res) => {
     const { id } = req.params;
     const dog = fakeDogs.find(dog => dog.id === id);
     res.status(200).json(dog);
@@ -67,9 +67,34 @@ app.post('/dogs', (req, res) => {
             name,
             birthdate,
             sex
-        }
+        };
+
         fakeDogs.push(insertedDog);
         res.status(200).json(insertedDog);
+    } else {
+        res.status(400).json({ message: 'Name, birthdate, and sex are required.' });
+    }
+});
+
+// The route for editing a dog
+app.post('/dogs/:id', (req, res) => {
+    const { id, name, birthdate, sex } = req.body;
+    if (name && birthdate && sex) {
+        const editedDog = {
+            id,
+            name,
+            birthdate,
+            sex
+        };
+
+        fakeDogs = fakeDogs.map(dog => {
+            if (dog.id === id) {
+                return editedDog
+            } else {
+                return dog;
+            }
+        });
+        res.status(200).json(editedDog);
     } else {
         res.status(400).json({ message: 'Name, birthdate, and sex are required.' });
     }

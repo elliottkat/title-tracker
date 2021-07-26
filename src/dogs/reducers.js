@@ -3,6 +3,7 @@ import {
   LOAD_DOGS_SUCCESS,
   LOAD_DOGS_FAILURE,
   ADD_DOG,
+  EDIT_DOG,
   REMOVE_DOG,
 } from './actions';
 
@@ -11,17 +12,29 @@ export const dogs = (state = [], action) => {
   switch (type) {
     case LOAD_DOGS_SUCCESS: {
       const {dogs} = payload;
-      return dogs;
+      return {dogs: dogs};
     }
     case ADD_DOG: {
       const {dog} = payload;
       return {
         ...state,
-        dogs: state.concat(dog)}
+        dogs: state.dogs.concat(dog)}
+    }
+    case EDIT_DOG: {
+      const {dog} = payload;
+      return {
+        ...state,
+        dogs: state.dogs.map(stateDog => {
+          if (stateDog.id === dog.id) {
+            return dog;
+          }
+          return stateDog;
+        })
+      }
     }
     case REMOVE_DOG: {
       const {id} = payload;
-      return state.filter(dog => dog.id !== id);
+      return {dogs: state.dogs.filter(dog => dog.id !== id)};
     }
     case LOAD_DOGS_IN_PROGRESS: {
       return {

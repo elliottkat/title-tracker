@@ -4,16 +4,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DogListItem from './DogListItem';
 
-const TableBody = ({ dogs, onRemovePressed }) => {
+const TableBody = ({ dogs, onEditPressed, onRemovePressed }) => {
   // const dispatch = useDispatch();
   return (
     <table
-      id="player-table-body"
+      id="dog-table-body"
       role="presentation"
       className="table table--body"
     >
       <tbody>
-      {dogs.map(dog => <DogListItem onRemovePressed={onRemovePressed} dog={dog} />)}
+      {dogs.map(dog => <DogListItem onEditPressed={onEditPressed} onRemovePressed={onRemovePressed} dog={dog} />)}
       </tbody>
     </table>
   );

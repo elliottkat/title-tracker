@@ -22,18 +22,12 @@ button {
     cursor: pointer;
 }
 
-.completed-button {
-    display: inline-block;
-    background-color: #22ee22;
-}
-
-.in-progress-button {
-    display: inline-block;
-    background-color: yellow;
-}
-
-.remove-button {
-    display: inline-block;
-    background-color: #ee2222;
-    margin-left: 8px;
+.item-button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #888;
+    align-content: center;
+    font-size: 30px;
 }
