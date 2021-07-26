@@ -1,6 +1,7 @@
 export const LOAD_DOGS_IN_PROGRESS = 'LOAD_DOGS_IN_PROGRESS';
 export const LOAD_DOGS_SUCCESS = 'LOAD_DOGS_SUCCESS';
 export const LOAD_DOGS_FAILURE = 'LOAD_DOGS_FAILURE';
+export const EDIT_DOG = 'EDIT_DOG';
 export const ADD_DOG = 'ADD_DOG';
 export const REMOVE_DOG = 'REMOVE_DOG';
 
@@ -29,6 +30,13 @@ export const loadDogsFailure = () => ({
 export const addDog = dog => {
   return {
     type: ADD_DOG,
+    payload: {dog}
+  };
+};
+
+export const editDog = dog => {
+  return {
+    type: EDIT_DOG,
     payload: {dog}
   };
 };
