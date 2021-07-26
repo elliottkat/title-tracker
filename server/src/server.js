@@ -40,26 +40,26 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// The route for getting a list of all components
-app.get('/components', (req, res) => {
+// The route for getting a list of all dogs
+app.get('/dogs', (req, res) => {
     res.status(200).json(fakeDogs);
 });
 
 // The route for getting a specific dog
-app.get('/components/:id', (req, res) => {
+app.get('/dogs/:id', (req, res) => {
     const { id } = req.params;
     const dog = fakeDogs.find(dog => dog.id === id);
     res.status(200).json(dog);
 });
 
-// The route for getting a list of all components, but with a delay
+// The route for getting a list of all dogs, but with a delay
 // (to display the loading component better)
-app.get('/components-delay', (req, res) => {
+app.get('/dogs-delay', (req, res) => {
     setTimeout(() => res.status(200).json(fakeDogs), 2000);
 });
 
 // The route for creating new dog
-app.post('/components', (req, res) => {
+app.post('/dogs', (req, res) => {
     const { name, birthdate, sex } = req.body;
     if (name && birthdate && sex) {
         const insertedDog = {
@@ -77,7 +77,7 @@ app.post('/components', (req, res) => {
 });
 
 // The route for editing a dog
-app.post('/components/:id', (req, res) => {
+app.post('/dogs/:id', (req, res) => {
     const { id, name, birthdate, sex } = req.body;
     if (name && birthdate && sex) {
         const editedDog = {
@@ -101,7 +101,7 @@ app.post('/components/:id', (req, res) => {
 });
 
 // The route for deleting a dog
-app.delete('/components/:id', (req, res) => {
+app.delete('/dogs/:id', (req, res) => {
     const { id } = req.params;
     const removedDog = fakeDogs.find(dog => dog.id === id);
     fakeDogs = fakeDogs.filter(dog => dog.id !== id);
