@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import { useDispatch } from 'react-redux';
-// import ReactDOM from 'react-dom';
 import DogListItem from './DogListItem';
 
-const DogTableBody = ({ dogs, onEditPressed, onRemovePressed }) => {
+const DogTableBody = (props) => {
   return (
     <table
       id="dog-table-body"
@@ -13,14 +11,17 @@ const DogTableBody = ({ dogs, onEditPressed, onRemovePressed }) => {
       className="table table--body"
     >
       <tbody>
-      {dogs.map(dog => <DogListItem onEditPressed={onEditPressed} onRemovePressed={onRemovePressed} dog={dog} />)}
+      {props.dogs.map(dog => <DogListItem
+        dog={dog}
+        onEditPressed={props.onEditPressed}
+        onRemovePressed={props.onRemovePressed} />)}
       </tbody>
     </table>
   );
 };
 
 DogTableBody.propTypes = {
-  dogs: PropTypes.object.isRequired
+  dogs: PropTypes.array.isRequired
 };
 
 export default DogTableBody;

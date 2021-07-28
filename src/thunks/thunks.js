@@ -2,7 +2,6 @@ import {
   addDog,
   editDog,
   removeDog,
-  loadDogsInProgress,
   loadDogsSuccess,
   loadDogsFailure
 } from '../actions/actions';
@@ -13,7 +12,6 @@ export const displayAlert = text => () => {
 
 export const loadDogs = () => async dispatch => {
   try {
-    dispatch(loadDogsInProgress);
     const response = await fetch('http://localhost:8080/dogs');
     const dogs = await response.json();
     dispatch(loadDogsSuccess(dogs));

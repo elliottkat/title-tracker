@@ -1,43 +1,56 @@
-import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {connect, useDispatch} from 'react-redux';
 
-import {getDogsLoading} from '../../actions/actions';
-import {loadDogs, editDogRequest, removeDogRequest} from '../../thunks/thunks';
+import '../../scss/DogList.scss';
+
 import DogTableHeader from './DogTableHeader';
 import DogTableBody from './DogTableBody';
 
-const DogList = ({dogs, isLoading, startLoadingDogs, onEditPressed, onRemovePressed}) => {
-  const dogsToLoad = dogs.dogs || dogs;
+import {loadDogsFailure, loadDogsSuccess} from '../../actions/actions';
+import {loadDogs, addDogRequest, editDogRequest, removeDogRequest} from '../../thunks/thunks';
+
+const DogList = (props) => {
+  const [dogs, setDogs] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
-    startLoadingDogs();
-  }, []);
+    (async function fetchDogs() {
+      const response = await fetch('http://localhost:8080/dogs', {
+        headers: {
+          Accept: 'application/json'
+        },
+      });
 
-  const loadingMessage = (
-    <div>Loading Dogs...</div>
-  );
+      if (response.status === 200) {
+        const json = await response.json();
+        dispatch(loadDogsSuccess(dogs));
+        setDogs(json);
+      } else {
+        dispatch(loadDogsFailure());
+        alert(`Loading dogs failed with ${response.status}`);
+      }
+    })();
+  }, [dogs, dispatch]);
 
-  const content = (
+  return (
     <div
       id="dog-table-grid"
       role="grid"
       aria-label="Dogs"
       className="dog-table"
     >
-      <DogTableHeader />
-      <DogTableBody dogs={dogsToLoad} onEditPressed={onEditPressed} onRemovePressed={onRemovePressed} />
+      <DogTableHeader onAddPressed={props.onAddPressed}/>
+      <DogTableBody dogs={dogs} onEditPressed={props.onEditPressed} onRemovePressed={props.onRemovePressed} />
     </div>
   )
-
-  return isLoading ? loadingMessage : content;
 };
 
 const mapStateToProps = state => ({
   dogs: state.dogs,
-  isLoading: getDogsLoading(state)
 });
 
 const mapDispatchToProps = dispatch => ({
   startLoadingDogs: () => dispatch(loadDogs()),
+  onAddPressed: dog => dispatch(addDogRequest(dog)),
   onEditPressed: dog => dispatch(editDogRequest(dog)),
   onRemovePressed: id => dispatch(removeDogRequest(id))
 });
