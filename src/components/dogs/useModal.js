@@ -2,6 +2,11 @@ import { useState } from 'react';
 
 const useModal = () => {
   const [isShowing, setIsShowing] = useState(false);
+  const [isShowingDelete, setIsShowingDelete] = useState(false);
+
+  function toggleDelete() {
+    setIsShowingDelete(!isShowingDelete);
+  }
 
   function toggle() {
     setIsShowing(!isShowing);
@@ -9,6 +14,8 @@ const useModal = () => {
 
   return {
     isShowing,
+    isShowingDelete,
+    toggleDelete,
     toggle,
   }
 };
