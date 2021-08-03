@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faWindowClose} from '@fortawesome/free-solid-svg-icons';
 
+import '../../scss/AddEditDog.scss';
+
 const AddEditDog = ({dog, isShowing, hide, onAddEditPressed}) => {
   const id = dog.id || '';
   const [name, setName] = useState(dog.name);
@@ -40,22 +42,22 @@ const AddEditDog = ({dog, isShowing, hide, onAddEditPressed}) => {
                 value={sex}
                 onChange={event => setSex(event.target.value)} />
             </div>
-          </div>
-          <div>
-            <button
-              className="add-edit-dog-button"
-              onClick={() => {
-                hide();
-                onAddEditPressed({id: id, name: name, birthdate: birthdate, sex: sex});
-                setName('');
-                setBirthdate('');
-                setSex('');
-              }}>
-              {dog.id ? 'Edit Dog' : 'Add Dog'}
-            </button>
-            <button type="button" className="modal-close-button" data-dismiss="modal" aria-label="Close" onClick={hide}>
-              <FontAwesomeIcon icon={faWindowClose} />
-            </button>
+            <div>
+              <button
+                className="add-edit-dog-button"
+                onClick={() => {
+                  hide();
+                  onAddEditPressed({id: id, name: name, birthdate: birthdate, sex: sex});
+                  setName('');
+                  setBirthdate('');
+                  setSex('');
+                }}>
+                {dog.id ? 'Edit Dog' : 'Add Dog'}
+              </button>
+              <button type="button" className="action-button" data-dismiss="modal" aria-label="Close" onClick={hide}>
+                <FontAwesomeIcon icon={faWindowClose} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

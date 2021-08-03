@@ -8,10 +8,11 @@ import '../../scss/DogListItem.scss';
 import DogDetails from './DogDetails';
 import AddEditDog from './AddEditDog';
 import useModal from './useModal';
+import DeleteDogConfirm from './DeleteDogConfirm';
 
 const DogListItem = (props) => {
   const {dog} = props;
-  const {isShowing, toggle} = useModal();
+  const {isShowing, isShowingDelete, toggle, toggleDelete} = useModal();
 
   return (
     <tr
@@ -24,16 +25,17 @@ const DogListItem = (props) => {
         );
       }}>
       <td className='table__row'>{dog.name}</td>
-      <td className='table__button'>
+      <td className='table__row table__button'>
         <button className='action-button' onClick={toggle}>
           <FontAwesomeIcon icon={faEdit}/>
         </button>
         <AddEditDog dog={dog} isShowing={isShowing} hide={toggle} onAddEditPressed={props.onEditPressed} />
       </td>
-      <td className='table__button'>
-        <button className='action-button' onClick={() => props.onRemovePressed(dog.id)}>
+      <td className='table__row table__button'>
+        <button className='action-button' onClick={toggleDelete}>
           <FontAwesomeIcon icon={faTrashAlt}/>
         </button>
+        <DeleteDogConfirm dog={dog} isShowing={isShowingDelete} hide={toggleDelete} onRemovePressed={props.onRemovePressed} />
       </td>
     </tr>
   )

@@ -1,0 +1,39 @@
+@import 'variables';
+
+.delete-dog-form {
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 4px 8px grey;
+}
+
+.delete-dog-button {
+    font-size: 18px;
+    height: 34px;
+    font-weight: 550;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    margin-left: 8px;
+    width: 18%;
+    background-color: #888;
+}
+
+.fa-window-close {
+    color: #888;
+    font-size: 38px;
+    border: none;
+    background-color: white;
+}
+
+.close-button {
+    color: white;
+    padding: {
+        top: 9px;
+        bottom: 10px;
+        right: 10px;
+    }
+}
