@@ -1,0 +1,8 @@
+@import 'variables';
+
+$header-height: 2.5rem;
+
+.dog-table {
+  margin-top: 3.5rem;
+  padding-top: calc(#{$header-height} + 1px); // 1px for border of header
+}

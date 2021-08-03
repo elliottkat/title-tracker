@@ -1,33 +1,29 @@
-.dog-item-container {
-    background: #fff;
-    border-radius: 8px;
-    margin-top: 8px;
-    padding: 16px;
-    position: relative;
-    box-shadow: 0 4px 8px grey;
-}
+@import 'variables';
 
-.buttons-container {
-    position: absolute;
-    right: 12px;
-    bottom: 12px;
-}
-
-button {
-    font-size: 16px;
-    padding: 8px;
-    border: none;
-    border-radius: 8px;
-    outline: none;
-    cursor: pointer;
-}
-
-.item-button {
+.action-button {
+    font-size: 22px;
     background: none;
     border: none;
     outline: none;
     cursor: pointer;
     color: #888;
-    align-content: center;
+    padding: {
+        top: 8px;
+        bottom: 8px;
+        right: 10px;
+    }
+}
+
+.close-button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: #888;
+    align-content: end;
     font-size: 30px;
+    padding: {
+        left: 8px;
+        bottom: 8px;
+    }
 }
