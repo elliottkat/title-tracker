@@ -1,6 +1,6 @@
 @import 'variables';
 
-.add-edit-dog-form {
+.dog-form {
     border-radius: 8px;
     padding: 16px;
     text-align: center;
@@ -8,7 +8,6 @@
 }
 
 .add-edit-dog-input {
-    font-size: 16px;
     padding: 8px;
     border: none;
     border-bottom: 2px solid #ddd;
@@ -17,7 +16,7 @@
     outline: none;
 }
 
-.add-edit-dog-button {
+.dog-action-button {
     font-size: 18px;
     height: 34px;
     font-weight: 550;
@@ -33,7 +32,7 @@
 }
 
 .fa-window-close {
-    color: white;
+    color: #888;
     font-size: 38px;
     border: none;
     background-color: white;
