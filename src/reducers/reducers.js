@@ -4,7 +4,7 @@ import {
   LOAD_DOGS_FAILURE,
   ADD_DOG,
   EDIT_DOG,
-  REMOVE_DOG,
+  REMOVE_DOG, LOAD_TITLES_SUCCESS,
 } from '../actions/actions';
 
 export const dogs = (state = [], action) => {
@@ -45,6 +45,10 @@ export const dogs = (state = [], action) => {
       return {
         isLoading: false
       }
+    case LOAD_TITLES_SUCCESS: {
+      const {titles} = payload;
+      return {titles: titles};
+    }
     default:
       return state;
   }

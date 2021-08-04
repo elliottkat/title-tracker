@@ -1,35 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {connect, useDispatch} from 'react-redux';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
 import '../../scss/DogList.scss';
 
 import DogTableHeader from './DogTableHeader';
 import DogTableBody from './DogTableBody';
 
-import {loadDogsFailure, loadDogsSuccess} from '../../actions/actions';
 import {loadDogs, addDogRequest, editDogRequest, removeDogRequest} from '../../thunks/thunks';
 
 const DogList = (props) => {
-  const [dogs, setDogs] = useState([]);
-  const dispatch = useDispatch();
+  const { dogs } = props.dogs;
   useEffect(() => {
-    (async function fetchDogs() {
-      const response = await fetch('http://localhost:8080/dogs', {
-        headers: {
-          Accept: 'application/json'
-        },
-      });
-
-      if (response.status === 200) {
-        const json = await response.json();
-        dispatch(loadDogsSuccess(dogs));
-        setDogs(json);
-      } else {
-        dispatch(loadDogsFailure());
-        alert(`Loading dogs failed with ${response.status}`);
-      }
-    })();
-  }, [dogs, dispatch]);
+    props.startLoadingDogs();
+  }, []);
 
   return (
     <div
