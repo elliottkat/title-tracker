@@ -3,7 +3,7 @@ import {
   editDog,
   removeDog,
   loadDogsSuccess,
-  loadDogsFailure
+  loadDogsFailure, loadTitlesSuccess
 } from '../actions/actions';
 
 export const displayAlert = text => () => {
@@ -63,6 +63,33 @@ export const removeDogRequest = id => async dispatch => {
     const removedDog = await response.json();
     console.log('removedDog:', removedDog);
     dispatch(removeDog(removedDog.id));
+  } catch (error) {
+    dispatch(displayAlert(error));
+  }
+};
+
+export const loadAllTitles = () => async dispatch => {
+  try {
+    const response = await fetch('http://localhost:8080/titles');
+    const titles = await response.json();
+    dispatch(loadTitlesSuccess(titles));
+  } catch (error) {
+    dispatch(displayAlert(error));
+  }
+};
+
+export const loadTitles = id => async dispatch => {
+  try {
+    const body = {dogId: id};
+    const response = await fetch(`http://localhost:8080/titles/${id}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body
+    });
+    const loadedTitles = await response.json();
+    dispatch(loadTitlesSuccess(loadedTitles));
   } catch (error) {
     dispatch(displayAlert(error));
   }

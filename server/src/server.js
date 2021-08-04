@@ -32,9 +32,46 @@ let dogs = [{
 
 let titles = [{
     id: 'e77c8552-f522-11eb-9a03-0242ac130003',
+    name: 'Pi',
     dogId: 'cda9165d-c263-4ef6-af12-3f1271af5fb4',
     venue: 'USDAA',
     title: 'Advanced Standard'
+}, {
+    id: '9ef5d20a-f53d-11eb-9a03-0242ac130003',
+    name: 'Pi',
+    dogId: 'cda9165d-c263-4ef6-af12-3f1271af5fb4',
+    venue: 'USDAA',
+    title: 'Starters Jumpers'
+}, {
+    id: 'ac33b2de-f53d-11eb-9a03-0242ac130003',
+    name: 'Pi',
+    dogId: 'cda9165d-c263-4ef6-af12-3f1271af5fb4',
+    venue: 'AKC',
+    title: 'Open JWW'
+}, {
+    id: 'd8c776a0-f53d-11eb-9a03-0242ac130003',
+    name: 'Petey',
+    dogId: '3533f3e0-ea36-11eb-9a03-0242ac130003',
+    venue: 'AKC',
+    title: 'MACH'
+}, {
+    id: 'ea657b28-f53d-11eb-9a03-0242ac130003',
+    name: 'Petey',
+    dogId: '3533f3e0-ea36-11eb-9a03-0242ac130003',
+    venue: 'USDAA',
+    title: 'ADCH'
+}, {
+    id: '00fd5478-f53e-11eb-9a03-0242ac130003',
+    name: 'Whim',
+    dogId: '3c96cfea-ea36-11eb-9a03-0242ac130003',
+    venue: 'USDAA',
+    title: 'ADCH Bronze'
+}, {
+    id: '09c770a2-f53e-11eb-9a03-0242ac130003',
+    name: 'Whim',
+    dogId: '3c96cfea-ea36-11eb-9a03-0242ac130003',
+    venue: 'AKC',
+    title: 'MACH'
 }];
 
 const app = express();
@@ -121,12 +158,20 @@ app.get('/titles', (req, res) => {
     res.status(200).json(titles);
 });
 
+// The route to get the list of titles for a specific dog
+app.post('/titles/:dogId', (req, res) => {
+    const { dogId } = req.body;
+    const dogTitles = titles.filter(title => title.dogId === dogId);
+    res.status(200).json(dogTitles);
+});
+
 // The route to add a title
 app.post('/titles', (req, res) => {
-    const { dogId, venue, title } = req.body;
-    if (dogId && venue && title) {
+    const { dogId, name, venue, title } = req.body;
+    if (dogId && name && venue && title) {
         const newTitle = {
             id: uuid(),
+            name,
             dogId,
             venue,
             title
@@ -134,7 +179,7 @@ app.post('/titles', (req, res) => {
         titles.push(newTitle);
         res.status(200).json(newTitle);
     } else {
-        res.status(400).json({ message: 'Dog ID, Venue and Title are required.'});
+        res.status(400).json({ message: 'Dog Name, Dog ID, Venue and Title are required.'});
     }
 });
 
