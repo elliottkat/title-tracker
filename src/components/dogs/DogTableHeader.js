@@ -6,7 +6,7 @@ import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import '../../scss/DogTable.scss';
 
 import AddEditDog from './AddEditDog';
-import useModal from './useModal';
+import useModal from '../../utils/useModal';
 
 const DogTableHeader = (props) => {
   const {isShowing, toggle} = useModal();

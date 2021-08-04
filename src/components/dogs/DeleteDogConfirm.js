@@ -6,10 +6,10 @@ import {faWindowClose} from '@fortawesome/free-solid-svg-icons';
 
 import '../../scss/DogActionButtons.scss';
 
-const DeleteDogConfirm = ({dog, isShowing, hide, onRemovePressed}) => {
-  const {id, name} = dog;
+const DeleteDogConfirm = (props) => {
+  const {id, name} = props.dog;
 
-  return isShowing && ReactDOM.createPortal(
+  return props.isShowing && ReactDOM.createPortal(
     <>
       <div/>
       <div className='modal' aria-modal aria-hidden tabIndex={-1} role="dialog">
@@ -20,12 +20,12 @@ const DeleteDogConfirm = ({dog, isShowing, hide, onRemovePressed}) => {
               <button
                 className="dog-action-button"
                 onClick={() => {
-                  hide();
-                  onRemovePressed(id);
+                  props.hide();
+                  props.onRemovePressed(id);
                 }}>
                 Delete
               </button>
-              <button type="button" className="close-button" data-dismiss="modal" aria-label="Close" onClick={hide}>
+              <button type="button" className="close-button" data-dismiss="modal" aria-label="Close" onClick={props.hide}>
                 <FontAwesomeIcon icon={faWindowClose} />
               </button>
             </div>
