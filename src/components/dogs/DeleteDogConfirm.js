@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faWindowClose} from '@fortawesome/free-solid-svg-icons';
 
-import '../../scss/DeleteDogConfirm.scss';
+import '../../scss/DogActionButtons.scss';
 
 const DeleteDogConfirm = ({dog, isShowing, hide, onRemovePressed}) => {
   const {id, name} = dog;
@@ -14,11 +14,11 @@ const DeleteDogConfirm = ({dog, isShowing, hide, onRemovePressed}) => {
       <div/>
       <div className='modal' aria-modal aria-hidden tabIndex={-1} role="dialog">
         <div>
-          <div className='delete-dog-form'>
+          <div className='dog-form'>
             <h4>Delete {name}?</h4>
             <div>
               <button
-                className="delete-dog-button"
+                className="dog-action-button"
                 onClick={() => {
                   hide();
                   onRemovePressed(id);

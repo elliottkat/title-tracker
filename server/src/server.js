@@ -3,12 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import uuid from 'uuid';
 
-let fakeDogs = [{
-    id: 'ae06181d-92c2-4fed-a29d-fb53a6301eb9',
-    name: 'Rover',
-    birthdate: 'March 22, 2016',
-    sex: 'M'
-}, {
+let dogs = [{
     id: 'cda9165d-c263-4ef6-af12-3f1271af5fb4',
     name: 'Pi',
     birthdate: 'October 25, 2016',
@@ -35,48 +30,58 @@ let fakeDogs = [{
     sex: 'F'
 }];
 
+let titles = [{
+    id: 'e77c8552-f522-11eb-9a03-0242ac130003',
+    dogId: 'cda9165d-c263-4ef6-af12-3f1271af5fb4',
+    venue: 'USDAA',
+    title: 'Advanced Standard'
+}];
+
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
 
-// The route for getting a list of all dogs
+//
+// DOGS
+//
+// The route to get the list of all dogs
 app.get('/dogs', (req, res) => {
-    res.status(200).json(fakeDogs);
+    res.status(200).json(dogs);
 });
 
-// The route for getting a specific dog
+// The route to get a specific dog
 app.get('/dogs/:id', (req, res) => {
     const { id } = req.params;
-    const dog = fakeDogs.find(dog => dog.id === id);
+    const dog = dogs.find(dog => dog.id === id);
     res.status(200).json(dog);
 });
 
-// The route for getting a list of all dogs, but with a delay
+// The route to get the list of all dogs, but with a delay
 // (to display the loading component better)
 app.get('/dogs-delay', (req, res) => {
-    setTimeout(() => res.status(200).json(fakeDogs), 2000);
+    setTimeout(() => res.status(200).json(dogs), 2000);
 });
 
-// The route for creating new dog
+// The route to create a new dog
 app.post('/dogs', (req, res) => {
     const { name, birthdate, sex } = req.body;
     if (name && birthdate && sex) {
-        const insertedDog = {
+        const newDog = {
             id: uuid(),
             name,
             birthdate,
             sex
         };
 
-        fakeDogs.push(insertedDog);
-        res.status(200).json(insertedDog);
+        dogs.push(newDog);
+        res.status(200).json(newDog);
     } else {
         res.status(400).json({ message: 'Name, birthdate, and sex are required.' });
     }
 });
 
-// The route for editing a dog
+// The route to edit a dog
 app.post('/dogs/:id', (req, res) => {
     const { id, name, birthdate, sex } = req.body;
     if (name && birthdate && sex) {
@@ -87,7 +92,7 @@ app.post('/dogs/:id', (req, res) => {
             sex
         };
 
-        fakeDogs = fakeDogs.map(dog => {
+        dogs = dogs.map(dog => {
             if (dog.id === id) {
                 return editedDog
             } else {
@@ -100,12 +105,45 @@ app.post('/dogs/:id', (req, res) => {
     }
 });
 
-// The route for deleting a dog
+// The route to delete a dog
 app.delete('/dogs/:id', (req, res) => {
     const { id } = req.params;
-    const removedDog = fakeDogs.find(dog => dog.id === id);
-    fakeDogs = fakeDogs.filter(dog => dog.id !== id);
+    const removedDog = dogs.find(dog => dog.id === id);
+    dogs = dogs.filter(dog => dog.id !== id);
     res.status(200).json(removedDog);
 });
+
+//
+// TITLES
+//
+// The route to get the list of all titles
+app.get('/titles', (req, res) => {
+    res.status(200).json(titles);
+});
+
+// The route to add a title
+app.post('/titles', (req, res) => {
+    const { dogId, venue, title } = req.body;
+    if (dogId && venue && title) {
+        const newTitle = {
+            id: uuid(),
+            dogId,
+            venue,
+            title
+        };
+        titles.push(newTitle);
+        res.status(200).json(newTitle);
+    } else {
+        res.status(400).json({ message: 'Dog ID, Venue and Title are required.'});
+    }
+});
+
+// The route to delete a title
+app.delete('/titles/:id', (req, res) => {
+    const { id } = req.params;
+    const removedTitle = titles.find(title => title.id === id);
+    titles = titles.filter(title => title.id !== id);
+    res.status(200).json(removedTitle);
+})
 
 app.listen(8080, () => console.log("Server listening on port 8080"));

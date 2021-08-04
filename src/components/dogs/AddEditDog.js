@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faWindowClose} from '@fortawesome/free-solid-svg-icons';
 
-import '../../scss/AddEditDog.scss';
+import '../../scss/DogActionButtons.scss';
 
 const AddEditDog = ({dog, isShowing, hide, onAddEditPressed}) => {
   const id = dog.id || '';
@@ -17,9 +17,9 @@ const AddEditDog = ({dog, isShowing, hide, onAddEditPressed}) => {
       <div/>
       <div className='modal' aria-modal aria-hidden tabIndex={-1} role="dialog">
         <div>
-          <div className='add-edit-dog-form'>
+          <div className='dog-form'>
             <div>
-              <label>Name</label>
+              <h4>Name</h4>
               <input
                 className='add-edit-dog-input'
                 type='text'
@@ -27,7 +27,7 @@ const AddEditDog = ({dog, isShowing, hide, onAddEditPressed}) => {
                 onChange={event => setName(event.target.value)} />
             </div>
             <div>
-              <label>Birthdate</label>
+              <h4>Birthdate</h4>
               <input
                 className='add-edit-dog-input'
                 type='text'
@@ -35,7 +35,7 @@ const AddEditDog = ({dog, isShowing, hide, onAddEditPressed}) => {
                 onChange={event => setBirthdate(event.target.value)} />
             </div>
             <div>
-              <label>Sex</label>
+              <h4>Sex</h4>
               <input
                 className='add-edit-dog-input'
                 type='text'
@@ -44,7 +44,7 @@ const AddEditDog = ({dog, isShowing, hide, onAddEditPressed}) => {
             </div>
             <div>
               <button
-                className="add-edit-dog-button"
+                className="dog-action-button"
                 onClick={() => {
                   hide();
                   onAddEditPressed({id: id, name: name, birthdate: birthdate, sex: sex});
