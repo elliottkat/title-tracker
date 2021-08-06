@@ -10,7 +10,8 @@ import {loadDogs, addDogRequest, editDogRequest, removeDogRequest} from '../../t
 import {loadDogsSuccess} from '../../actions/actions';
 
 const DogList = (props) => {
-  const { dogs } = props.dogs;
+  const [dogs, setDogs] = useState([]);
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchDogs = async () => {
       const response = await fetch('http://localhost:8080/api/dogs', {
@@ -19,7 +20,6 @@ const DogList = (props) => {
         }
       });
       const json = await response.json();
-      console.log(json);
       setDogs(json);
       dispatch(loadDogsSuccess(json));
     }
