@@ -46,7 +46,7 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single Dog with an id
+// Find a single Dog with an ID
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
@@ -59,13 +59,12 @@ exports.findOne = (req, res) => {
     .catch(err => {
       res
         .status(500)
-        .send({ message: `Error retrieving Dog with ID ${id}`});
+        .send({ message: `Error retrieving Dog with ID ${id}: ${err}`});
     });
 };
 
-// Update a Dog by the id in the request
+// Update a Dog by the ID in the request
 exports.update = (req, res) => {
-  console.log('req.body:', req.body);
   if (!req.body) {
     return res.status(400).send({
       message: 'Data to update can not be empty!'
@@ -84,12 +83,12 @@ exports.update = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: `Error updating Dog with ID ${id}`
+        message: `Error updating Dog with ID ${id}: ${err}`
       });
     });
 };
 
-// Delete a Dog with the specified id in the request
+// Delete a Dog with the specified ID in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
@@ -107,7 +106,7 @@ exports.delete = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: `Could not delete Dog with ID ${id}`
+        message: `Could not delete Dog with ID ${id}: ${err}`
       });
     });
 };
