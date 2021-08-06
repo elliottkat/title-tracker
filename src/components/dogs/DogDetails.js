@@ -5,16 +5,26 @@ import ReactDOM from 'react-dom';
 import '../../scss/DogActionButtons.scss';
 import '../../scss/DogDetails.scss';
 
+import {addEditTitleRequest} from '../../thunks/thunks';
+import useModal from '../../utils/useModal';
+import AddEditTitle from '../titles/AddEditTitle';
+
 const DogDetails = (props) => {
-  const [titles, setTitles] = useState([]);
+  const {dog} = props;
   const {name, id, birthdate, sex} = props.dog;
+  const [titles, setTitles] = useState([]);
+
+  const {
+    isShowingAddEditTitle,
+    toggleAddEditTitle
+  } = useModal();
 
   useEffect(() => {
     const fetchTitles = async () => {
-      const response = await fetch(`http://localhost:8080/titles`, {
+      const response = await fetch('http://localhost:8080/api/titles', {
         headers: {
           'Content-Type': 'application/json'
-        },
+        }
       });
       const json = await response.json();
       const titles = json.filter(title => title.dogId === id);
@@ -26,8 +36,8 @@ const DogDetails = (props) => {
   const titleTableInfo = titles.map(title => {
     return (
       <tr>
-        <td className='table-data'>{title.venue}</td>
-        <td className='table-data'>{title.title}</td>
+        <td key={title.id + title.venue} className='table-data'>{title.venue}</td>
+        <td key={title.id + title.title} className='table-data'>{title.title}</td>
       </tr>
     );
   });
@@ -70,6 +80,11 @@ const DogDetails = (props) => {
                 }}>
                 Close
               </button>
+              <button
+                className="dog-action-button"
+                onClick={toggleAddEditTitle}
+                >Add Title</button>
+              <AddEditTitle dog={dog} isShowing={isShowingAddEditTitle} hide={toggleAddEditTitle} onAddEditPressed={props.onAddEditPressed} />
             </div>
           </div>
         </div>
@@ -78,4 +93,12 @@ const DogDetails = (props) => {
   );
 };
 
-export default DogDetails;
+const mapStateToProps = state => ({
+  titles: state.titles,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onAddEditPressed: title => dispatch(addEditTitleRequest(title)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DogDetails);

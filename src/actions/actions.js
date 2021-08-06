@@ -5,6 +5,7 @@ export const EDIT_DOG = 'EDIT_DOG';
 export const ADD_DOG = 'ADD_DOG';
 export const REMOVE_DOG = 'REMOVE_DOG';
 export const LOAD_TITLES_SUCCESS = 'LOAD_TITLES_SUCCESS';
+export const ADD_TITLE = 'ADD_TITLE';
 
 export const getDogsLoading = state => {
   const {isLoading} = state;
@@ -49,5 +50,12 @@ export const loadTitlesSuccess = titles => {
   return {
     type: LOAD_TITLES_SUCCESS,
     payload: {titles}
+  };
+};
+
+export const addTitle = title => {
+  return {
+    type: ADD_TITLE,
+    payload: {title}
   };
 };

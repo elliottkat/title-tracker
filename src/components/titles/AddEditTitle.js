@@ -6,12 +6,11 @@ import {faWindowClose} from '@fortawesome/free-solid-svg-icons';
 
 import '../../scss/DogActionButtons.scss';
 
-const AddEditDog = (props) => {
+const AddEditTitle = (props) => {
   const { dog } = props;
-  const id = dog.id || '';
-  const [name, setName] = useState(dog.name);
-  const [birthdate, setBirthdate] = useState(dog.birthdate);
-  const [sex, setSex] = useState(dog.sex);
+  const dogId = dog.id || '';
+  const [venue, setVenue] = useState('');
+  const [title, setTitle] = useState('');
 
   return props.isShowing && ReactDOM.createPortal(
     <>
@@ -20,40 +19,31 @@ const AddEditDog = (props) => {
         <div>
           <div className='dog-form'>
             <div>
-              <h4>Name</h4>
+              <h4>Venue</h4>
               <input
                 className='add-edit-dog-input'
                 type='text'
-                value={name}
-                onChange={event => setName(event.target.value)} />
+                value={venue}
+                onChange={event => setVenue(event.target.value)} />
             </div>
             <div>
-              <h4>Birthdate</h4>
+              <h4>Title</h4>
               <input
                 className='add-edit-dog-input'
                 type='text'
-                value={birthdate}
-                onChange={event => setBirthdate(event.target.value)} />
-            </div>
-            <div>
-              <h4>Sex</h4>
-              <input
-                className='add-edit-dog-input'
-                type='text'
-                value={sex}
-                onChange={event => setSex(event.target.value)} />
+                value={title}
+                onChange={event => setTitle(event.target.value)} />
             </div>
             <div>
               <button
                 className="dog-action-button"
                 onClick={() => {
                   props.hide();
-                  props.onAddEditPressed({id: id, name: name, birthdate: birthdate, sex: sex});
-                  setName('');
-                  setBirthdate('');
-                  setSex('');
+                  props.onAddEditPressed({venue, title});
+                  setVenue('');
+                  setTitle('');
                 }}>
-                {dog.id ? 'Edit Dog' : 'Add Dog'}
+                {dog.id ? 'Edit Title' : 'Add Title'}
               </button>
               <button type="button" className="action-button" data-dismiss="modal" aria-label="Close" onClick={props.hide}>
                 <FontAwesomeIcon icon={faWindowClose} />
@@ -66,4 +56,4 @@ const AddEditDog = (props) => {
   );
 };
 
-export default AddEditDog;
+export default AddEditTitle;

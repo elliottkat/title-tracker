@@ -4,7 +4,9 @@ import {
   LOAD_DOGS_FAILURE,
   ADD_DOG,
   EDIT_DOG,
-  REMOVE_DOG, LOAD_TITLES_SUCCESS,
+  REMOVE_DOG,
+  LOAD_TITLES_SUCCESS,
+  ADD_TITLE
 } from '../actions/actions';
 
 export const dogs = (state = [], action) => {
@@ -48,6 +50,12 @@ export const dogs = (state = [], action) => {
     case LOAD_TITLES_SUCCESS: {
       const {titles} = payload;
       return {titles: titles};
+    }
+    case ADD_TITLE: {
+      const {title} = payload;
+      return {
+        ...state,
+        titles: state.titles.concat(title)}
     }
     default:
       return state;

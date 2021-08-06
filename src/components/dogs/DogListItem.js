@@ -6,7 +6,7 @@ import {faTrashAlt, faEdit, faInfoCircle} from '@fortawesome/free-solid-svg-icon
 import '../../scss/DogListItem.scss';
 
 import AddEditDog from './AddEditDog';
-import useModal from './useModal';
+import useModal from '../../utils/useModal';
 import DeleteDogConfirm from './DeleteDogConfirm';
 import DogDetails from './DogDetails';
 

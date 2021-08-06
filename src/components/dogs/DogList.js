@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
 
 import '../../scss/DogList.scss';
 
@@ -7,11 +7,23 @@ import DogTableHeader from './DogTableHeader';
 import DogTableBody from './DogTableBody';
 
 import {loadDogs, addDogRequest, editDogRequest, removeDogRequest} from '../../thunks/thunks';
+import {loadDogsSuccess} from '../../actions/actions';
 
 const DogList = (props) => {
   const { dogs } = props.dogs;
   useEffect(() => {
-    props.startLoadingDogs();
+    const fetchDogs = async () => {
+      const response = await fetch('http://localhost:8080/api/dogs', {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const json = await response.json();
+      console.log(json);
+      setDogs(json);
+      dispatch(loadDogsSuccess(json));
+    }
+    fetchDogs();
   }, []);
 
   return (

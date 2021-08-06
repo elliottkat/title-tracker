@@ -4,6 +4,11 @@ const useModal = () => {
   const [isShowing, setIsShowing] = useState(false);
   const [isShowingDelete, setIsShowingDelete] = useState(false);
   const [isShowingDetails, setIsShowingDetails] = useState(false);
+  const [isShowingAddEditTitle, setIsShowingAddEditTitle] = useState(false);
+
+  function toggleAddEditTitle() {
+    setIsShowingAddEditTitle(!isShowingAddEditTitle);
+  }
 
   function toggleDetails() {
     setIsShowingDetails(!isShowingDetails);
@@ -21,7 +26,9 @@ const useModal = () => {
     isShowing,
     isShowingDetails,
     isShowingDelete,
+    isShowingAddEditTitle,
     toggleDetails,
+    toggleAddEditTitle,
     toggleDelete,
     toggle,
   }
