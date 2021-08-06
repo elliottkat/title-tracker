@@ -35,8 +35,8 @@ export const dogs = (state = [], action) => {
       }
     }
     case REMOVE_DOG: {
-      const {id} = payload;
-      return {dogs: state.dogs.filter(dog => dog.id !== id)};
+      const {dog} = payload;
+      return {dogs: state.dogs.filter(allDogs => allDogs.id !== dog.id)};
     }
     case LOAD_DOGS_IN_PROGRESS: {
       return {

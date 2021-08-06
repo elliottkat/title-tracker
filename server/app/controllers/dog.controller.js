@@ -65,6 +65,7 @@ exports.findOne = (req, res) => {
 
 // Update a Dog by the id in the request
 exports.update = (req, res) => {
+  console.log('req.body:', req.body);
   if (!req.body) {
     return res.status(400).send({
       message: 'Data to update can not be empty!'
@@ -92,7 +93,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Dog.findByIdAndRemove(id)
+  Dog.findByIdAndRemove(id, { useFindAndModify: false })
     .then(data => {
       if (!data) {
         res.status(404).send({

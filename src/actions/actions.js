@@ -39,10 +39,10 @@ export const editDog = dog => {
   };
 };
 
-export const removeDog = id => {
+export const removeDog = dog => {
   return {
     type: REMOVE_DOG,
-    payload: {id}
+    payload: {dog}
   };
 };
 

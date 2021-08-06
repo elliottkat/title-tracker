@@ -8,6 +8,8 @@ import '../../scss/DogActionButtons.scss';
 
 const AddEditDog = (props) => {
   const { dog } = props;
+  const { createdAt } = dog;
+  const updatedAt = new Date();
   const id = dog.id || '';
   const [name, setName] = useState(dog.name);
   const [birthdate, setBirthdate] = useState(dog.birthdate);
@@ -48,7 +50,7 @@ const AddEditDog = (props) => {
                 className="dog-action-button"
                 onClick={() => {
                   props.hide();
-                  props.onAddEditPressed({id: id, name: name, birthdate: birthdate, sex: sex});
+                  props.onAddEditPressed({id, name, birthdate, sex, createdAt, updatedAt});
                   setName('');
                   setBirthdate('');
                   setSex('');

@@ -47,24 +47,25 @@ export const editDogRequest = dog => async dispatch => {
       headers: {
         'Content-Type': 'application/json'
       },
-      method: 'POST',
+      method: 'PUT',
       body
     });
     const editedDog = await response.json();
-    dispatch(editDog(editedDog));
+    dispatch(editDog(dog));
   } catch (error) {
     dispatch(displayAlert(error));
   }
 };
 
-export const removeDogRequest = id => async dispatch => {
+export const removeDogRequest = dog => async dispatch => {
+  const { id } = dog;
   try {
     const response = await fetch(`http://localhost:8080/api/dogs/${id}`, {
       method: 'DELETE'
     });
     const removedDog = await response.json();
     console.log('removedDog:', removedDog);
-    dispatch(removeDog(removedDog.id));
+    dispatch(removeDog(dog));
   } catch (error) {
     dispatch(displayAlert(error));
   }
