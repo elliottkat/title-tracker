@@ -10,8 +10,7 @@ import {loadDogs, addDogRequest, editDogRequest, removeDogRequest} from '../../t
 import {loadDogsSuccess} from '../../actions/actions';
 
 const DogList = (props) => {
-  const [dogs, setDogs] = useState([]);
-  const dispatch = useDispatch();
+  const { dogs } = props.dogs;
   useEffect(() => {
     const fetchDogs = async () => {
       const response = await fetch('http://localhost:8080/api/dogs', {

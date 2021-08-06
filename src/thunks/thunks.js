@@ -3,7 +3,9 @@ import {
   editDog,
   removeDog,
   loadDogsSuccess,
-  loadDogsFailure, loadTitlesSuccess, addTitle
+  loadDogsFailure,
+  loadTitlesSuccess,
+  addTitle
 } from '../actions/actions';
 
 export const displayAlert = text => () => {
