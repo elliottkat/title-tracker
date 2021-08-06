@@ -7,7 +7,8 @@ import {faWindowClose} from '@fortawesome/free-solid-svg-icons';
 import '../../scss/DogActionButtons.scss';
 
 const DeleteDogConfirm = (props) => {
-  const {id, name} = props.dog;
+  const { dog } = props;
+  const { name } = dog;
 
   return props.isShowing && ReactDOM.createPortal(
     <>
@@ -21,7 +22,7 @@ const DeleteDogConfirm = (props) => {
                 className="dog-action-button"
                 onClick={() => {
                   props.hide();
-                  props.onRemovePressed(id);
+                  props.onRemovePressed(dog);
                 }}>
                 Delete
               </button>
