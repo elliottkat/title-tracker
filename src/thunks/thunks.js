@@ -33,8 +33,12 @@ export const addDogRequest = dog => async dispatch => {
       method: 'POST',
       body
     });
-    const addedDog = await response.json();
-    dispatch(addDog(addedDog));
+    if (response.status === 200) {
+      const addedDog = await response.json();
+      dispatch(addDog(addedDog));
+    } else {
+      displayAlert(`Add dog failed with ${response.statusMessage}`);
+    }
   } catch (error) {
     dispatch(displayAlert(error));
   }
@@ -50,8 +54,11 @@ export const editDogRequest = dog => async dispatch => {
       method: 'PUT',
       body
     });
-    const editedDog = await response.json();
-    dispatch(editDog(dog));
+    if (response.status === 200) {
+      dispatch(editDog(dog));
+    } else {
+      displayAlert(`Dog edit failed with ${response.statusMessage}`);
+    }
   } catch (error) {
     dispatch(displayAlert(error));
   }
@@ -63,9 +70,11 @@ export const removeDogRequest = dog => async dispatch => {
     const response = await fetch(`http://localhost:8080/api/dogs/${id}`, {
       method: 'DELETE'
     });
-    const removedDog = await response.json();
-    console.log('removedDog:', removedDog);
-    dispatch(removeDog(dog));
+    if (response.status === 200) {
+      dispatch(removeDog(dog));
+    } else {
+      displayAlert(`Remove dog failed with ${response.statusMessage}`)
+    }
   } catch (error) {
     dispatch(displayAlert(error));
   }
