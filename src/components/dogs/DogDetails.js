@@ -22,10 +22,10 @@ const DogDetails = (props) => {
 
   useEffect(() => {
     const fetchTitles = async () => {
-      const response = await fetch(`http://localhost:8080/titles`, {
+      const response = await fetch('http://localhost:8080/api/titles', {
         headers: {
           'Content-Type': 'application/json'
-        },
+        }
       });
       const json = await response.json();
       const titles = json.filter(title => title.dogId === id);
