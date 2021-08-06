@@ -1,4 +1,3 @@
-export const LOAD_DOGS_IN_PROGRESS = 'LOAD_DOGS_IN_PROGRESS';
 export const LOAD_DOGS_SUCCESS = 'LOAD_DOGS_SUCCESS';
 export const LOAD_DOGS_FAILURE = 'LOAD_DOGS_FAILURE';
 export const EDIT_DOG = 'EDIT_DOG';
@@ -6,12 +5,6 @@ export const ADD_DOG = 'ADD_DOG';
 export const REMOVE_DOG = 'REMOVE_DOG';
 export const LOAD_TITLES_SUCCESS = 'LOAD_TITLES_SUCCESS';
 export const ADD_TITLE = 'ADD_TITLE';
-
-export const getDogsLoading = state => {
-  const {isLoading} = state;
-  console.log('getDogsLoading: isLoading', isLoading);
-  return isLoading;
-};
 
 // Action creators
 export const loadDogsSuccess = dogs => {
