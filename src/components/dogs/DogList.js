@@ -9,7 +9,7 @@ import DogTableBody from './DogTableBody';
 import {loadDogs, addDogRequest, editDogRequest, removeDogRequest} from '../../thunks/thunks';
 
 const DogList = (props) => {
-  const { dogs } = props.dogs;
+  const { dogs } = props || [];
   useEffect(() => {
     props.startLoadingDogs();
   }, []);

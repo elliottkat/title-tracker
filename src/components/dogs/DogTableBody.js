@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import DogListItem from './DogListItem';
 
 const DogTableBody = (props) => {
+  const dogs = props.dogs || [];
   return (
     <table
       id="dog-table-body"
@@ -11,7 +12,7 @@ const DogTableBody = (props) => {
       className="table table--body"
     >
       <tbody>
-      {props.dogs.map(dog => <DogListItem
+      {dogs.map(dog => <DogListItem
         dog={dog}
         onEditPressed={props.onEditPressed}
         onRemovePressed={props.onRemovePressed} />)}
