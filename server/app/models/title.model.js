@@ -1,9 +1,10 @@
 module.exports = mongoose => {
   const schema = mongoose.Schema(
     {
+      dogId: String,
       venue: String,
-      title: String,
-      name: String
+      name: String,
+      dateReceived: String
     },
     { timestamps: true }
   );
@@ -14,6 +15,5 @@ module.exports = mongoose => {
     return object;
   });
 
-  const Title = mongoose.model('title', schema);
-  return Title;
+  return mongoose.model('title', schema);
 };

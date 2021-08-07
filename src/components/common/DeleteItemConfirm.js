@@ -6,23 +6,25 @@ import {faWindowClose} from '@fortawesome/free-solid-svg-icons';
 
 import '../../scss/DogActionButtons.scss';
 
-const DeleteDogConfirm = (props) => {
-  const { dog } = props;
-  const { name } = dog;
+const DeleteItemConfirm = (props) => {
+  const { item } = props;
+  const { name } = item;
+  const venue = item.venue || '';
+  const deleteTitle = venue ? `${venue} ${name}` : name;
 
-  return props.isShowing && ReactDOM.createPortal(
+  return props.isShowing && ReactDOM.createPortal (
     <>
       <div/>
       <div className='modal' aria-modal aria-hidden tabIndex={-1} role="dialog">
         <div>
           <div className='dog-form'>
-            <h4>Delete {name}?</h4>
+            <h4>Delete {deleteTitle}?</h4>
             <div>
               <button
                 className="dog-action-button"
                 onClick={() => {
                   props.hide();
-                  props.onRemovePressed(dog);
+                  props.onRemovePressed(item);
                 }}>
                 Delete
               </button>
@@ -37,4 +39,4 @@ const DeleteDogConfirm = (props) => {
   );
 };
 
-export default DeleteDogConfirm;
+export default DeleteItemConfirm;

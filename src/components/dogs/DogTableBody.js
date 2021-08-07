@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import DogListItem from './DogListItem';
 
 const DogTableBody = (props) => {
-  const dogs = props.dogs || [];
+  const dogs = props.dogs.dogs || [];
   return (
     <table
       id="dog-table-body"

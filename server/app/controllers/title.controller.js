@@ -4,16 +4,17 @@ const Title = db.titles;
 // Create and Save a new Title
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name) {
+  if (!req.body.dogId) {
     res.status(400).send({ message: 'Content can not be empty!' });
     return;
   }
 
   // Create a Title
   const title = new Title({
+    dogId: req.body.dogId,
     venue: req.body.venue,
-    title: req.body.title,
-    name: req.body.name
+    name: req.body.titleName,
+    dateReceived: req.body.dateReceived
   });
 
   // Save the Title in the database
@@ -31,8 +32,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Titles from the database.
 exports.findAll = (req, res) => {
-  const title = req.query.name;
-  const condition = title ? { title: { $regex: new RegExp(title), $options: 'i' } } : {};
+  const dogId = req.query.dogId;
+  const condition = dogId ? { dogId: { $regex: new RegExp(dogId), $options: 'i' } } : {};
 
   Title.find(condition)
     .then(data => {
@@ -53,13 +54,13 @@ exports.findOne = (req, res) => {
   Title.findById(id)
     .then(data => {
       if (!data)
-        res.status(404).send({ message: `Title with id ${id} was not found`});
+        res.status(404).send({ message: `Title ${id} was not found.`});
       else res.send(data);
     })
     .catch(err => {
       res
         .status(500)
-        .send({ message: `Error retrieving Title with ID ${id}`});
+        .send({ message: `Error retrieving Title ${id}`});
     });
 };
 
@@ -77,9 +78,9 @@ exports.update = (req, res) => {
     .then(data => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot update Title with ID ${id}. Maybe Title was not found!`
+          message: `Cannot update Title ${id}. Maybe Title was not found!`
         });
-      } else res.send({ message: 'Title was updated successfully.' });
+      } else res.send({ message: `Title ${id} was successfully updated.`});
     })
     .catch(err => {
       res.status(500).send({
@@ -92,21 +93,21 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Title.findByIdAndRemove(id)
+  Title.findByIdAndRemove(id, { useFindAndModify: false })
     .then(data => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot delete Title with ID ${id}. Maybe the Title was not found!`
+          message: `Cannot delete Title ${id}. Maybe the Title was not found.`
         });
       } else {
         res.send({
-          message: 'Title was deleted successfully!'
+          message: `Title ${id} was successfully deleted.`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: `Could not delete Title with ID ${id}`
+        message: `Could not delete Title ${id}`
       });
     });
 };

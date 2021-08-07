@@ -2,6 +2,7 @@ module.exports = mongoose => {
   const schema = mongoose.Schema(
     {
       name: String,
+      breed: String,
       birthdate: String,
       sex: String
     },
@@ -14,6 +15,5 @@ module.exports = mongoose => {
     return object;
   });
 
-  const Dog = mongoose.model('dog', schema);
-  return Dog;
+  return mongoose.model('dog', schema);
 };

@@ -5,6 +5,8 @@ export const ADD_DOG = 'ADD_DOG';
 export const REMOVE_DOG = 'REMOVE_DOG';
 export const LOAD_TITLES_SUCCESS = 'LOAD_TITLES_SUCCESS';
 export const ADD_TITLE = 'ADD_TITLE';
+export const EDIT_TITLE = 'EDIT_TITLE';
+export const REMOVE_TITLE = 'REMOVE_TITLE';
 
 // Action creators
 export const loadDogsSuccess = dogs => {
@@ -49,6 +51,20 @@ export const loadTitlesSuccess = titles => {
 export const addTitle = title => {
   return {
     type: ADD_TITLE,
+    payload: {title}
+  };
+};
+
+export const editTitle = title => {
+  return {
+    type: EDIT_TITLE,
+    payload: {title}
+  };
+};
+
+export const removeTitle = title => {
+  return {
+    type: REMOVE_TITLE,
     payload: {title}
   };
 };

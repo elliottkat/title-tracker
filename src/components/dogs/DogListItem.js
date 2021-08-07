@@ -7,7 +7,7 @@ import '../../scss/DogListItem.scss';
 
 import AddEditDog from './AddEditDog';
 import useModal from '../../utils/useModal';
-import DeleteDogConfirm from './DeleteDogConfirm';
+import DeleteItemConfirm from '../common/DeleteItemConfirm';
 import DogDetails from './DogDetails';
 
 const DogListItem = (props) => {
@@ -16,7 +16,7 @@ const DogListItem = (props) => {
     isShowing,
     isShowingDetails,
     isShowingDelete,
-    toggle,
+    toggleAddEditDog,
     toggleDetails,
     toggleDelete
   } = useModal();
@@ -28,23 +28,23 @@ const DogListItem = (props) => {
       className='table__dog'>
 
       <td className='table__row'>{dog.name}</td>
-      <td className='table__row table__button' onClick={toggleDetails}>
+      <td className='table__row table__button'>
         <button className='action-button' onClick={toggleDetails}>
           <FontAwesomeIcon icon={faInfoCircle}/>
         </button>
         <DogDetails dog={dog} isShowing={isShowingDetails} hide={toggleDetails} />
       </td>
       <td className='table__row table__button'>
-        <button className='action-button' onClick={toggle}>
+        <button className='action-button' onClick={toggleAddEditDog}>
           <FontAwesomeIcon icon={faEdit}/>
         </button>
-        <AddEditDog dog={dog} isShowing={isShowing} hide={toggle} onAddEditPressed={props.onEditPressed} />
+        <AddEditDog dog={dog} isShowing={isShowing} hide={toggleAddEditDog} onAddEditPressed={props.onEditPressed} />
       </td>
       <td className='table__row table__button'>
         <button className='action-button' onClick={toggleDelete}>
           <FontAwesomeIcon icon={faTrashAlt}/>
         </button>
-        <DeleteDogConfirm dog={dog} isShowing={isShowingDelete} hide={toggleDelete} onRemovePressed={props.onRemovePressed} />
+        <DeleteItemConfirm item={dog} isShowing={isShowingDelete} hide={toggleDelete} onRemovePressed={props.onRemovePressed} />
       </td>
     </tr>
   )

@@ -7,12 +7,21 @@ import {faWindowClose} from '@fortawesome/free-solid-svg-icons';
 import '../../scss/DogActionButtons.scss';
 
 const AddEditTitle = (props) => {
-  const { dog } = props;
-  const dogId = dog.id || '';
-  const [venue, setVenue] = useState('');
-  const [title, setTitle] = useState('');
+  if (!props.isShowing) {
+    return null;
+  }
 
-  return props.isShowing && ReactDOM.createPortal(
+  const { dog, title } = props;
+  const titleId = title.id || '';
+  const dogId = dog.id;
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [venue, setVenue] = useState(title.venue);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [titleName, setTitleName] = useState(title.name);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [dateReceived, setDateReceived] = useState(title.dateReceived);
+
+  return props.isShowing && ReactDOM.createPortal (
     <>
       <div/>
       <div className='modal' aria-modal aria-hidden tabIndex={-1} role="dialog">
@@ -31,19 +40,28 @@ const AddEditTitle = (props) => {
               <input
                 className='add-edit-dog-input'
                 type='text'
-                value={title}
-                onChange={event => setTitle(event.target.value)} />
+                value={titleName}
+                onChange={event => setTitleName(event.target.value)} />
+            </div>
+            <div>
+              <h4>Date Received</h4>
+              <input
+                className='add-edit-dog-input'
+                type='text'
+                value={dateReceived}
+                onChange={event => setDateReceived(event.target.value)} />
             </div>
             <div>
               <button
                 className="dog-action-button"
                 onClick={() => {
                   props.hide();
-                  props.onAddEditPressed({venue, title});
+                  props.onAddEditPressed({dogId, venue, titleName, dateReceived});
                   setVenue('');
-                  setTitle('');
+                  setTitleName('');
+                  setDateReceived('');
                 }}>
-                {dog.id ? 'Edit Title' : 'Add Title'}
+                {titleId ? 'Edit' : 'Add'}
               </button>
               <button type="button" className="action-button" data-dismiss="modal" aria-label="Close" onClick={props.hide}>
                 <FontAwesomeIcon icon={faWindowClose} />

@@ -7,15 +7,23 @@ import {faWindowClose} from '@fortawesome/free-solid-svg-icons';
 import '../../scss/DogActionButtons.scss';
 
 const AddEditDog = (props) => {
+  if (!props.isShowing) {
+    return null;
+  }
   const { dog } = props;
   const { createdAt } = dog;
   const updatedAt = new Date();
   const id = dog.id || '';
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [name, setName] = useState(dog.name);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [breed, setBreed] = useState(dog.breed);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [birthdate, setBirthdate] = useState(dog.birthdate);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [sex, setSex] = useState(dog.sex);
 
-  return props.isShowing && ReactDOM.createPortal(
+  return props.isShowing && ReactDOM.createPortal (
     <>
       <div/>
       <div className='modal' aria-modal aria-hidden tabIndex={-1} role="dialog">
@@ -28,6 +36,14 @@ const AddEditDog = (props) => {
                 type='text'
                 value={name}
                 onChange={event => setName(event.target.value)} />
+            </div>
+            <div>
+              <h4>Breed</h4>
+              <input
+                className='add-edit-dog-input'
+                type='text'
+                value={breed}
+                onChange={event => setBreed(event.target.value)} />
             </div>
             <div>
               <h4>Birthdate</h4>
@@ -48,10 +64,12 @@ const AddEditDog = (props) => {
             <div>
               <button
                 className="dog-action-button"
+                disabled = {!name || !breed || !birthdate || !sex}
                 onClick={() => {
                   props.hide();
-                  props.onAddEditPressed({id, name, birthdate, sex, createdAt, updatedAt});
+                  props.onAddEditPressed({id, name, breed, birthdate, sex, createdAt, updatedAt});
                   setName('');
+                  setBreed('');
                   setBirthdate('');
                   setSex('');
                 }}>
