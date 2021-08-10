@@ -9,7 +9,7 @@ import AddEditDog from './AddEditDog';
 import useModal from '../../utils/useModal';
 
 const DogTableHeader = (props) => {
-  const {isShowing, toggle} = useModal();
+  const {isShowing, toggleAddEditDog} = useModal();
 
   return (
     <table
@@ -20,10 +20,15 @@ const DogTableHeader = (props) => {
       <thead>
       <tr role='row'>
         <th role='columnheader' className='table__header'>
-          <button className='add-dog-button' onClick={toggle}>
+          <button className='add-dog-button' onClick={toggleAddEditDog}>
             <FontAwesomeIcon icon={faPlus}/>
           </button>
-          <AddEditDog dog={{}} isShowing={isShowing} hide={toggle} onAddEditPressed={props.onAddPressed} triggerAddEdit={!isShowing}/>
+          <AddEditDog
+            dog={{}}
+            isShowing={isShowing}
+            hide={toggleAddEditDog}
+            onAddEditPressed={props.onAddPressed}
+            triggerAddEdit={!isShowing}/>
         </th>
       </tr>
       </thead>

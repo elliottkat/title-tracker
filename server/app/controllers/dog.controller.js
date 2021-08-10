@@ -12,6 +12,7 @@ exports.create = (req, res) => {
   // Create a Dog
   const dog = new Dog({
     name: req.body.name,
+    breed: req.body.breed,
     birthdate: req.body.birthdate,
     sex: req.body.sex
   });
@@ -31,8 +32,8 @@ exports.create = (req, res) => {
 
 // Retrieve all Dogs from the database.
 exports.findAll = (req, res) => {
-  const name = req.query.name;
-  const condition = name ? { name: { $regex: new RegExp(name), $options: 'i' } } : {};
+  const dogId = req.query.dogId;
+  const condition = dogId ? { dogId: { $regex: new RegExp(dogId), $options: 'i' } } : {};
 
   Dog.find(condition)
     .then(data => {
@@ -53,7 +54,7 @@ exports.findOne = (req, res) => {
   Dog.findById(id)
     .then(data => {
       if (!data)
-        res.status(404).send({ message: `Dog with id ${id} was not found`});
+        res.status(404).send({ message: `Dog with ID ${id} was not found`});
       else res.send(data);
     })
     .catch(err => {
@@ -79,7 +80,7 @@ exports.update = (req, res) => {
         res.status(404).send({
           message: `Cannot update Dog with ID ${id}. Maybe Dog was not found!`
         });
-      } else res.send({ message: 'Dog was updated successfully.' });
+      } else res.send({ message: `Dog ${id} was successfully updated.`});
     })
     .catch(err => {
       res.status(500).send({
@@ -96,11 +97,11 @@ exports.delete = (req, res) => {
     .then(data => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot delete Dog with ID ${id}. Maybe the Dog was not found!`
+          message: `Cannot delete Dog with ID ${id}. Maybe the Dog was not found.`
         });
       } else {
         res.send({
-          message: 'Dog was deleted successfully!'
+          message: `Dog ${id} was successfully deleted!`
         });
       }
     })
@@ -116,7 +117,7 @@ exports.deleteAll = (req, res) => {
   Dog.deleteMany({})
     .then(data => {
       res.send({
-        message: `${data.deletedCount} Dogs were deleted successfully!`
+        message: `${data.deletedCount} Dogs were deleted successfully.`
       });
     })
     .catch(err => {

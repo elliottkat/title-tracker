@@ -5,10 +5,12 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 
-import {dogs} from './reducers/reducers';
+import {dogs} from './reducers/dogReducers';
+import {titles} from './reducers/titleReducers';
 
 const reducers = {
-  dogs
+  dogs,
+  titles
 };
 
 const persistConfig = {

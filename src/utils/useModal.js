@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const useModal = () => {
-  const [isShowing, setIsShowing] = useState(false);
+  const [isShowing, setIsShowingAddEditDog] = useState(false);
   const [isShowingDelete, setIsShowingDelete] = useState(false);
   const [isShowingDetails, setIsShowingDetails] = useState(false);
   const [isShowingAddEditTitle, setIsShowingAddEditTitle] = useState(false);
@@ -18,8 +18,8 @@ const useModal = () => {
     setIsShowingDelete(!isShowingDelete);
   }
 
-  function toggle() {
-    setIsShowing(!isShowing);
+  function toggleAddEditDog() {
+    setIsShowingAddEditDog(!isShowing);
   }
 
   return {
@@ -30,7 +30,7 @@ const useModal = () => {
     toggleDetails,
     toggleAddEditTitle,
     toggleDelete,
-    toggle,
+    toggleAddEditDog
   }
 };
 

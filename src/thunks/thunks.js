@@ -5,7 +5,7 @@ import {
   loadDogsSuccess,
   loadDogsFailure,
   loadTitlesSuccess,
-  addTitle
+  addTitle, editTitle, removeTitle
 } from '../actions/actions';
 
 export const displayAlert = text => () => {
@@ -92,22 +92,19 @@ export const loadAllTitles = () => async dispatch => {
 
 export const loadTitles = id => async dispatch => {
   try {
-    const body = {dogId: id};
-    const response = await fetch(`http://localhost:8080/api/titles/${id}`, {
+    const response = await fetch(`http://localhost:8080/api/titles?dogId=${id}`, {
       headers: {
         'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body
+      }
     });
-    const loadedTitles = await response.json();
-    dispatch(loadTitlesSuccess(loadedTitles));
+    const titles = await response.json();
+    dispatch(loadTitlesSuccess(titles));
   } catch (error) {
     dispatch(displayAlert(error));
   }
 };
 
-export const addEditTitleRequest = title => async dispatch => {
+export const addTitleRequest = title => async dispatch => {
   try {
     const body = JSON.stringify(title);
     const response = await fetch('http://localhost:8080/api/titles', {
@@ -119,6 +116,39 @@ export const addEditTitleRequest = title => async dispatch => {
     });
     const addedTitle = await response.json();
     dispatch(addTitle(addedTitle));
+  } catch (error) {
+    dispatch(displayAlert(error));
+  }
+};
+
+export const editTitleRequest = title => async dispatch => {
+  try {
+    const body = JSON.stringify(title);
+    const response = await fetch('http://localhost:8080/api/titles', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'PUT',
+      body
+    });
+    const editedTitle = await response.json();
+    dispatch(editTitle(editedTitle));
+  } catch (error) {
+    dispatch(displayAlert(error));
+  }
+};
+
+export const removeTitleRequest = title => async dispatch => {
+  const { id } = title;
+  try {
+    const response = await fetch(`http://localhost:8080/api/titles/${id}`, {
+      method: 'DELETE'
+    });
+    if (response.status === 200) {
+      dispatch(removeTitle(title));
+    } else {
+      displayAlert(`Remove dog failed with ${response.statusMessage}`)
+    }
   } catch (error) {
     dispatch(displayAlert(error));
   }
