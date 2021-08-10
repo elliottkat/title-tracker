@@ -2,22 +2,22 @@ import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faWindowClose} from '@fortawesome/free-solid-svg-icons';
+import {faTimes} from '@fortawesome/free-solid-svg-icons';
 
 import '../../scss/DogActionButtons.scss';
 
-const AddEditTitle = (props) => {
+const EditTitle = (props) => {
   if (!props.isShowing) {
     return null;
   }
 
   const { dog, title } = props;
-  const titleId = title.id || '';
+  const { id } = title;
   const dogId = dog.id;
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [venue, setVenue] = useState(title.venue);
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [titleName, setTitleName] = useState(title.name);
+  const [name, setName] = useState(title.name);
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [dateReceived, setDateReceived] = useState(title.dateReceived);
 
@@ -27,6 +27,21 @@ const AddEditTitle = (props) => {
       <div className='modal' aria-modal aria-hidden tabIndex={-1} role="dialog">
         <div>
           <div className='dog-form'>
+            <table className='name-table'>
+              <th
+                style={{fontWeight: "bold", fontSize: "24px", padding: "10px"}}>
+                Edit {title.venue} {title.name}
+                <button
+                  className='header-button'
+                  aria-label='Close'
+                  onClick={props.hide}>
+                  <text style={{fontWeight: 'bold', fontSize: '20px'}}>
+                    <FontAwesomeIcon icon={faTimes} />
+                  </text>
+                </button>
+              </th>
+            </table>
+            <hr />
             <div>
               <h4>Venue</h4>
               <input
@@ -40,8 +55,8 @@ const AddEditTitle = (props) => {
               <input
                 className='add-edit-dog-input'
                 type='text'
-                value={titleName}
-                onChange={event => setTitleName(event.target.value)} />
+                value={name}
+                onChange={event => setName(event.target.value)} />
             </div>
             <div>
               <h4>Date Received</h4>
@@ -54,17 +69,15 @@ const AddEditTitle = (props) => {
             <div>
               <button
                 className="dog-action-button"
+                disabled={!venue || !name}
                 onClick={() => {
                   props.hide();
-                  props.onAddEditPressed({dogId, venue, titleName, dateReceived});
+                  props.onEditPressed({dogId, id, venue, name, dateReceived});
                   setVenue('');
-                  setTitleName('');
+                  setName('');
                   setDateReceived('');
                 }}>
-                {titleId ? 'Edit' : 'Add'}
-              </button>
-              <button type="button" className="action-button" data-dismiss="modal" aria-label="Close" onClick={props.hide}>
-                <FontAwesomeIcon icon={faWindowClose} />
+                Edit
               </button>
             </div>
           </div>
@@ -74,4 +87,4 @@ const AddEditTitle = (props) => {
   );
 };
 
-export default AddEditTitle;
+export default EditTitle;

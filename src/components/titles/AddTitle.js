@@ -2,26 +2,23 @@ import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faTimes, faWindowClose} from '@fortawesome/free-solid-svg-icons';
+import {faTimes} from '@fortawesome/free-solid-svg-icons';
 
 import '../../scss/DogActionButtons.scss';
 
-const AddEditDog = (props) => {
+const AddTitle = (props) => {
   if (!props.isShowing) {
     return null;
   }
+
   const { dog } = props;
-  const { createdAt } = dog;
-  const updatedAt = new Date();
-  const id = dog.id || '';
+  const dogId = dog.id;
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [name, setName] = useState(dog.name);
+  const [venue, setVenue] = useState('');
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [breed, setBreed] = useState(dog.breed);
+  const [name, setName] = useState('');
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [birthdate, setBirthdate] = useState(dog.birthdate);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [sex, setSex] = useState(dog.sex);
+  const [dateReceived, setDateReceived] = useState('');
 
   return props.isShowing && ReactDOM.createPortal (
     <>
@@ -32,7 +29,7 @@ const AddEditDog = (props) => {
             <table className='name-table'>
               <th
                 style={{fontWeight: "bold", fontSize: "24px", padding: "10px"}}>
-                {dog.id ? `Edit ${dog.name}` : 'Add Dog'}
+                Add
                 <button
                   className='header-button'
                   aria-label='Close'
@@ -45,7 +42,15 @@ const AddEditDog = (props) => {
             </table>
             <hr />
             <div>
-              <h4>Name</h4>
+              <h4>Venue</h4>
+              <input
+                className='add-edit-dog-input'
+                type='text'
+                value={venue}
+                onChange={event => setVenue(event.target.value)} />
+            </div>
+            <div>
+              <h4>Title</h4>
               <input
                 className='add-edit-dog-input'
                 type='text'
@@ -53,42 +58,25 @@ const AddEditDog = (props) => {
                 onChange={event => setName(event.target.value)} />
             </div>
             <div>
-              <h4>Breed</h4>
+              <h4>Date Received</h4>
               <input
                 className='add-edit-dog-input'
                 type='text'
-                value={breed}
-                onChange={event => setBreed(event.target.value)} />
-            </div>
-            <div>
-              <h4>Birthdate</h4>
-              <input
-                className='add-edit-dog-input'
-                type='text'
-                value={birthdate}
-                onChange={event => setBirthdate(event.target.value)} />
-            </div>
-            <div>
-              <h4>Sex</h4>
-              <input
-                className='add-edit-dog-input'
-                type='text'
-                value={sex}
-                onChange={event => setSex(event.target.value)} />
+                value={dateReceived}
+                onChange={event => setDateReceived(event.target.value)} />
             </div>
             <div>
               <button
+                disabled={!venue || !name}
                 className="dog-action-button"
-                disabled = {!name || !breed || !birthdate || !sex}
                 onClick={() => {
                   props.hide();
-                  props.onAddEditPressed({id, name, breed, birthdate, sex, createdAt, updatedAt});
+                  props.onAddPressed({dogId, venue, name, dateReceived});
+                  setVenue('');
                   setName('');
-                  setBreed('');
-                  setBirthdate('');
-                  setSex('');
+                  setDateReceived('');
                 }}>
-                {dog.id ? 'Edit' : 'Add'}
+                Add
               </button>
             </div>
           </div>
@@ -98,4 +86,4 @@ const AddEditDog = (props) => {
   );
 };
 
-export default AddEditDog;
+export default AddTitle;

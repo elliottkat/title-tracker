@@ -3,14 +3,16 @@ import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faWindowClose, faEdit, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {faTimes, faEdit, faTrashAlt, faPlus} from '@fortawesome/free-solid-svg-icons';
 
 import '../../scss/DogDetails.scss';
 
-import {addTitleRequest, loadTitles, removeTitleRequest} from '../../thunks/thunks';
-import useModal from '../../utils/useModal';
-import AddEditTitle from '../titles/AddEditTitle';
+import AddTitle from '../titles/AddTitle';
+import EditTitle from '../titles/EditTitle';
 import DeleteItemConfirm from '../common/DeleteItemConfirm';
+
+import {addTitleRequest, editTitleRequest, loadTitles, removeTitleRequest} from '../../thunks/thunks';
+import useModal from '../../utils/useModal';
 
 const DogDetails = (props) => {
   if (!props.isShowing) {
@@ -18,12 +20,14 @@ const DogDetails = (props) => {
   }
 
   const {dog} = props;
-  const titles = props.titles || [];
+  const titles = props.titles;
   const {id, name, breed, birthdate, sex} = props.dog;
 
   const {
-    isShowingAddEditTitle,
-    toggleAddEditTitle,
+    isShowingAddTitle,
+    isShowingEditTitle,
+    toggleAddTitle,
+    toggleEditTitle,
     isShowingDelete,
     toggleDelete
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -42,24 +46,22 @@ const DogDetails = (props) => {
         <td key={title.id + title.dateReceived} className='table-data'>{title.dateReceived}</td>
         <td key={title.id + 'edit'} className='table-data'>
           <button
-            className="title-action-button"
-            onClick={toggleAddEditTitle}
+            className='title-action-button'
+            onClick={toggleEditTitle}
           ><FontAwesomeIcon icon={faEdit}/></button>
-          <AddEditTitle
+          <EditTitle
             dog={dog}
             title={title}
-            hide={toggleAddEditTitle}
-            isShowing={isShowingAddEditTitle}
-            onAddEditPressed={props.onAddEditPressed}
+            hide={toggleEditTitle}
+            isShowing={isShowingEditTitle}
+            onEditPressed={props.onEditPressed}
           />
         </td>
         <td key={title.id + 'delete'} className='table-data'>
-          <td className='table__row table__button'>
-            <button className='title-action-button' onClick={toggleDelete}>
-              <FontAwesomeIcon icon={faTrashAlt}/>
-            </button>
-            <DeleteItemConfirm item={title} isShowing={isShowingDelete} hide={toggleDelete} onRemovePressed={props.onRemovePressed} />
-          </td>
+          <button className='title-action-button' onClick={toggleDelete}>
+            <FontAwesomeIcon icon={faTrashAlt}/>
+          </button>
+          <DeleteItemConfirm item={title} isShowing={isShowingDelete} hide={toggleDelete} onRemovePressed={props.onRemovePressed} />
         </td>
       </tr>
     );
@@ -68,16 +70,33 @@ const DogDetails = (props) => {
   const titleTable = (
     <div align='left'>
       <table className='title-table'>
-        <caption align='left' style={{marginBottom: '10px', textAlign: 'left', fontWeight: 'bold', fontSize: '20px'}}>Titles:</caption>
+        <caption className='caption-style'>Titles{titles.length > 0 ? ':' : ''}
+          <button className='header-button'
+            onClick={toggleAddTitle}>
+            <text className='text-style'>
+              <FontAwesomeIcon icon={faPlus} />
+            </text>
+          </button>
+          <AddTitle
+            dog={dog}
+            hide={toggleAddTitle}
+            isShowing={isShowingAddTitle}
+            onAddPressed={props.onAddPressed}
+          />
+        </caption>
         <tbody>
-        <tr>
-          <th className='table-header' align='left'>Venue</th>
-          <th className='table-header' align='left'>Title</th>
-          <th className='table-header' align='left'>Date Received</th>
-          <th className='table-header'/>
-          <th className='table-header'/>
-        </tr>
-        {titleTableInfo}
+        {titles.length > 0 ?
+          (
+            <tr>
+              <th className='table-header' align='left'>Venue</th>
+              <th className='table-header' align='left'>Title</th>
+              <th className='table-header' align='left'>Date Received</th>
+              <th className='table-header'/>
+              <th className='table-header'/>
+            </tr>
+            ) : null
+        }
+        {titles.length > 0 ? titleTableInfo : null}
         </tbody>
       </table>
     </div>
@@ -85,12 +104,24 @@ const DogDetails = (props) => {
 
   return props.isShowing && ReactDOM.createPortal (
     <>
-      <div/>
-      <div className='modal' aria-modal aria-hidden tabIndex={-1} role="dialog">
+      <div className='modal details-modal' aria-modal aria-hidden tabIndex={-1} role="dialog">
         <div>
           <div className='dog-form'>
-            <h3>{name}</h3>
-            <hr />
+            <table className='name-table'>
+              <th
+                style={{fontWeight: "bold", fontSize: "24px", padding: "10px"}}>
+                {name}
+                <button
+                  className='header-button'
+                  aria-label='Close'
+                  onClick={props.hide}>
+                  <text style={{fontWeight: 'bold', fontSize: '20px'}}>
+                    <FontAwesomeIcon icon={faTimes} />
+                  </text>
+                </button>
+              </th>
+            </table>
+            <hr/>
             <div align='left'>
               <p><text style={{fontWeight: 'bold', fontSize: '20px'}}>Breed:</text><text style={{fontSize: '16px'}}> {breed}</text></p>
             </div>
@@ -102,24 +133,8 @@ const DogDetails = (props) => {
             <div align='left'>
               <p><text style={{fontWeight: 'bold', fontSize: '20px'}}>Sex:</text><text style={{fontSize: '16px'}}> {sex}</text></p>
             </div>
-            {titles.length === 0 ? null : titleTable}
+            {titleTable}
             <p />
-            <div>
-              <button
-                className="dog-action-button"
-                onClick={toggleAddEditTitle}
-                >Add Title</button>
-              <AddEditTitle
-                dog={dog}
-                title={{}}
-                hide={toggleAddEditTitle}
-                isShowing={isShowingAddEditTitle}
-                onAddEditPressed={props.onAddEditPressed}
-              />
-              <button type="button" className="action-button" data-dismiss="modal" aria-label="Close" onClick={props.hide}>
-                <FontAwesomeIcon icon={faWindowClose} />
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -133,7 +148,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   startLoadingTitles: id => dispatch(loadTitles(id)),
-  onAddEditPressed: title => dispatch(addTitleRequest(title)),
+  onAddPressed: title => dispatch(addTitleRequest(title)),
+  onEditPressed: title => dispatch(editTitleRequest(title)),
   onRemovePressed: title => dispatch(removeTitleRequest(title)),
 });
 

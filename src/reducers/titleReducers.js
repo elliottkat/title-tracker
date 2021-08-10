@@ -20,15 +20,14 @@ export const titles = (state = [], action) => {
     }
     case EDIT_TITLE: {
       const {title} = payload;
-      const titles = [
-        ...state.titles.map(stateTitle => {
+      return [
+        ...state.map(stateTitle => {
           if (stateTitle.id === title.id) {
             return title;
           }
           return stateTitle;
         })
       ]
-      return {titles};
     }
     case REMOVE_TITLE: {
       const {title} = payload;

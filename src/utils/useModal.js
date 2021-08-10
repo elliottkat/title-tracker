@@ -4,10 +4,15 @@ const useModal = () => {
   const [isShowing, setIsShowingAddEditDog] = useState(false);
   const [isShowingDelete, setIsShowingDelete] = useState(false);
   const [isShowingDetails, setIsShowingDetails] = useState(false);
-  const [isShowingAddEditTitle, setIsShowingAddEditTitle] = useState(false);
+  const [isShowingAddTitle, setIsShowingAddTitle] = useState(false);
+  const [isShowingEditTitle, setIsShowingEditTitle] = useState(false);
 
-  function toggleAddEditTitle() {
-    setIsShowingAddEditTitle(!isShowingAddEditTitle);
+  function toggleAddTitle() {
+    setIsShowingAddTitle(!isShowingAddTitle);
+  }
+
+  function toggleEditTitle() {
+    setIsShowingEditTitle(!isShowingEditTitle);
   }
 
   function toggleDetails() {
@@ -26,9 +31,11 @@ const useModal = () => {
     isShowing,
     isShowingDetails,
     isShowingDelete,
-    isShowingAddEditTitle,
+    isShowingAddTitle,
+    isShowingEditTitle,
     toggleDetails,
-    toggleAddEditTitle,
+    toggleAddTitle,
+    toggleEditTitle,
     toggleDelete,
     toggleAddEditDog
   }

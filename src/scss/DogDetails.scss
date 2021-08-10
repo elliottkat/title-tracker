@@ -1,5 +1,16 @@
+.details-modal {
+  width: 50%;
+}
+
 .title-table {
     width: 100%;
+}
+
+.name-table {
+    width: 100%;
+    border: {
+      bottom: 0 solid black;
+    }
 }
 
 .table-header {
@@ -43,7 +54,39 @@ hr {
   padding: {
     top: 4px;
     bottom: 4px;
-    left: 0px;
-    right: 0px;
+    left: 0;
+    right: 0;
   }
+}
+
+.header-button {
+  float: right;
+  font-size: 24px;
+  display: flex;
+  text-align: center;
+  margin: auto;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: black;
+  padding: {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 4px;
+  }
+}
+
+.text-style {
+  font-weight: bold;
+  font-size: 20px;
+  padding: {right: 10px}
+}
+
+.caption-style {
+  text-align: left;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 20px;
 }
