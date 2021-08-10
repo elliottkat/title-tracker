@@ -114,8 +114,12 @@ export const addTitleRequest = title => async dispatch => {
       method: 'POST',
       body
     });
-    const addedTitle = await response.json();
-    dispatch(addTitle(addedTitle));
+    if (response.status === 200) {
+      const addedTitle = await response.json();
+      dispatch(addTitle(addedTitle));
+    } else {
+      displayAlert(`Title add failed with ${response.statusMessage}`);
+    }
   } catch (error) {
     dispatch(displayAlert(error));
   }
@@ -124,15 +128,18 @@ export const addTitleRequest = title => async dispatch => {
 export const editTitleRequest = title => async dispatch => {
   try {
     const body = JSON.stringify(title);
-    const response = await fetch('http://localhost:8080/api/titles', {
+    const response = await fetch(`http://localhost:8080/api/titles/${title.id}`, {
       headers: {
         'Content-Type': 'application/json'
       },
       method: 'PUT',
       body
     });
-    const editedTitle = await response.json();
-    dispatch(editTitle(editedTitle));
+    if (response.status === 200) {
+      dispatch(editTitle(title));
+    } else {
+      displayAlert(`Title edit failed with ${response.statusMessage}`);
+    }
   } catch (error) {
     dispatch(displayAlert(error));
   }
