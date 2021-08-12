@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { connect } from 'react-redux';
-import ReactDOM from 'react-dom';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTimes, faEdit, faTrashAlt, faPlus} from '@fortawesome/free-solid-svg-icons';
@@ -36,7 +36,7 @@ const DogDetails = (props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     props.startLoadingTitles(id);
-  }, []);
+  }, [id]);
 
   const titleTableInfo = titles.map(title => {
     return (
@@ -44,9 +44,9 @@ const DogDetails = (props) => {
         <td key={title.id + title.venue} className='table-data'>{title.venue}</td>
         <td key={title.id + title.name} className='table-data'>{title.name}</td>
         <td key={title.id + title.dateReceived} className='table-data'>{title.dateReceived}</td>
-        <td key={title.id + 'edit'} className='table-data'>
+        <td key={title.id + 'edit'} className='title-edit-button'>
           <button
-            className='title-action-button'
+            className='title-delete-button'
             onClick={toggleEditTitle}
           ><FontAwesomeIcon icon={faEdit}/></button>
           <EditTitle
@@ -54,14 +54,17 @@ const DogDetails = (props) => {
             title={title}
             hide={toggleEditTitle}
             isShowing={isShowingEditTitle}
-            onEditPressed={props.onEditPressed}
-          />
+            onEditPressed={() => props.onEditPressed(title)} />
         </td>
         <td key={title.id + 'delete'} className='table-data'>
-          <button className='title-action-button' onClick={toggleDelete}>
+          <button className='title-delete-button' onClick={toggleDelete}>
             <FontAwesomeIcon icon={faTrashAlt}/>
           </button>
-          <DeleteItemConfirm item={title} isShowing={isShowingDelete} hide={toggleDelete} onRemovePressed={props.onRemovePressed} />
+          <DeleteItemConfirm
+            item={title}
+            isShowing={isShowingDelete}
+            hide={toggleDelete}
+            onRemovePressed={() => props.onRemovePressed(title)} />
         </td>
       </tr>
     );
@@ -102,7 +105,7 @@ const DogDetails = (props) => {
     </div>
   );
 
-  return props.isShowing && ReactDOM.createPortal (
+  return props.isShowing && createPortal (
     <>
       <div className='modal details-modal' aria-modal aria-hidden tabIndex={-1} role="dialog">
         <div>

@@ -13,7 +13,7 @@ exports.create = (req, res) => {
   const title = new Title({
     dogId: req.body.dogId,
     venue: req.body.venue,
-    name: req.body.titleName,
+    name: req.body.name,
     dateReceived: req.body.dateReceived
   });
 

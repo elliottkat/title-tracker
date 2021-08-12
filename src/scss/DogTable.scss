@@ -67,6 +67,14 @@ $header-height: 2.5rem;
   outline: none;
   cursor: pointer;
   color: #888;
-  font-size: 20px;
+  font-size: 22px;
   position: absolute;
+}
+
+.header-label {
+  background-color: $pearl;
+  transition: background-color 0.15s;
+  font-size: 22px;
+  font-weight: 300;
+  padding-left: 12px;
 }
