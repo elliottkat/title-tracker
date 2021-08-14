@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTimes} from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +21,7 @@ const EditTitle = (props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [dateReceived, setDateReceived] = useState(title.dateReceived);
 
-  return props.isShowing && ReactDOM.createPortal (
+  return props.isShowing && createPortal (
     <>
       <div/>
       <div className='modal' aria-modal aria-hidden tabIndex={-1} role="dialog">
@@ -30,7 +30,7 @@ const EditTitle = (props) => {
             <table className='name-table'>
               <th
                 style={{fontWeight: "bold", fontSize: "24px", padding: "10px"}}>
-                Edit {title.venue} {title.name}
+                Edit Title
                 <button
                   className='header-button'
                   aria-label='Close'

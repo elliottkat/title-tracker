@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faTimes, faWindowClose} from '@fortawesome/free-solid-svg-icons';
+import {faTimes} from '@fortawesome/free-solid-svg-icons';
 
 import '../../scss/DogActionButtons.scss';
 
@@ -12,7 +12,7 @@ const DeleteItemConfirm = (props) => {
   const venue = item.venue || '';
   const deleteTitle = venue ? `${venue} ${name}` : name;
 
-  return props.isShowing && ReactDOM.createPortal (
+  return props.isShowing && createPortal (
     <>
       <div/>
       <div className='modal' aria-modal aria-hidden tabIndex={-1} role="dialog">

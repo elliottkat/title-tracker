@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTimes} from '@fortawesome/free-solid-svg-icons';
@@ -7,20 +7,13 @@ import {faTimes} from '@fortawesome/free-solid-svg-icons';
 import '../../scss/DogActionButtons.scss';
 
 const AddTitle = (props) => {
-  if (!props.isShowing) {
-    return null;
-  }
-
   const { dog } = props;
   const dogId = dog.id;
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [venue, setVenue] = useState('');
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [name, setName] = useState('');
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [dateReceived, setDateReceived] = useState('');
 
-  return props.isShowing && ReactDOM.createPortal (
+  return props.isShowing && createPortal (
     <>
       <div/>
       <div className='modal' aria-modal aria-hidden tabIndex={-1} role="dialog">
@@ -29,7 +22,7 @@ const AddTitle = (props) => {
             <table className='name-table'>
               <th
                 style={{fontWeight: "bold", fontSize: "24px", padding: "10px"}}>
-                Add
+                Add Title
                 <button
                   className='header-button'
                   aria-label='Close'

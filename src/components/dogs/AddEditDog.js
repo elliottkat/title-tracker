@@ -1,29 +1,22 @@
 import React, {useState} from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faTimes, faWindowClose} from '@fortawesome/free-solid-svg-icons';
+import {faTimes} from '@fortawesome/free-solid-svg-icons';
 
 import '../../scss/DogActionButtons.scss';
 
 const AddEditDog = (props) => {
-  if (!props.isShowing) {
-    return null;
-  }
   const { dog } = props;
   const { createdAt } = dog;
   const updatedAt = new Date();
   const id = dog.id || '';
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [name, setName] = useState(dog.name);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [breed, setBreed] = useState(dog.breed);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [birthdate, setBirthdate] = useState(dog.birthdate);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [sex, setSex] = useState(dog.sex);
 
-  return props.isShowing && ReactDOM.createPortal (
+  return props.isShowing && createPortal (
     <>
       <div/>
       <div className='modal' aria-modal aria-hidden tabIndex={-1} role="dialog">

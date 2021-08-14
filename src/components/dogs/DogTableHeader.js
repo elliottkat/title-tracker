@@ -20,6 +20,7 @@ const DogTableHeader = (props) => {
       <thead>
       <tr role='row'>
         <th role='columnheader' className='table__header'>
+          <label className='header-label'>Dogs</label>
           <button className='add-dog-button' onClick={toggleAddEditDog}>
             <FontAwesomeIcon icon={faPlus}/>
           </button>
