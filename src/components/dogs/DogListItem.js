@@ -25,7 +25,7 @@ const DogListItem = (props) => {
     <tr
       key={dog.id}
       role='row'
-      className='table__dog'>
+      className='table__row'>
 
       <td className='table__row'>{dog.name}</td>
       <td className='table__row table__button'>
