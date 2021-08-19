@@ -10,7 +10,7 @@ const DeleteItemConfirm = (props) => {
   const { item } = props;
   const { name } = item;
   const venue = item.venue || '';
-  const deleteTitle = venue ? `${venue} ${name}` : name;
+  const deleteItemHeader = venue ? `${venue} ${name}` : name;
 
   return props.isShowing && createPortal (
     <>
@@ -21,7 +21,7 @@ const DeleteItemConfirm = (props) => {
             <table className='name-table'>
               <th
                 style={{fontWeight: "bold", fontSize: "24px", padding: "10px"}}>
-                Delete {deleteTitle}
+                Delete {deleteItemHeader}?
                 <button
                   className='header-button'
                   aria-label='Close'
