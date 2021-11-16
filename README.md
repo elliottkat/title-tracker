@@ -4,6 +4,9 @@ Agility Title Tracker allows you to track your dogs' titles.  It allows you to a
 ## To Run:
 1. `git clone git@github.com:elliottkat/title-tracker.git`
 
+### Install MongoDB:
+[Install MongoDB Community Edition](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/#install-mongodb-community-edition)
+
 ### Run the server:
 1. `cd title-tracker/server`
 1. `npm install`
