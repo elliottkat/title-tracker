@@ -21,5 +21,5 @@ module.exports = app => {
   // Create a new Dog
   router.delete('/', dogs.deleteAll);
 
-  app.use('/api/dogs', router);
+  app.use('/api/Dogs', router);
 };

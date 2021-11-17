@@ -21,5 +21,5 @@ module.exports = app => {
   // Create a new Title
   router.delete('/', titles.deleteAll);
 
-  app.use('/api/titles', router);
+  app.use('/api/Titles', router);
 };
