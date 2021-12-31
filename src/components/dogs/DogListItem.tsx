@@ -32,15 +32,15 @@ export const DogListItem: FC<DogListItemProps> = ({dog}) => {
       <TableCell margin={{left: "small"}}>{dog.name}</TableCell>
       <TableCell className='table__row table__button'>
         <Button className='action-button' onClick={toggleDetails} icon={<CircleInformation/>} />
-        <DogDetails dog={dog} isShowing={isShowingDetails} hide={toggleDetails} />
+        <DogDetails dog={dog} isShown={isShowingDetails} hide={toggleDetails} />
       </TableCell>
       <TableCell className='table__row table__button'>
         <Button className='action-button' onClick={toggleAddEditDog} icon={<Edit/>} />
-        <AddEditDog dog={dog} isVisible={isShowing} hide={toggleAddEditDog} />
+        <AddEditDog dog={dog} isShown={isShowing} hide={toggleAddEditDog} />
       </TableCell>
       <TableCell className='table__row table__button'>
         <Button className='action-button' onClick={toggleDelete} icon={<Trash/>} />
-        <DeleteItemConfirm itemType='dog' item={dog} isVisible={isShowingDelete} hide={toggleDelete} />
+        <DeleteItemConfirm itemType='dog' item={dog} isShown={isShowingDelete} hide={toggleDelete} />
       </TableCell>
     </TableRow>
   )

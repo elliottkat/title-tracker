@@ -30,6 +30,31 @@ exports.create = (req, res) => {
     });
 };
 
+// Update a Dog by the ID in the request
+exports.update = (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: 'Data to update can not be empty!'
+    });
+  }
+
+  const id = req.params.id;
+
+  Dog.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+      .then(data => {
+        if (!data) {
+          res.status(404).send({
+            message: `Cannot update Dog with ID ${id}. Maybe Dog was not found!`
+          });
+        } else res.send({ message: `Dog ${id} was successfully updated.`});
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: `Error updating Dog with ID ${id}: ${err}`
+        });
+      });
+};
+
 // Retrieve all Dogs from the database.
 exports.findAll = (req, res) => {
   const dogId = req.query.dogId;
@@ -61,31 +86,6 @@ exports.findOne = (req, res) => {
       res
         .status(500)
         .send({ message: `Error retrieving Dog with ID ${id}: ${err}`});
-    });
-};
-
-// Update a Dog by the ID in the request
-exports.update = (req, res) => {
-  if (!req.body) {
-    return res.status(400).send({
-      message: 'Data to update can not be empty!'
-    });
-  }
-
-  const id = req.params.id;
-
-  Dog.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-    .then(data => {
-      if (!data) {
-        res.status(404).send({
-          message: `Cannot update Dog with ID ${id}. Maybe Dog was not found!`
-        });
-      } else res.send({ message: `Dog ${id} was successfully updated.`});
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: `Error updating Dog with ID ${id}: ${err}`
-      });
     });
 };
 

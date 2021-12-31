@@ -26,7 +26,7 @@ export const DogTableHeader: FC = () => {
         <Button className='add-dog-button' onClick={toggleAddEditDog} size='large' icon={<AddCircle />} />
         <AddEditDog
           dog={emptyDog}
-          isVisible={isShowing}
+          isShown={isShowing}
           hide={toggleAddEditDog} />
       </Box>
     </Box>

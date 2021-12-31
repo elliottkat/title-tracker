@@ -24,11 +24,11 @@ import { Dog } from '../../stores/Dogs/DogTypes';
 
 interface DogDetailsProps {
   dog: Dog;
-  isShowing: boolean;
+  isShown: boolean;
   hide: () => void;
 }
 
-export const DogDetails: FC<DogDetailsProps> = ({dog, isShowing, hide}) => {
+export const DogDetails: FC<DogDetailsProps> = ({dog, isShown, hide}) => {
     const {id, name, breed, birthdate, sex} = dog;
 
     const {
@@ -53,7 +53,7 @@ export const DogDetails: FC<DogDetailsProps> = ({dog, isShowing, hide}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  if (!isShowing) {
+  if (!isShown) {
     return null;
   }
 
@@ -79,7 +79,7 @@ export const DogDetails: FC<DogDetailsProps> = ({dog, isShowing, hide}) => {
             <DeleteItemConfirm
                 itemType='title'
                 item={title}
-                isVisible={isShowingDelete}
+                isShown={isShowingDelete}
                 hide={toggleDelete} />
           </td>
         </TableRow>
@@ -119,7 +119,7 @@ export const DogDetails: FC<DogDetailsProps> = ({dog, isShowing, hide}) => {
       </div>
   );
 
-  return isShowing && createPortal (
+  return isShown && createPortal (
     <>
       <div className='modal details-modal' aria-modal aria-hidden tabIndex={-1} role="dialog">
         <div>

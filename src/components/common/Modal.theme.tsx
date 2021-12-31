@@ -55,7 +55,7 @@ export const TitleTrackerTheme = deepMerge(hpe, {
         },
         pad: 'small',
         margin: {
-            // bring the overall tabs border behind invidual tab borders
+            // bring the overall tabs border behind individual tab borders
             vertical: '-2px',
             horizontal: 'none',
         },

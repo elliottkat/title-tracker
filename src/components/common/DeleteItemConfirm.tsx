@@ -15,11 +15,11 @@ import {TitleTrackerButton} from '../Elements/TitleTrackerButton';
 interface DeleteItemConfirmProps {
   item: any;
   itemType: string;
-  isVisible: boolean;
+  isShown: boolean;
   hide: () => void;
 
 }
-export const DeleteItemConfirm: FC<DeleteItemConfirmProps> = ({item, itemType, isVisible, hide}) => {
+export const DeleteItemConfirm: FC<DeleteItemConfirmProps> = ({item, itemType, isShown, hide}) => {
   const { name, id } = item;
   const venue = item.venue;
   const deleteItemHeader = venue ? `${venue} ${name}` : name;
@@ -47,7 +47,7 @@ export const DeleteItemConfirm: FC<DeleteItemConfirmProps> = ({item, itemType, i
   };
 
   return (
-      <Modal isShown={isVisible} hide={() => hide()} autoHide={true}>
+      <Modal isShown={isShown} hide={hide} autoHide={true}>
         <Box animation={{ type: 'zoomIn' }}>
           <CardHeader margin="0" pad={{ horizontal: 'small' }}>
             <Text size={fonts.title} margin='xxsmall'>
@@ -56,7 +56,7 @@ export const DeleteItemConfirm: FC<DeleteItemConfirmProps> = ({item, itemType, i
             <Anchor
                 data-testid="add-edit-dog-modal-anchor"
                 icon={<FormClose size="medium" />}
-                onClick={() => hide()}
+                onClick={hide}
                 margin={{ left: 'auto', right: '-8px' }}
             />
           </CardHeader>

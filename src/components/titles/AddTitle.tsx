@@ -36,7 +36,7 @@ const AddTitle: FC<AddTitleProps> = ({dog, isVisible, hide}) => {
   };
 
   return (
-      <Modal isShown={isVisible} hide={() => hide()} autoHide={true}>
+      <Modal isShown={isVisible} hide={hide} autoHide={true}>
         <Box animation={{ type: 'zoomIn' }}>
           <CardHeader margin="0" pad={{ horizontal: 'small' }}>
             <Text size={fonts.title} margin='xxsmall'>
@@ -44,7 +44,7 @@ const AddTitle: FC<AddTitleProps> = ({dog, isVisible, hide}) => {
             </Text>
             <Anchor
                 icon={<FormClose size="medium" />}
-                onClick={() => hide()}
+                onClick={hide}
                 margin={{ left: 'auto', right: '-8px' }}
             />
           </CardHeader>
