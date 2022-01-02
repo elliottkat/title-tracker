@@ -21,7 +21,6 @@ export const Backdrop = styled.div`
 `;
 
 export const StyledModal = styled.div`
-    z-index: 100;
     background: white;
     position: relative;
     margin: auto;

@@ -50,7 +50,7 @@ const AddTitle: FC<AddTitleProps> = ({dog, isVisible, hide}) => {
           </CardHeader>
           <CardBody pad={{ horizontal: 'small' }}>
             <Form>
-              <FormField label='Venue'>
+              <FormField label='Venue:'>
                 <TextInput
                     value={venue}
                     onChange={event => setVenue(event.target.value)}
@@ -58,7 +58,7 @@ const AddTitle: FC<AddTitleProps> = ({dog, isVisible, hide}) => {
                     plain
                 />
               </FormField>
-              <FormField label='Name'>
+              <FormField label='Title:'>
                 <TextInput
                     value={name}
                     onChange={event => setName(event.target.value)}
@@ -66,7 +66,7 @@ const AddTitle: FC<AddTitleProps> = ({dog, isVisible, hide}) => {
                     plain
                 />
               </FormField>
-              <FormField label='Date Received'>
+              <FormField label='Date Received:'>
                 <TextInput
                     value={dateReceived}
                     onChange={event => setDateReceived(event.target.value)}

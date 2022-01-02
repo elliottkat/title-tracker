@@ -49,7 +49,10 @@ export const removeDog = async (id: string): Promise<any> => {
 export const fetchTitles = async (id: string): Promise<FetchSuccessPayload<string>> => {
     try {
         const response = await fetch(`http://localhost:8080/api/titles/?dogId=${id}`);
-        return await response.json();
+        console.log('id:', id);
+        const returnValue = await response.json();
+        console.log('returnValue:', returnValue);
+        return returnValue;
     } catch (error) {
         // @ts-ignore
         return error;

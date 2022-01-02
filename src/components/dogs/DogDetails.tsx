@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {Button, TableRow} from 'grommet';
+import {Button, TableCell, TableRow} from 'grommet';
 import {Edit, Trash} from 'grommet-icons';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -51,7 +51,7 @@ export const DogDetails: FC<DogDetailsProps> = ({dog, isShowing, hide}) => {
       params: id,
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   if (!isShowing) {
     return null;
@@ -60,10 +60,10 @@ export const DogDetails: FC<DogDetailsProps> = ({dog, isShowing, hide}) => {
   const titleTableInfo = titles.map(title => {
     return (
         <TableRow>
-          <td key={title.id + title.venue} className='table-data'>{title.venue}</td>
-          <td key={title.id + title.name} className='table-data'>{title.name}</td>
-          <td key={title.id + title.dateReceived} className='table-data'>{title.dateReceived}</td>
-          <td key={title.id + 'edit'} className='title-edit-button'>
+          <TableCell key={title.id + title.venue} className='table-data'>{title.venue}</TableCell>
+          <TableCell key={title.id + title.name} className='table-data'>{title.name}</TableCell>
+          <TableCell key={title.id + title.dateReceived} className='table-data'>{title.dateReceived}</TableCell>
+          <TableCell key={title.id + 'edit'} className='title-edit-button'>
             <Button
                 className='title-delete-button'
                 icon={<Edit />}
@@ -73,15 +73,15 @@ export const DogDetails: FC<DogDetailsProps> = ({dog, isShowing, hide}) => {
                 title={title}
                 hide={toggleEditTitle}
                 isVisible={isShowingEditTitle} />
-          </td>
-          <td key={title.id + 'delete'} className='table-data'>
+          </TableCell>
+          <TableCell key={title.id + 'delete'} className='table-data'>
             <Button className='title-delete-button' onClick={toggleDelete} icon={<Trash />} />
             <DeleteItemConfirm
                 itemType='title'
                 item={title}
                 isVisible={isShowingDelete}
                 hide={toggleDelete} />
-          </td>
+          </TableCell>
         </TableRow>
     );
   });
@@ -90,11 +90,11 @@ export const DogDetails: FC<DogDetailsProps> = ({dog, isShowing, hide}) => {
       <div>
         <table className='title-table'>
           <caption className='caption-style'>Titles{titles && titles.length > 0 ? ':' : ''}
-            <button className='header-button' onClick={toggleAddTitle}>
+            <Button className='header-button' onClick={toggleAddTitle}>
               <text className='text-style'>
                 <FontAwesomeIcon icon={faPlus} />
               </text>
-            </button>
+            </Button>
             <AddTitle
                 dog={dog}
                 hide={toggleAddTitle}
@@ -121,21 +121,21 @@ export const DogDetails: FC<DogDetailsProps> = ({dog, isShowing, hide}) => {
 
   return isShowing && createPortal (
     <>
-      <div className='modal details-modal' aria-modal aria-hidden tabIndex={-1} role="dialog">
+      <div className='modal details-modal' aria-modal aria-hidden tabIndex={-1} role='dialog'>
         <div>
           <div className='dog-form'>
             <table className='name-table'>
               <th
-                style={{fontWeight: "bold", fontSize: "24px", padding: "10px"}}>
+                style={{fontWeight: 'bold', fontSize: '25px', padding: '10px'}}>
                 {name}
-                <button
+                <Button
                   className='header-button'
                   aria-label='Close'
                   onClick={hide}>
                   <text style={{fontWeight: 'bold', fontSize: '20px'}}>
                     <FontAwesomeIcon icon={faTimes} />
                   </text>
-                </button>
+                </Button>
               </th>
             </table>
             <hr/>

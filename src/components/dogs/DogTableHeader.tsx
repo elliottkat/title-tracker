@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 
 import {Box, Button, Heading} from 'grommet';
-import {AddCircle} from 'grommet-icons';
+import {Add} from 'grommet-icons';
 
 import '../../scss/DogTable.scss';
 
@@ -23,7 +23,7 @@ export const DogTableHeader: FC = () => {
     >
       <Box direction='row'>
         <Heading level={3} className='header-label' margin={{left: "small"}}>Dogs</Heading>
-        <Button className='add-dog-button' onClick={toggleAddEditDog} size='large' icon={<AddCircle />} />
+        <Button className='add-dog-button' onClick={toggleAddEditDog} size='large' icon={<Add />} />
         <AddEditDog
           dog={emptyDog}
           isVisible={isShowing}
