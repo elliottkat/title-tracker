@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
+import { Box } from 'grommet';
 
 import './App.css';
 
-import { DogTable } from './components/dogs/DogTable';
-import { Header } from './components/dogs/Header';
+import { DogTable } from './components/Dogs/DogTable';
+import { Header } from './components/Dogs/Header';
 
 export const App: FC = () => (
-    <div className="App">
+    <Box className="App">
         <Header />
         <DogTable />
-    </div>
+    </Box>
 );

@@ -6,9 +6,11 @@ interface ActivityColors {
     medium: string;
     high: string;
 }
+
 interface Color {
     [key: string]: string;
 }
+
 export const color: Color = {
     brand_green: '#01a982', //to hpe theme
     brand_darkgreen: '#078B69',
@@ -27,6 +29,7 @@ export const color: Color = {
     box_background_2: '#e9e9ed',
     box_background_3: '#d9d9e1',
 };
+
 export const activityColors: ActivityColors = {
     lowest: '#FA918A', // darker red
     low: '#F7CFC9', // light red
