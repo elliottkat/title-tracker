@@ -13,6 +13,12 @@ export interface CommonFetchBlob<T> {
     count?: number;
 }
 
+export interface CommonFetchData<T> {
+    error: string | null;
+    pending: boolean;
+    data: T[];
+}
+
 export interface CommonFetch {
     type: any;
     apiCb: (params: any) => any;

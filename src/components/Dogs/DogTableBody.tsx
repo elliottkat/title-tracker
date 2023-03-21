@@ -23,13 +23,15 @@ export const DogTableBody: FC = () => {
 
     if (dogs && dogs.length > 0) {
         return (
-            <Table className="table table--body" alignSelf="stretch">
-                <TableBody>
-                    {dogs.map((dog) => (
-                        <DogListItem key={dog.name} dog={dog} />
-                    ))}
-                </TableBody>
-            </Table>
+            <>
+                <Table className="table table--body" alignSelf="stretch">
+                    <TableBody>
+                        {dogs.map((dog) => (
+                            <DogListItem key={dog.name} dog={dog} />
+                        ))}
+                    </TableBody>
+                </Table>
+            </>
         );
     }
     return null;
