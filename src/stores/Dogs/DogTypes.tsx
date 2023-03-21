@@ -1,4 +1,4 @@
-import {CommonFetchBlob} from '../CommonTypes';
+import { CommonFetchBlob } from '../CommonTypes';
 
 export interface DogState {
     allDogs: CommonFetchBlob<Dog[]>;

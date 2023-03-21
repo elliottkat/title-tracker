@@ -1,17 +1,17 @@
-import React, {FC, useState} from 'react';
-import {useDispatch} from "react-redux";
+import React, { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { Anchor, Box, CardBody, CardFooter, CardHeader, Form, FormField, Text, TextInput } from 'grommet';
 import { FormClose } from 'grommet-icons';
 
 import { AppFonts as fonts } from '../styling/AppFonts';
-import {TitleTrackerButton} from '../Elements/TitleTrackerButton';
+import { TitleTrackerButton } from '../Elements/TitleTrackerButton';
 
-import {Modal} from '../common/Modal';
-import {ADD_DOG_REQUEST, EDIT_DOG_REQUEST} from '../../stores/Dogs/DogActionTypes';
+import { Modal } from '../common/Modal';
+import { ADD_DOG_REQUEST, EDIT_DOG_REQUEST } from '../../stores/Dogs/DogActionTypes';
 import * as Api from '../../stores/Api';
-import {fetchFailure, fetchSuccess} from '../../stores/CommonActions';
-import {Dog} from '../../stores/Dogs/DogTypes';
+import { fetchFailure, fetchSuccess } from '../../stores/CommonActions';
+import { Dog } from '../../stores/Dogs/DogTypes';
 
 interface AddEditDogProps {
     dog: Dog;
@@ -19,8 +19,8 @@ interface AddEditDogProps {
     isVisible: boolean;
 }
 
-export const AddEditDog: FC<AddEditDogProps> = ({dog, hide, isVisible}) => {
-    const {id} = dog;
+export const AddEditDog: FC<AddEditDogProps> = ({ dog, hide, isVisible }) => {
+    const { id } = dog;
     const [name, setName] = useState(dog.name);
     const [breed, setBreed] = useState(dog.breed);
     const [birthdate, setBirthdate] = useState(dog.birthdate);
@@ -32,7 +32,7 @@ export const AddEditDog: FC<AddEditDogProps> = ({dog, hide, isVisible}) => {
         if (id) {
             const { createdAt } = dog;
             const updatedAt = new Date();
-            const params = {id, name, breed, birthdate, sex, createdAt, updatedAt};
+            const params = { id, name, breed, birthdate, sex, createdAt, updatedAt };
             dispatch({
                 type: EDIT_DOG_REQUEST,
                 apiCb: Api.editDog,
@@ -40,9 +40,8 @@ export const AddEditDog: FC<AddEditDogProps> = ({dog, hide, isVisible}) => {
                 successCb: fetchSuccess,
                 params,
             });
-        }
-        else {
-            const params = {name, breed, birthdate, sex};
+        } else {
+            const params = { name, breed, birthdate, sex };
             dispatch({
                 type: ADD_DOG_REQUEST,
                 apiCb: Api.addDog,
@@ -57,7 +56,7 @@ export const AddEditDog: FC<AddEditDogProps> = ({dog, hide, isVisible}) => {
         <Modal isShown={isVisible} hide={() => hide()} autoHide={true}>
             <Box animation={{ type: 'zoomIn' }}>
                 <CardHeader margin="0" pad={{ horizontal: 'small' }}>
-                    <Text size={fonts.title} margin='xxsmall'>
+                    <Text size={fonts.title} margin="xxsmall">
                         {id ? `Edit ${dog.name}` : 'Add Dog'}
                     </Text>
                     <Anchor
@@ -69,34 +68,34 @@ export const AddEditDog: FC<AddEditDogProps> = ({dog, hide, isVisible}) => {
                 </CardHeader>
                 <CardBody pad={{ horizontal: 'small' }}>
                     <Form>
-                        <FormField label='Name'>
+                        <FormField label="Name">
                             <TextInput
                                 value={name}
-                                onChange={event => setName(event.target.value)}
+                                onChange={(event) => setName(event.target.value)}
                                 focusIndicator={true}
                                 plain
                             />
                         </FormField>
-                        <FormField label='Breed'>
+                        <FormField label="Breed">
                             <TextInput
                                 value={breed}
-                                onChange={event => setBreed(event.target.value)}
+                                onChange={(event) => setBreed(event.target.value)}
                                 focusIndicator={true}
                                 plain
                             />
                         </FormField>
-                        <FormField label='Birthdate'>
+                        <FormField label="Birthdate">
                             <TextInput
                                 value={birthdate}
-                                onChange={event => setBirthdate(event.target.value)}
+                                onChange={(event) => setBirthdate(event.target.value)}
                                 focusIndicator={true}
                                 plain
                             />
                         </FormField>
-                        <FormField label='Sex'>
+                        <FormField label="Sex">
                             <TextInput
                                 value={sex}
-                                onChange={event => setSex(event.target.value)}
+                                onChange={(event) => setSex(event.target.value)}
                                 focusIndicator={true}
                                 plain
                             />
@@ -106,7 +105,7 @@ export const AddEditDog: FC<AddEditDogProps> = ({dog, hide, isVisible}) => {
                 <CardFooter direction="row" justify="center" gap="small" background="background-contrast" pad="small">
                     <TitleTrackerButton
                         label={buttonLabel}
-                        disabled = {!name || !breed || !birthdate || !sex}
+                        disabled={!name || !breed || !birthdate || !sex}
                         onClick={() => {
                             hide();
                             onAddEditClick();
@@ -114,8 +113,8 @@ export const AddEditDog: FC<AddEditDogProps> = ({dog, hide, isVisible}) => {
                             setBreed('');
                             setBirthdate('');
                             setSex('');
-                        }}>
-                    </TitleTrackerButton>
+                        }}
+                    ></TitleTrackerButton>
                 </CardFooter>
             </Box>
         </Modal>

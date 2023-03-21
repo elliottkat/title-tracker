@@ -14,14 +14,14 @@ import {
     EDIT_DOG_SUCCESS,
     EDIT_DOG_FAILURE,
 } from './DogActionTypes';
-import {DogState} from './DogTypes';
+import { DogState } from './DogTypes';
 
 export const initialState: DogState = {
-  allDogs: {
-      error: null,
-      pending: false,
-      data: [],
-  }
+    allDogs: {
+        error: null,
+        pending: false,
+        data: [],
+    },
 };
 
 export const DogReducer = (state = initialState, action: AnyAction): DogState => {
@@ -29,8 +29,8 @@ export const DogReducer = (state = initialState, action: AnyAction): DogState =>
         case FETCH_DOGS_REQUEST: {
             return {
                 ...state,
-                allDogs: {data: undefined, error: null, pending: true},
-            }
+                allDogs: { data: undefined, error: null, pending: true },
+            };
         }
         case FETCH_DOGS_SUCCESS: {
             return {
@@ -40,8 +40,8 @@ export const DogReducer = (state = initialState, action: AnyAction): DogState =>
                     error: null,
                     pending: false,
                     data: action.payload.data,
-                }
-            }
+                },
+            };
         }
         case FETCH_DOGS_FAILURE: {
             return {
@@ -50,9 +50,9 @@ export const DogReducer = (state = initialState, action: AnyAction): DogState =>
                     ...state.allDogs,
                     error: action.payload ?? 'Unknown error',
                     pending: false,
-                    data: undefined
-                }
-            }
+                    data: undefined,
+                },
+            };
         }
         case ADD_DOG_REQUEST: {
             return {
@@ -63,7 +63,7 @@ export const DogReducer = (state = initialState, action: AnyAction): DogState =>
                     pending: true,
                     data: state.allDogs.data,
                 },
-            }
+            };
         }
         case ADD_DOG_SUCCESS: {
             return {
@@ -72,9 +72,9 @@ export const DogReducer = (state = initialState, action: AnyAction): DogState =>
                     ...state.allDogs,
                     error: null,
                     pending: false,
-                    data: state.allDogs.data?.concat(action.payload.data)
-                }
-            }
+                    data: state.allDogs.data?.concat(action.payload.data),
+                },
+            };
         }
         case ADD_DOG_FAILURE: {
             return {
@@ -84,8 +84,8 @@ export const DogReducer = (state = initialState, action: AnyAction): DogState =>
                     error: action.payload ?? 'Unknown error',
                     pending: false,
                     data: state.allDogs.data,
-                }
-            }
+                },
+            };
         }
         case EDIT_DOG_REQUEST: {
             return {
@@ -96,10 +96,10 @@ export const DogReducer = (state = initialState, action: AnyAction): DogState =>
                     pending: true,
                     data: state.allDogs.data,
                 },
-            }
+            };
         }
         case EDIT_DOG_SUCCESS: {
-            const newStateData = state.allDogs.data?.map(dog => {
+            const newStateData = state.allDogs.data?.map((dog) => {
                 if (dog.id === action.payload.data.id) {
                     return action.payload.data;
                 }
@@ -111,9 +111,9 @@ export const DogReducer = (state = initialState, action: AnyAction): DogState =>
                     ...state.allDogs,
                     error: null,
                     pending: false,
-                    data: newStateData
-                }
-            }
+                    data: newStateData,
+                },
+            };
         }
         case EDIT_DOG_FAILURE: {
             return {
@@ -123,8 +123,8 @@ export const DogReducer = (state = initialState, action: AnyAction): DogState =>
                     error: action.payload ?? 'Unknown error',
                     pending: false,
                     data: state.allDogs.data,
-                }
-            }
+                },
+            };
         }
         case REMOVE_DOG_REQUEST: {
             return {
@@ -135,19 +135,19 @@ export const DogReducer = (state = initialState, action: AnyAction): DogState =>
                     pending: true,
                     data: state.allDogs.data,
                 },
-            }
+            };
         }
         case REMOVE_DOG_SUCCESS: {
-            const newStateData = state.allDogs.data?.filter(dog => dog.id !== action.payload.data);
+            const newStateData = state.allDogs.data?.filter((dog) => dog.id !== action.payload.data);
             return {
                 ...state,
                 allDogs: {
                     ...state.allDogs,
                     error: null,
                     pending: false,
-                    data: newStateData
-                }
-            }
+                    data: newStateData,
+                },
+            };
         }
         case REMOVE_DOG_FAILURE: {
             return {
@@ -157,8 +157,8 @@ export const DogReducer = (state = initialState, action: AnyAction): DogState =>
                     error: action.payload ?? 'Unknown error',
                     pending: false,
                     data: state.allDogs.data,
-                }
-            }
+                },
+            };
         }
         default:
             return state;
