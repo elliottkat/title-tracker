@@ -12,13 +12,14 @@ import { Modal } from './Modal';
 import { AppFonts as fonts } from '../styling/AppFonts';
 import { TitleTrackerButton } from '../Elements/TitleTrackerButton';
 
-interface DeleteItemConfirmProps {
+interface Props {
     item: any;
     itemType: string;
-    isVisible: boolean;
+    isShown: boolean;
     hide: () => void;
 }
-export const DeleteItemConfirm: FC<DeleteItemConfirmProps> = ({ item, itemType, isVisible, hide }) => {
+
+export const DeleteItemConfirm: FC<Props> = ({ item, itemType, isShown, hide }) => {
     const { name, id } = item;
     const venue = item.venue;
     const deleteItemHeader = venue ? `${venue} ${name}` : name;
@@ -46,7 +47,7 @@ export const DeleteItemConfirm: FC<DeleteItemConfirmProps> = ({ item, itemType, 
     };
 
     return (
-        <Modal isShown={isVisible} hide={() => hide()} autoHide={true}>
+        <Modal isShown={isShown} hide={() => hide()} autoHide={true}>
             <Box animation={{ type: 'zoomIn' }}>
                 <CardHeader margin="0" pad={{ horizontal: 'small' }}>
                     <Text size={fonts.title} margin="xxsmall">

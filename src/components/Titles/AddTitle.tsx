@@ -3,36 +3,33 @@ import { useDispatch } from 'react-redux';
 import { Anchor, Box, CardBody, CardFooter, CardHeader, Form, FormField, Text, TextInput } from 'grommet';
 import { FormClose } from 'grommet-icons';
 
-import { EDIT_TITLE_REQUEST } from '../../stores/Titles/TitleActionTypes';
-import * as Api from '../../stores/Api';
-import { fetchFailure, fetchSuccess } from '../../stores/CommonActions';
-import { Dog } from '../../stores/Dogs/DogTypes';
-import { Title } from '../../stores/Titles/TitleTypes';
+import { ADD_TITLE_REQUEST } from '../../stores/Titles/TitleActionTypes';
+
 import { Modal } from '../common/Modal';
+import { fetchFailure, fetchSuccess } from '../../stores/CommonActions';
 import { AppFonts as fonts } from '../styling/AppFonts';
 import { TitleTrackerButton } from '../Elements/TitleTrackerButton';
+import { Dog } from '../../stores/Dogs/DogTypes';
+import * as Api from '../../stores/Api';
 
-interface EditTitleProps {
+interface Props {
     dog: Dog;
-    title: Title;
     isVisible: boolean;
     hide: () => void;
 }
 
-export const EditTitle: FC<EditTitleProps> = ({ dog, title, isVisible, hide }) => {
+export const AddTitle: FC<Props> = ({ dog, isVisible, hide }) => {
     const dogId = dog.id;
-    const { id } = title;
-
-    const [venue, setVenue] = useState(title.venue);
-    const [name, setName] = useState(title.name);
-    const [dateReceived, setDateReceived] = useState(title.dateReceived);
+    const [venue, setVenue] = useState('');
+    const [name, setName] = useState('');
+    const [dateReceived, setDateReceived] = useState('');
     const dispatch = useDispatch();
 
-    const onEditClick = () => {
-        const params = { dogId, id, name, venue, dateReceived };
+    const onAddClick = () => {
+        const params = { dogId, name, venue, dateReceived };
         dispatch({
-            type: EDIT_TITLE_REQUEST,
-            apiCb: Api.editTitle,
+            type: ADD_TITLE_REQUEST,
+            apiCb: Api.addTitle,
             errorCb: fetchFailure,
             successCb: fetchSuccess,
             params,
@@ -80,18 +77,19 @@ export const EditTitle: FC<EditTitleProps> = ({ dog, title, isVisible, hide }) =
                         </FormField>
                     </Form>
                 </CardBody>
-                <CardFooter direction="row" justify="center" gap="small" background="background-contrast" pad="small">
+                <CardFooter direction="row" justify="center" gap="small" background={'background-contrast'} pad="small">
                     <TitleTrackerButton
-                        label="Edit"
+                        label="Add"
                         disabled={!venue || !name || !dateReceived}
                         onClick={() => {
                             hide();
-                            onEditClick();
+                            onAddClick();
                             setName('');
                             setVenue('');
+                            setName('');
                             setDateReceived('');
                         }}
-                    ></TitleTrackerButton>
+                    />
                 </CardFooter>
             </Box>
         </Modal>

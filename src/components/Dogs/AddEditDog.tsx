@@ -13,13 +13,13 @@ import * as Api from '../../stores/Api';
 import { fetchFailure, fetchSuccess } from '../../stores/CommonActions';
 import { Dog } from '../../stores/Dogs/DogTypes';
 
-interface AddEditDogProps {
+interface Props {
     dog: Dog;
     hide: () => void;
-    isVisible: boolean;
+    isShown: boolean;
 }
 
-export const AddEditDog: FC<AddEditDogProps> = ({ dog, hide, isVisible }) => {
+export const AddEditDog: FC<Props> = ({ dog, hide, isShown }) => {
     const { id } = dog;
     const [name, setName] = useState(dog.name);
     const [breed, setBreed] = useState(dog.breed);
@@ -53,7 +53,7 @@ export const AddEditDog: FC<AddEditDogProps> = ({ dog, hide, isVisible }) => {
     };
 
     return (
-        <Modal isShown={isVisible} hide={() => hide()} autoHide={true}>
+        <Modal isShown={isShown} hide={() => hide()} autoHide={true}>
             <Box animation={{ type: 'zoomIn' }}>
                 <CardHeader margin="0" pad={{ horizontal: 'small' }}>
                     <Text size={fonts.title} margin="xxsmall">

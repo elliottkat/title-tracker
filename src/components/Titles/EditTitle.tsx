@@ -3,32 +3,36 @@ import { useDispatch } from 'react-redux';
 import { Anchor, Box, CardBody, CardFooter, CardHeader, Form, FormField, Text, TextInput } from 'grommet';
 import { FormClose } from 'grommet-icons';
 
-import { ADD_TITLE_REQUEST } from '../../stores/Titles/TitleActionTypes';
-
-import { Modal } from '../common/Modal';
+import { EDIT_TITLE_REQUEST } from '../../stores/Titles/TitleActionTypes';
+import * as Api from '../../stores/Api';
 import { fetchFailure, fetchSuccess } from '../../stores/CommonActions';
+import { Dog } from '../../stores/Dogs/DogTypes';
+import { Title } from '../../stores/Titles/TitleTypes';
+import { Modal } from '../common/Modal';
 import { AppFonts as fonts } from '../styling/AppFonts';
 import { TitleTrackerButton } from '../Elements/TitleTrackerButton';
-import { Dog } from '../../stores/Dogs/DogTypes';
-import * as Api from '../../stores/Api';
 
-interface AddTitleProps {
+interface Props {
     dog: Dog;
-    isVisible: boolean;
+    title: Title;
+    isShown: boolean;
     hide: () => void;
 }
-const AddTitle: FC<AddTitleProps> = ({ dog, isVisible, hide }) => {
+
+export const EditTitle: FC<Props> = ({ dog, title, isShown, hide }) => {
     const dogId = dog.id;
-    const [venue, setVenue] = useState('');
-    const [name, setName] = useState('');
-    const [dateReceived, setDateReceived] = useState('');
+    const { id } = title;
+
+    const [venue, setVenue] = useState(title.venue);
+    const [name, setName] = useState(title.name);
+    const [dateReceived, setDateReceived] = useState(title.dateReceived);
     const dispatch = useDispatch();
 
-    const onAddClick = () => {
-        const params = { dogId, name, venue, dateReceived };
+    const onEditClick = () => {
+        const params = { dogId, id, name, venue, dateReceived };
         dispatch({
-            type: ADD_TITLE_REQUEST,
-            apiCb: Api.addTitle,
+            type: EDIT_TITLE_REQUEST,
+            apiCb: Api.editTitle,
             errorCb: fetchFailure,
             successCb: fetchSuccess,
             params,
@@ -36,7 +40,7 @@ const AddTitle: FC<AddTitleProps> = ({ dog, isVisible, hide }) => {
     };
 
     return (
-        <Modal isShown={isVisible} hide={() => hide()} autoHide={true}>
+        <Modal isShown={isShown} hide={() => hide()} autoHide={true}>
             <Box animation={{ type: 'zoomIn' }}>
                 <CardHeader margin="0" pad={{ horizontal: 'small' }}>
                     <Text size={fonts.title} margin="xxsmall">
@@ -78,21 +82,18 @@ const AddTitle: FC<AddTitleProps> = ({ dog, isVisible, hide }) => {
                 </CardBody>
                 <CardFooter direction="row" justify="center" gap="small" background="background-contrast" pad="small">
                     <TitleTrackerButton
-                        label="Add"
+                        label="Edit"
                         disabled={!venue || !name || !dateReceived}
                         onClick={() => {
                             hide();
-                            onAddClick();
+                            onEditClick();
                             setName('');
                             setVenue('');
-                            setName('');
                             setDateReceived('');
                         }}
-                    ></TitleTrackerButton>
+                    />
                 </CardFooter>
             </Box>
         </Modal>
     );
 };
-
-export default AddTitle;
