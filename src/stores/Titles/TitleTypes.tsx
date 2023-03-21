@@ -1,4 +1,4 @@
-import {CommonFetchBlob} from '../CommonTypes';
+import { CommonFetchBlob } from '../CommonTypes';
 
 export interface TitleState {
     allTitles: CommonFetchBlob<Title[]>;
@@ -6,7 +6,7 @@ export interface TitleState {
 
 export interface Title {
     id?: string;
-    dogId: string,
+    dogId: string;
     name: string;
     venue: string;
     dateReceived: string;

@@ -39,7 +39,7 @@ require('./app/routes/dog.routes')(app);
 require('./app/routes/title.routes')(app);
 
 // set port, listen for requests
-const PORT = 8080;
+const PORT = 9000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

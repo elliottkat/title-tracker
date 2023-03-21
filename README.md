@@ -11,7 +11,7 @@ Agility Title Tracker allows you to track your dogs' titles.  It allows you to a
 1. `cd title-tracker/server`
 1. `npm install`
 1. `npm start`
-1. The Agility Title Tracker server will start on port 8080.
+1. The Agility Title Tracker server will start on port 9000.
 
 ### Run Title Tracker:
 1. `cd title-tracker`

@@ -40,9 +40,9 @@ const Button = styled.button<ButtonProps>`
         top: ${(p) => (p.position?.top === 'bottom' ? '30px' : '-72px')};
         ${(p) => p.position?.align || 'left'}: 0;
         transform: ${(p) =>
-    p.position?.align === 'center'
-        ? 'translateX(-16px)'
-        : `translateX(${p.position?.align === 'left' ? '-80%' : '80%'})`};
+            p.position?.align === 'center'
+                ? 'translateX(-16px)'
+                : `translateX(${p.position?.align === 'left' ? '-80%' : '80%'})`};
         padding: 10px;
         background-color: #444;
         color: white;
@@ -85,12 +85,12 @@ interface TitleTrackerButtonProps extends HTMLAttributes<HTMLButtonElement> {
 type AppIconKeys = 'add' | 'delete';
 
 export const TitleTrackerButton: FC<TitleTrackerButtonProps> = ({
-       onClick,
-       label,
-       disabled,
-       icon,
-       position = { top: 'bottom', align: 'center' },
-   }) => {
+    onClick,
+    label,
+    disabled,
+    icon,
+    position = { top: 'bottom', align: 'center' },
+}) => {
     const AppIcons = {
         add: <Add size="small" color={'white'} />,
         delete: <FormClose />,
@@ -98,11 +98,7 @@ export const TitleTrackerButton: FC<TitleTrackerButtonProps> = ({
 
     return (
         <Button onClick={onClick} disabled={disabled} position={position}>
-            {icon ? (
-                <span style={{ marginRight: 6 }}>
-                    {AppIcons[icon]}
-                </span>
-            ) : null}
+            {icon ? <span style={{ marginRight: 6 }}>{AppIcons[icon]}</span> : null}
             {label}
         </Button>
     );

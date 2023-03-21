@@ -1,11 +1,6 @@
 import { all, call, takeLatest, put } from 'redux-saga/effects';
 import { FetchSuccessPayload, CommonFetch } from './CommonTypes';
-import {
-    FETCH_DOGS_REQUEST,
-    ADD_DOG_REQUEST,
-    EDIT_DOG_REQUEST,
-    REMOVE_DOG_REQUEST,
-} from './Dogs/DogActionTypes';
+import { FETCH_DOGS_REQUEST, ADD_DOG_REQUEST, EDIT_DOG_REQUEST, REMOVE_DOG_REQUEST } from './Dogs/DogActionTypes';
 
 import {
     FETCH_TITLES_REQUEST,
