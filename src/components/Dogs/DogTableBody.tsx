@@ -26,9 +26,11 @@ export const DogTableBody: FC = () => {
             <>
                 <Table className="table table--body" alignSelf="stretch">
                     <TableBody>
-                        {dogs.map((dog) => (
-                            <DogListItem key={dog.name} dog={dog} />
-                        ))}
+                        {dogs
+                            .sort((a, b) => (a.name > b.name ? 1 : -1))
+                            .map((dog) => (
+                                <DogListItem key={dog.name} dog={dog} />
+                            ))}
                     </TableBody>
                 </Table>
             </>

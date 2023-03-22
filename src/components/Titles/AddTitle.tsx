@@ -33,11 +33,23 @@ export const AddTitle: FC<Props> = ({ dog, isShown, hide }) => {
             successCb: fetchSuccess,
             params,
         });
+
+        hide();
+        setName('');
+        setVenue('');
+        setName('');
+        setDateReceived('');
     };
 
     return (
         <Modal isShown={isShown} hide={() => hide()} autoHide={true}>
-            <Box animation={{ type: 'zoomIn' }} width="400px" onClick={(event) => event.stopPropagation()}>
+            <Box
+                animation={{ type: 'zoomIn' }}
+                width="400px"
+                border
+                round="6px"
+                onClick={(event) => event.stopPropagation()}
+            >
                 <Box
                     pad={{ horizontal: 'small' }}
                     align="center"
@@ -90,19 +102,13 @@ export const AddTitle: FC<Props> = ({ dog, isShown, hide }) => {
                     gap="small"
                     background={'background-contrast'}
                     pad="small"
+                    round="2px"
                     border={{ color: 'black', side: 'top', size: 'small' }}
                 >
                     <TitleTrackerButton
                         label="Add"
                         disabled={!venue || !name || !dateReceived}
-                        onClick={() => {
-                            hide();
-                            onAddClick();
-                            setName('');
-                            setVenue('');
-                            setName('');
-                            setDateReceived('');
-                        }}
+                        onClick={() => onAddClick()}
                     />
                 </Box>
             </Box>

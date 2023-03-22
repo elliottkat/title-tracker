@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dog } from '../../stores/Dogs/DogTypes';
 import { Box, Button, Table, TableBody, TableCell, TableRow, Text } from 'grommet';
 import { AddCircle, Edit, Trash } from 'grommet-icons';
+import { AddTitle } from './AddTitle';
 import { EditTitle } from './EditTitle';
 import { DeleteItemConfirm } from '../common/DeleteItemConfirm';
 import { getTitlesSelector } from '../../stores/Titles/TitleSelector';
 import { FETCH_TITLES_REQUEST } from '../../stores/Titles/TitleActionTypes';
 import * as Api from '../../stores/Api';
 import { fetchFailure, fetchSuccess } from '../../stores/CommonActions';
-import { AddTitle } from './AddTitle';
 
 interface Props {
     dog: Dog;
@@ -18,8 +18,8 @@ interface Props {
 export const TitlesTable: FC<Props> = ({ dog }) => {
     const dispatch = useDispatch();
     const { id } = dog;
-    const [showEdit, setShowEdit] = useState(false);
-    const [showDelete, setShowDelete] = useState(false);
+    const [showEditTitle, setShowEditTitle] = useState(false);
+    const [showDeleteTitle, setShowDeleteTitle] = useState(false);
     const [showAddTitle, setShowAddTitle] = useState(false);
 
     const titles = useSelector(getTitlesSelector) || [];
@@ -32,7 +32,7 @@ export const TitlesTable: FC<Props> = ({ dog }) => {
             successCb: fetchSuccess,
             params: id,
         });
-    }, [dispatch, id]);
+    }, [dispatch, id, showAddTitle]);
 
     const titleTableInfo = titles.map((title) => {
         return (
@@ -41,28 +41,16 @@ export const TitlesTable: FC<Props> = ({ dog }) => {
                 <TableCell key={title.id + title.name}>{title.name}</TableCell>
                 <TableCell key={title.id + title.dateReceived}>{title.dateReceived}</TableCell>
                 <TableCell key={`${title.id}-edit`}>
-                    <Button
-                        icon={<Edit />}
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            setShowEdit(true);
-                        }}
-                    />
-                    <EditTitle dog={dog} title={title} hide={() => setShowEdit(false)} isShown={showEdit} />
+                    <Button icon={<Edit />} onClick={() => setShowEditTitle(true)} />
+                    <EditTitle title={title} hide={() => setShowEditTitle(false)} isShown={showEditTitle} />
                 </TableCell>
                 <TableCell key={`${title.id}-delete`}>
-                    <Button
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            setShowDelete(true);
-                        }}
-                        icon={<Trash />}
-                    />
+                    <Button onClick={() => setShowDeleteTitle(true)} icon={<Trash />} />
                     <DeleteItemConfirm
                         itemType="Title"
                         item={title}
-                        isShown={showDelete}
-                        hide={() => setShowDelete(false)}
+                        isShown={showDeleteTitle}
+                        hide={() => setShowDeleteTitle(false)}
                     />
                 </TableCell>
             </TableRow>
@@ -70,14 +58,13 @@ export const TitlesTable: FC<Props> = ({ dog }) => {
     });
 
     return (
-        <Table margin="none">
+        <Table margin="none" onClick={(event) => event.stopPropagation()}>
             <Box
                 direction="row"
                 align="center"
                 margin={{ top: 'small', right: 'none' }}
-                justify="start"
-                gap="xlarge"
                 pad="none"
+                onClick={(event) => event.stopPropagation()}
             >
                 <Text style={{ fontWeight: 'bold' }}>
                     Titles{titles && titles.length > 0 ? ` (Total: ${titles.length})` : ''}

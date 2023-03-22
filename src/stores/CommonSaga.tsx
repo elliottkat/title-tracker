@@ -4,6 +4,7 @@ import { FETCH_DOGS_REQUEST, ADD_DOG_REQUEST, EDIT_DOG_REQUEST, REMOVE_DOG_REQUE
 
 import {
     FETCH_TITLES_REQUEST,
+    FETCH_TITLE_REQUEST,
     ADD_TITLE_REQUEST,
     EDIT_TITLE_REQUEST,
     REMOVE_TITLE_REQUEST,
@@ -39,6 +40,7 @@ export function* CommonSaga(): Generator {
         takeLatest(EDIT_DOG_REQUEST, fetchDataSaga),
         takeLatest(REMOVE_DOG_REQUEST, fetchDataSaga),
         takeLatest(FETCH_TITLES_REQUEST, fetchDataSaga),
+        takeLatest(FETCH_TITLE_REQUEST, fetchDataSaga),
         takeLatest(ADD_TITLE_REQUEST, fetchDataSaga),
         takeLatest(EDIT_TITLE_REQUEST, fetchDataSaga),
         takeLatest(REMOVE_TITLE_REQUEST, fetchDataSaga),

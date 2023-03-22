@@ -1,11 +1,6 @@
-import store from './index';
 import { Dog } from './Dogs/DogTypes';
 import { FetchSuccessPayload } from './CommonTypes';
 import { Title } from './Titles/TitleTypes';
-// import { FETCH_TITLES_SUCCESS } from './Titles/TitleActionTypes';
-
-const { dispatch } = store;
-console.log(dispatch);
 
 const port = 9000;
 
@@ -22,7 +17,6 @@ export const fetchDog = async (dog: Dog): Promise<FetchSuccessPayload<string>> =
 
 export const addDog = async (dog: Dog): Promise<any> => {
     const body = JSON.stringify(dog);
-    console.log('body:', body);
     const response = await fetch(`http://localhost:${port}/api/dogs`, {
         headers: {
             'Content-Type': 'application/json',
@@ -56,9 +50,21 @@ export const removeDog = async (id: string): Promise<any> => {
 export const fetchTitles = async (id: string): Promise<FetchSuccessPayload<string>> => {
     try {
         const response = await fetch(`http://localhost:${port}/api/titles?dogId=${id}`);
-        console.log('id', id);
         const jsonResponse = await response.json();
         console.log('jsonResponse', jsonResponse);
+        return jsonResponse;
+    } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        return error;
+    }
+};
+
+export const fetchTitle = async (id: string): Promise<FetchSuccessPayload<string>> => {
+    try {
+        const response = await fetch(`http://localhost:${port}/api/titles?id=${id}`);
+        const jsonResponse = await response.json();
+        console.log(jsonResponse);
         return jsonResponse;
     } catch (error) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -76,11 +82,6 @@ export const addTitle = async (title: Title): Promise<any> => {
         method: 'POST',
         body,
     });
-    // const data = await fetchTitles(title.dogId);
-    // dispatch({
-    //     type: FETCH_TITLES_SUCCESS,
-    //     payload: { data: data },
-    // });
 
     return await response.json();
 };

@@ -21,7 +21,7 @@ interface Props {
 
 export const DeleteItemConfirm: FC<Props> = ({ item, itemType, isShown, hide }) => {
     const { name, id } = item;
-    const venue = item.venue;
+    const { venue } = item;
     const deleteItemHeader = venue ? `${venue} ${name}` : name;
     const dispatch = useDispatch();
 
@@ -55,7 +55,6 @@ export const DeleteItemConfirm: FC<Props> = ({ item, itemType, isShown, hide }) 
                     direction="row"
                     justify="between"
                     gap="large"
-                    background={'background-contrast'}
                     border={{ color: 'black', side: 'bottom', size: 'small' }}
                 >
                     <Text size={fonts.title} margin="xxsmall">
