@@ -17,19 +17,17 @@ export const DogTableHeader: FC = () => {
     };
 
     return (
-        <Box className="table table--fixed">
-            <Box direction="row">
-                <Heading level={3} className="header-label" margin={{ left: 'small' }}>
-                    Dogs
-                </Heading>
-                <Button
-                    className="add-dog-button"
-                    onClick={() => setShowAddDog(true)}
-                    size="large"
-                    icon={<AddCircle />}
-                />
-                <AddEditDog dog={emptyDog} isShown={showAddDog} hide={() => setShowAddDog(false)} />
-            </Box>
+        <Box className="table table--fixed" direction="row" align="center">
+            <Heading level={3} className="header-label" margin={{ left: 'small' }}>
+                Dogs
+            </Heading>
+            <Button
+                className="add-dog-button"
+                onClick={() => setShowAddDog(true)}
+                size="large"
+                icon={<AddCircle size="30px" color="black" />}
+            />
+            <AddEditDog dog={emptyDog} isShown={showAddDog} hide={() => setShowAddDog(false)} />
         </Box>
     );
 };

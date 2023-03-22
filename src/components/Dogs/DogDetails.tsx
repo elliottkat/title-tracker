@@ -62,15 +62,6 @@ export const DogDetails: FC<Props> = ({ dog, isShown, hide }) => {
                     <EditTitle dog={dog} title={title} hide={() => setShowEdit(false)} isShown={showEdit} />
                 </TableCell>
                 <TableCell key={`${title.id}-delete`}>
-                    <Button
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            setShowDelete(true);
-                        }}
-                        icon={<Trash />}
-                    />
-                </TableCell>
-                <TableCell key={`${title.id}-delete`}>
                     <Button onClick={() => setShowDelete(true)} icon={<Trash />} />
                     <DeleteItemConfirm
                         itemType="Title"
@@ -84,7 +75,7 @@ export const DogDetails: FC<Props> = ({ dog, isShown, hide }) => {
     });
 
     const titleTable = (
-        <Box>
+        <Box width="500px">
             <Table>
                 <Box
                     direction="row"

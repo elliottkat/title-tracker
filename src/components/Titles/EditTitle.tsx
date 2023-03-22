@@ -56,10 +56,7 @@ export const EditTitle: FC<Props> = ({ dog, title, isShown, hide }) => {
                     </Text>
                     <Anchor
                         icon={<FormClose size="medium" />}
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            hide();
-                        }}
+                        onClick={() => hide()}
                         margin={{ left: 'auto', right: '-8px' }}
                     />
                 </Box>

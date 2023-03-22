@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Button, TableRow, TableCell } from 'grommet';
-import { CircleInformation, Edit, Trash } from 'grommet-icons';
+import { Edit, Trash } from 'grommet-icons';
 
 import '../../scss/DogListItem.scss';
 
@@ -9,16 +9,11 @@ import { AddEditDog } from './AddEditDog';
 import { DeleteItemConfirm } from '../common/DeleteItemConfirm';
 import { DogDetails } from './DogDetails';
 
-import { FETCH_TITLES_REQUEST } from '../../stores/Titles/TitleActionTypes';
-import * as Api from '../../stores/Api';
-import { fetchFailure, fetchSuccess } from '../../stores/CommonActions';
-
 interface Props {
     dog: Dog;
 }
 
 export const DogListItem: FC<Props> = ({ dog }) => {
-    const { id } = dog;
     const [showDetails, setShowDetails] = useState(false);
     const [showAddEdit, setShowAddEdit] = useState(false);
     const [showDelete, setShowDelete] = useState(false);

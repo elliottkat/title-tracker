@@ -37,7 +37,7 @@ export const AddTitle: FC<Props> = ({ dog, isShown, hide }) => {
 
     return (
         <Modal isShown={isShown} hide={() => hide()} autoHide={true}>
-            <Box animation={{ type: 'zoomIn' }} width="400px">
+            <Box animation={{ type: 'zoomIn' }} width="400px" onClick={(event) => event.stopPropagation()}>
                 <Box
                     pad={{ horizontal: 'small' }}
                     align="center"
@@ -52,14 +52,11 @@ export const AddTitle: FC<Props> = ({ dog, isShown, hide }) => {
                     </Text>
                     <Anchor
                         icon={<FormClose size="medium" />}
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            hide();
-                        }}
+                        onClick={() => hide()}
                         margin={{ left: 'auto', right: '-8px' }}
                     />
                 </Box>
-                <Box pad={{ horizontal: 'small' }} onClick={(event) => event.stopPropagation()}>
+                <Box pad={{ horizontal: 'small' }}>
                     <Form>
                         <FormField label="Venue">
                             <TextInput
@@ -94,7 +91,20 @@ export const AddTitle: FC<Props> = ({ dog, isShown, hide }) => {
                     background={'background-contrast'}
                     pad="small"
                     border={{ color: 'black', side: 'top', size: 'small' }}
-                ></Box>
+                >
+                    <TitleTrackerButton
+                        label="Add"
+                        disabled={!venue || !name || !dateReceived}
+                        onClick={(event) => {
+                            hide();
+                            onAddClick();
+                            setName('');
+                            setVenue('');
+                            setName('');
+                            setDateReceived('');
+                        }}
+                    />
+                </Box>
             </Box>
         </Modal>
     );

@@ -48,8 +48,7 @@ export const DeleteItemConfirm: FC<Props> = ({ item, itemType, isShown, hide }) 
 
     return (
         <Modal isShown={isShown} hide={() => hide()} autoHide={true}>
-<<<<<<< HEAD
-            <Box animation={{ type: 'zoomIn' }} width="400px">
+            <Box animation={{ type: 'zoomIn' }} width="400px" onClick={(event) => event.stopPropagation()}>
                 <Box
                     pad={{ horizontal: 'small' }}
                     align="center"
@@ -59,20 +58,13 @@ export const DeleteItemConfirm: FC<Props> = ({ item, itemType, isShown, hide }) 
                     background={'background-contrast'}
                     border={{ color: 'black', side: 'bottom', size: 'small' }}
                 >
-=======
-            <Box animation={{ type: 'zoomIn' }}>
-                <CardHeader margin="0" pad={{ horizontal: 'small' }}>
->>>>>>> c0ac53f4e966198f832c0833772b89ae3785ca31
                     <Text size={fonts.title} margin="xxsmall">
                         Delete {itemType} {deleteItemHeader}?
                     </Text>
                     <Anchor
                         data-testid="add-edit-dog-modal-anchor"
                         icon={<FormClose size="30px" />}
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            hide();
-                        }}
+                        onClick={() => hide()}
                         margin={{ left: 'auto', right: '-8px' }}
                     />
                 </Box>
@@ -86,8 +78,7 @@ export const DeleteItemConfirm: FC<Props> = ({ item, itemType, isShown, hide }) 
                 >
                     <TitleTrackerButton
                         label="Delete"
-                        onClick={(event) => {
-                            event.stopPropagation();
+                        onClick={() => {
                             hide();
                             onConfirmDeleteClick();
                         }}
