@@ -51,13 +51,14 @@ export const AddEditDog: FC<Props> = ({ dog, hide, isShown }) => {
                 successCb: fetchSuccess,
                 params,
             });
+
+            setName('');
+            setBreed('');
+            setBirthdate('');
+            setSex('');
         }
 
         hide();
-        setName('');
-        setBreed('');
-        setBirthdate('');
-        setSex('');
     };
 
     return (

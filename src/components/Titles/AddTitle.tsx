@@ -37,7 +37,6 @@ export const AddTitle: FC<Props> = ({ dog, isShown, hide }) => {
         hide();
         setName('');
         setVenue('');
-        setName('');
         setDateReceived('');
     };
 
@@ -59,7 +58,7 @@ export const AddTitle: FC<Props> = ({ dog, isShown, hide }) => {
                     background={'background-contrast'}
                     border={{ color: 'black', side: 'bottom', size: 'small' }}
                 >
-                    <Text style={{ fontWeight: 'bold' }} margin="xxsmall">
+                    <Text style={{ fontWeight: 'bold', fontSize: '20px' }} margin="xxsmall">
                         Add Title
                     </Text>
                     <Anchor

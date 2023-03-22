@@ -2,6 +2,7 @@ import { CommonFetchBlob } from '../CommonTypes';
 
 export interface TitleState {
     titles: CommonFetchBlob<Title[]>;
+    selectedTitle?: Title;
 }
 
 export interface Title {

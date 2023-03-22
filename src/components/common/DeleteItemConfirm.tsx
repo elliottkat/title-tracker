@@ -9,7 +9,6 @@ import { REMOVE_TITLE_REQUEST } from '../../stores/Titles/TitleActionTypes';
 import * as Api from '../../stores/Api';
 import { fetchFailure, fetchSuccess } from '../../stores/CommonActions';
 import { Modal } from './Modal';
-import { AppFonts as fonts } from '../styling/AppFonts';
 import { TitleTrackerButton } from '../Elements/TitleTrackerButton';
 
 interface Props {
@@ -22,7 +21,7 @@ interface Props {
 export const DeleteItemConfirm: FC<Props> = ({ item, itemType, isShown, hide }) => {
     const { name, id } = item;
     const { venue } = item;
-    const deleteItemHeader = venue ? `${venue} ${name}` : name;
+    const deleteItemHeader = itemType === 'Title' ? `Title ${venue} ${name}` : name;
     const dispatch = useDispatch();
 
     const onConfirmDeleteClick = () => {
@@ -48,7 +47,13 @@ export const DeleteItemConfirm: FC<Props> = ({ item, itemType, isShown, hide }) 
 
     return (
         <Modal isShown={isShown} hide={() => hide()} autoHide={true}>
-            <Box animation={{ type: 'zoomIn' }} width="400px" onClick={(event) => event.stopPropagation()}>
+            <Box
+                animation={{ type: 'zoomIn' }}
+                width="400px"
+                border
+                round="6px"
+                onClick={(event) => event.stopPropagation()}
+            >
                 <Box
                     pad={{ horizontal: 'small' }}
                     align="center"
@@ -57,8 +62,8 @@ export const DeleteItemConfirm: FC<Props> = ({ item, itemType, isShown, hide }) 
                     gap="large"
                     border={{ color: 'black', side: 'bottom', size: 'small' }}
                 >
-                    <Text size={fonts.title} margin="xxsmall">
-                        Delete {itemType} {deleteItemHeader}?
+                    <Text style={{ fontWeight: 'bold', fontSize: '20px' }} margin="xxsmall">
+                        Delete {deleteItemHeader}?
                     </Text>
                     <Anchor
                         data-testid="add-edit-dog-modal-anchor"

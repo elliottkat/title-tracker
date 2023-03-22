@@ -19,8 +19,15 @@ export const DogListItem: FC<Props> = ({ dog }) => {
     const [showDelete, setShowDelete] = useState(false);
 
     return (
-        <TableRow key={dog.id} className="table__row" onClick={() => setShowDetails(!showDetails)}>
-            <TableCell margin={{ left: 'small' }}>{dog.name}</TableCell>
+        <TableRow
+            key={dog.id}
+            className="table__row"
+            onClick={() => setShowDetails(!showDetails)}
+            style={{ border: 'bottom' }}
+        >
+            <TableCell margin={{ left: 'small' }} style={{ fontWeight: 'bold' }}>
+                {dog.name}
+            </TableCell>
             <TableCell className="table__row table__button">
                 <DogDetails dog={dog} isShown={showDetails} hide={() => setShowDetails(false)} />
             </TableCell>
@@ -29,7 +36,6 @@ export const DogListItem: FC<Props> = ({ dog }) => {
                     className="action-button"
                     onClick={(event) => {
                         event.stopPropagation();
-                        setShowDetails(false);
                         setShowAddEdit(true);
                     }}
                     icon={<Edit color="black" />}
@@ -41,7 +47,6 @@ export const DogListItem: FC<Props> = ({ dog }) => {
                     className="action-button"
                     onClick={(event) => {
                         event.stopPropagation();
-                        setShowDetails(false);
                         setShowDelete(true);
                     }}
                     icon={<Trash color="black" />}

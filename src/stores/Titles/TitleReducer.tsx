@@ -16,6 +16,7 @@ import {
     FETCH_TITLE_REQUEST,
     FETCH_TITLE_SUCCESS,
     FETCH_TITLE_FAILURE,
+    SET_TITLE,
 } from './TitleActionTypes';
 import { TitleState } from './TitleTypes';
 
@@ -29,6 +30,13 @@ export const initialState: TitleState = {
 
 export const TitleReducer = (state = initialState, action: AnyAction): TitleState => {
     switch (action.type) {
+        case SET_TITLE: {
+            const { title } = action.payload;
+            return {
+                ...state,
+                selectedTitle: title,
+            };
+        }
         case FETCH_TITLES_REQUEST: {
             return {
                 ...state,

@@ -2,14 +2,13 @@ import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dog } from '../../stores/Dogs/DogTypes';
 import { Box, Button, Table, TableBody, TableCell, TableRow, Text } from 'grommet';
-import { AddCircle, Edit, Trash } from 'grommet-icons';
+import { AddCircle } from 'grommet-icons';
 import { AddTitle } from './AddTitle';
-import { EditTitle } from './EditTitle';
-import { DeleteItemConfirm } from '../common/DeleteItemConfirm';
 import { getTitlesSelector } from '../../stores/Titles/TitleSelector';
 import { FETCH_TITLES_REQUEST } from '../../stores/Titles/TitleActionTypes';
 import * as Api from '../../stores/Api';
 import { fetchFailure, fetchSuccess } from '../../stores/CommonActions';
+import { TitleInfo } from './TitleInfo';
 
 interface Props {
     dog: Dog;
@@ -18,8 +17,6 @@ interface Props {
 export const TitlesTable: FC<Props> = ({ dog }) => {
     const dispatch = useDispatch();
     const { id } = dog;
-    const [showEditTitle, setShowEditTitle] = useState(false);
-    const [showDeleteTitle, setShowDeleteTitle] = useState(false);
     const [showAddTitle, setShowAddTitle] = useState(false);
 
     const titles = useSelector(getTitlesSelector) || [];
@@ -32,30 +29,7 @@ export const TitlesTable: FC<Props> = ({ dog }) => {
             successCb: fetchSuccess,
             params: id,
         });
-    }, [dispatch, id, showAddTitle]);
-
-    const titleTableInfo = titles.map((title) => {
-        return (
-            <TableRow key={title.id}>
-                <TableCell key={title.id + title.venue}>{title.venue}</TableCell>
-                <TableCell key={title.id + title.name}>{title.name}</TableCell>
-                <TableCell key={title.id + title.dateReceived}>{title.dateReceived}</TableCell>
-                <TableCell key={`${title.id}-edit`}>
-                    <Button icon={<Edit />} onClick={() => setShowEditTitle(true)} />
-                    <EditTitle title={title} hide={() => setShowEditTitle(false)} isShown={showEditTitle} />
-                </TableCell>
-                <TableCell key={`${title.id}-delete`}>
-                    <Button onClick={() => setShowDeleteTitle(true)} icon={<Trash />} />
-                    <DeleteItemConfirm
-                        itemType="Title"
-                        item={title}
-                        isShown={showDeleteTitle}
-                        hide={() => setShowDeleteTitle(false)}
-                    />
-                </TableCell>
-            </TableRow>
-        );
-    });
+    }, [dispatch, showAddTitle, id]);
 
     return (
         <Table margin="none" onClick={(event) => event.stopPropagation()}>
@@ -69,18 +43,11 @@ export const TitlesTable: FC<Props> = ({ dog }) => {
                 <Text style={{ fontWeight: 'bold' }}>
                     Titles{titles && titles.length > 0 ? ` (Total: ${titles.length})` : ''}
                 </Text>
-                <Button
-                    className="header-button"
-                    onClick={(event) => {
-                        event.stopPropagation();
-                        setShowAddTitle(true);
-                    }}
-                    icon={<AddCircle />}
-                />
+                <Button className="header-button" onClick={() => setShowAddTitle(true)} icon={<AddCircle />} />
                 <AddTitle dog={dog} hide={() => setShowAddTitle(false)} isShown={showAddTitle} />
             </Box>
             <TableBody>
-                {titles && titles.length > 0 ? (
+                {titles && titles.length > 0 && (
                     <TableRow>
                         <TableCell className="table-header" align="left">
                             <Text style={{ fontWeight: 'bold', fontSize: '16px' }} margin={{ left: 'none' }}>
@@ -100,8 +67,10 @@ export const TitlesTable: FC<Props> = ({ dog }) => {
                         <th className="table-header" />
                         <th className="table-header" />
                     </TableRow>
-                ) : null}
-                {titles && titles.length > 0 ? titleTableInfo : null}
+                )}
+                {titles.map((title) => (
+                    <TitleInfo key={title.id} title={title} />
+                ))}
             </TableBody>
         </Table>
     );
