@@ -94,21 +94,7 @@ export const AddTitle: FC<Props> = ({ dog, isShown, hide }) => {
                     background={'background-contrast'}
                     pad="small"
                     border={{ color: 'black', side: 'top', size: 'small' }}
-                >
-                    <TitleTrackerButton
-                        label="Add"
-                        disabled={!venue || !name || !dateReceived}
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            hide();
-                            onAddClick();
-                            setName('');
-                            setVenue('');
-                            setName('');
-                            setDateReceived('');
-                        }}
-                    />
-                </Box>
+                ></Box>
             </Box>
         </Modal>
     );

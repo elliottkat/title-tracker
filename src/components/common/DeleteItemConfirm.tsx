@@ -48,6 +48,7 @@ export const DeleteItemConfirm: FC<Props> = ({ item, itemType, isShown, hide }) 
 
     return (
         <Modal isShown={isShown} hide={() => hide()} autoHide={true}>
+<<<<<<< HEAD
             <Box animation={{ type: 'zoomIn' }} width="400px">
                 <Box
                     pad={{ horizontal: 'small' }}
@@ -58,6 +59,10 @@ export const DeleteItemConfirm: FC<Props> = ({ item, itemType, isShown, hide }) 
                     background={'background-contrast'}
                     border={{ color: 'black', side: 'bottom', size: 'small' }}
                 >
+=======
+            <Box animation={{ type: 'zoomIn' }}>
+                <CardHeader margin="0" pad={{ horizontal: 'small' }}>
+>>>>>>> c0ac53f4e966198f832c0833772b89ae3785ca31
                     <Text size={fonts.title} margin="xxsmall">
                         Delete {itemType} {deleteItemHeader}?
                     </Text>

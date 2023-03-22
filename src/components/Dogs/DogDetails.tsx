@@ -44,7 +44,7 @@ export const DogDetails: FC<Props> = ({ dog, isShown, hide }) => {
 
     console.log(allTitles);
     const titlesToDisplay = allTitles.filter((title) => title.dogId === id);
-    //
+
     const titleTableInfo = titlesToDisplay.map((title) => {
         return (
             <TableRow key={title.id}>
@@ -69,6 +69,9 @@ export const DogDetails: FC<Props> = ({ dog, isShown, hide }) => {
                         }}
                         icon={<Trash />}
                     />
+                </TableCell>
+                <TableCell key={`${title.id}-delete`}>
+                    <Button onClick={() => setShowDelete(true)} icon={<Trash />} />
                     <DeleteItemConfirm
                         itemType="Title"
                         item={title}

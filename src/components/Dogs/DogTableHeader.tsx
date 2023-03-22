@@ -18,17 +18,18 @@ export const DogTableHeader: FC = () => {
 
     return (
         <Box className="table table--fixed">
-            <Box direction="row" justify="between" gap="large" align="center">
-                <Heading level={3} margin={{ left: 'medium' }}>
+            <Box direction="row">
+                <Heading level={3} className="header-label" margin={{ left: 'small' }}>
                     Dogs
                 </Heading>
                 <Button
+                    className="add-dog-button"
                     onClick={() => setShowAddDog(true)}
                     size="large"
-                    icon={<AddCircle size="34px" color="black" />}
+                    icon={<AddCircle />}
                 />
+                <AddEditDog dog={emptyDog} isShown={showAddDog} hide={() => setShowAddDog(false)} />
             </Box>
-            <AddEditDog dog={emptyDog} isShown={showAddDog} hide={() => setShowAddDog(false)} />
         </Box>
     );
 };
