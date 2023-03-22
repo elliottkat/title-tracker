@@ -52,6 +52,12 @@ export const AddEditDog: FC<Props> = ({ dog, hide, isShown }) => {
                 params,
             });
         }
+
+        hide();
+        setName('');
+        setBreed('');
+        setBirthdate('');
+        setSex('');
     };
 
     return (
@@ -110,14 +116,7 @@ export const AddEditDog: FC<Props> = ({ dog, hide, isShown }) => {
                     <TitleTrackerButton
                         label={buttonLabel}
                         disabled={!name || !breed || !birthdate || !sex}
-                        onClick={() => {
-                            hide();
-                            onAddEditClick();
-                            setName('');
-                            setBreed('');
-                            setBirthdate('');
-                            setSex('');
-                        }}
+                        onClick={() => onAddEditClick()}
                     />
                 </Box>
             </Box>

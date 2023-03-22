@@ -13,6 +13,9 @@ import {
     EDIT_TITLE_REQUEST,
     EDIT_TITLE_SUCCESS,
     EDIT_TITLE_FAILURE,
+    FETCH_TITLE_REQUEST,
+    FETCH_TITLE_SUCCESS,
+    FETCH_TITLE_FAILURE,
 } from './TitleActionTypes';
 import { TitleState } from './TitleTypes';
 
@@ -29,13 +32,14 @@ export const TitleReducer = (state = initialState, action: AnyAction): TitleStat
         case FETCH_TITLES_REQUEST: {
             return {
                 ...state,
-                titles: { data: undefined, error: null, pending: true },
+                titles: { ...state.titles, data: undefined, error: null, pending: true },
             };
         }
         case FETCH_TITLES_SUCCESS: {
             return {
                 ...state,
                 titles: {
+                    ...state.titles,
                     error: null,
                     pending: false,
                     data: action.payload.data,
@@ -46,6 +50,35 @@ export const TitleReducer = (state = initialState, action: AnyAction): TitleStat
             return {
                 ...state,
                 titles: {
+                    ...state.titles,
+                    error: action.payload ?? 'Unknown error',
+                    pending: false,
+                    data: undefined,
+                },
+            };
+        }
+        case FETCH_TITLE_REQUEST: {
+            return {
+                ...state,
+                titles: { ...state.titles, data: undefined, error: null, pending: true },
+            };
+        }
+        case FETCH_TITLE_SUCCESS: {
+            return {
+                ...state,
+                titles: {
+                    ...state.titles,
+                    error: null,
+                    pending: false,
+                    data: action.payload.data,
+                },
+            };
+        }
+        case FETCH_TITLE_FAILURE: {
+            return {
+                ...state,
+                titles: {
+                    ...state.titles,
                     error: action.payload ?? 'Unknown error',
                     pending: false,
                     data: undefined,

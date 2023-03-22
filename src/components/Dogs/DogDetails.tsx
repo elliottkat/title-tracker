@@ -20,7 +20,7 @@ export const DogDetails: FC<Props> = ({ dog, isShown, hide }) => {
 
     return (
         <Modal isShown={isShown} hide={hide}>
-            <Box margin="small" width="800px">
+            <Box margin="small" width="800px" onClick={(event) => event.stopPropagation()} hoverIndicator={false}>
                 <Box border={{ size: 'small', side: 'bottom', color: 'black' }}>
                     <Box
                         direction="row"
