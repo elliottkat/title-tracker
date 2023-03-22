@@ -95,7 +95,7 @@ export const AddTitle: FC<Props> = ({ dog, isShown, hide }) => {
                     <TitleTrackerButton
                         label="Add"
                         disabled={!venue || !name || !dateReceived}
-                        onClick={(event) => {
+                        onClick={() => {
                             hide();
                             onAddClick();
                             setName('');
