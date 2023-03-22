@@ -17,7 +17,7 @@ import {
 import { TitleState } from './TitleTypes';
 
 export const initialState: TitleState = {
-    allTitles: {
+    titles: {
         error: null,
         pending: false,
         data: [],
@@ -29,14 +29,13 @@ export const TitleReducer = (state = initialState, action: AnyAction): TitleStat
         case FETCH_TITLES_REQUEST: {
             return {
                 ...state,
-                allTitles: { data: undefined, error: null, pending: true },
+                titles: { data: undefined, error: null, pending: true },
             };
         }
         case FETCH_TITLES_SUCCESS: {
             return {
                 ...state,
-                allTitles: {
-                    ...state.allTitles,
+                titles: {
                     error: null,
                     pending: false,
                     data: action.payload.data,
@@ -46,8 +45,7 @@ export const TitleReducer = (state = initialState, action: AnyAction): TitleStat
         case FETCH_TITLES_FAILURE: {
             return {
                 ...state,
-                allTitles: {
-                    ...state.allTitles,
+                titles: {
                     error: action.payload ?? 'Unknown error',
                     pending: false,
                     data: undefined,
@@ -57,49 +55,48 @@ export const TitleReducer = (state = initialState, action: AnyAction): TitleStat
         case ADD_TITLE_REQUEST: {
             return {
                 ...state,
-                allTitles: {
-                    ...state.allTitles,
+                titles: {
                     error: null,
                     pending: true,
-                    data: state.allTitles.data,
+                    data: [],
                 },
             };
         }
         case ADD_TITLE_SUCCESS: {
             return {
                 ...state,
-                allTitles: {
-                    ...state.allTitles,
+                titles: {
+                    ...state.titles,
                     error: null,
                     pending: false,
-                    data: state.allTitles.data?.concat(action.payload.data),
+                    data: state.titles.data?.concat(action.payload.data),
                 },
             };
         }
         case ADD_TITLE_FAILURE: {
             return {
                 ...state,
-                allTitles: {
-                    ...state.allTitles,
+                titles: {
+                    ...state.titles,
                     error: action.payload ?? 'Unknown error',
                     pending: false,
-                    data: state.allTitles.data,
+                    data: state.titles.data,
                 },
             };
         }
         case EDIT_TITLE_REQUEST: {
             return {
                 ...state,
-                allTitles: {
-                    ...state.allTitles,
+                titles: {
+                    ...state.titles,
                     error: null,
                     pending: true,
-                    data: state.allTitles.data,
+                    data: state.titles.data,
                 },
             };
         }
         case EDIT_TITLE_SUCCESS: {
-            const newStateData = state.allTitles.data?.map((dog) => {
+            const newStateData = state.titles.data?.map((dog) => {
                 if (dog.id === action.payload.data.id) {
                     return action.payload.data;
                 }
@@ -107,8 +104,8 @@ export const TitleReducer = (state = initialState, action: AnyAction): TitleStat
             });
             return {
                 ...state,
-                allTitles: {
-                    ...state.allTitles,
+                titles: {
+                    ...state.titles,
                     error: null,
                     pending: false,
                     data: newStateData,
@@ -118,31 +115,31 @@ export const TitleReducer = (state = initialState, action: AnyAction): TitleStat
         case EDIT_TITLE_FAILURE: {
             return {
                 ...state,
-                allTitles: {
-                    ...state.allTitles,
+                titles: {
+                    ...state.titles,
                     error: action.payload ?? 'Unknown error',
                     pending: false,
-                    data: state.allTitles.data,
+                    data: state.titles.data,
                 },
             };
         }
         case REMOVE_TITLE_REQUEST: {
             return {
                 ...state,
-                allTitles: {
-                    ...state.allTitles,
+                titles: {
+                    ...state.titles,
                     error: null,
                     pending: true,
-                    data: state.allTitles.data,
+                    data: state.titles.data,
                 },
             };
         }
         case REMOVE_TITLE_SUCCESS: {
-            const newStateData = state.allTitles.data?.filter((dog) => dog.id !== action.payload.data);
+            const newStateData = state.titles.data?.filter((dog) => dog.id !== action.payload.data);
             return {
                 ...state,
-                allTitles: {
-                    ...state.allTitles,
+                titles: {
+                    ...state.titles,
                     error: null,
                     pending: false,
                     data: newStateData,
@@ -152,11 +149,11 @@ export const TitleReducer = (state = initialState, action: AnyAction): TitleStat
         case REMOVE_TITLE_FAILURE: {
             return {
                 ...state,
-                allTitles: {
-                    ...state.allTitles,
+                titles: {
+                    ...state.titles,
                     error: action.payload ?? 'Unknown error',
                     pending: false,
-                    data: state.allTitles.data,
+                    data: state.titles.data,
                 },
             };
         }

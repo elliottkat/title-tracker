@@ -50,8 +50,11 @@ export const removeDog = async (id: string): Promise<any> => {
 // Titles
 export const fetchTitles = async (id: string): Promise<FetchSuccessPayload<string>> => {
     try {
-        const response = await fetch(`http://localhost:${port}/api/titles/?dogId=${id}`);
-        return await response.json();
+        const response = await fetch(`http://localhost:${port}/api/titles?dogId=${id}`);
+        console.log('id', id);
+        const jsonResponse = await response.json();
+        console.log('jsonResponse', jsonResponse);
+        return jsonResponse;
     } catch (error) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore

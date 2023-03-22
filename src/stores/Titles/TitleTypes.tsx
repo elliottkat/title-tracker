@@ -1,7 +1,7 @@
 import { CommonFetchBlob } from '../CommonTypes';
 
 export interface TitleState {
-    allTitles: CommonFetchBlob<Title[]>;
+    titles: CommonFetchBlob<Title[]>;
 }
 
 export interface Title {

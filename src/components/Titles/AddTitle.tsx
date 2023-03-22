@@ -1,24 +1,23 @@
 import React, { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Anchor, Box, CardBody, CardFooter, CardHeader, Form, FormField, Text, TextInput } from 'grommet';
+import { Anchor, Box, Form, FormField, Text, TextInput } from 'grommet';
 import { FormClose } from 'grommet-icons';
 
 import { ADD_TITLE_REQUEST } from '../../stores/Titles/TitleActionTypes';
 
 import { Modal } from '../common/Modal';
 import { fetchFailure, fetchSuccess } from '../../stores/CommonActions';
-import { AppFonts as fonts } from '../styling/AppFonts';
 import { TitleTrackerButton } from '../Elements/TitleTrackerButton';
 import { Dog } from '../../stores/Dogs/DogTypes';
 import * as Api from '../../stores/Api';
 
 interface Props {
     dog: Dog;
-    isVisible: boolean;
+    isShown: boolean;
     hide: () => void;
 }
 
-export const AddTitle: FC<Props> = ({ dog, isVisible, hide }) => {
+export const AddTitle: FC<Props> = ({ dog, isShown, hide }) => {
     const dogId = dog.id;
     const [venue, setVenue] = useState('');
     const [name, setName] = useState('');
@@ -37,10 +36,18 @@ export const AddTitle: FC<Props> = ({ dog, isVisible, hide }) => {
     };
 
     return (
-        <Modal isShown={isVisible} hide={() => hide()} autoHide={true}>
-            <Box animation={{ type: 'zoomIn' }}>
-                <CardHeader margin="0" pad={{ horizontal: 'small' }}>
-                    <Text size={fonts.title} margin="xxsmall">
+        <Modal isShown={isShown} hide={() => hide()} autoHide={true}>
+            <Box animation={{ type: 'zoomIn' }} width="400px" onClick={(event) => event.stopPropagation()}>
+                <Box
+                    pad={{ horizontal: 'small' }}
+                    align="center"
+                    direction="row"
+                    justify="between"
+                    gap="large"
+                    background={'background-contrast'}
+                    border={{ color: 'black', side: 'bottom', size: 'small' }}
+                >
+                    <Text style={{ fontWeight: 'bold' }} margin="xxsmall">
                         Add Title
                     </Text>
                     <Anchor
@@ -48,8 +55,8 @@ export const AddTitle: FC<Props> = ({ dog, isVisible, hide }) => {
                         onClick={() => hide()}
                         margin={{ left: 'auto', right: '-8px' }}
                     />
-                </CardHeader>
-                <CardBody pad={{ horizontal: 'small' }}>
+                </Box>
+                <Box pad={{ horizontal: 'small' }}>
                     <Form>
                         <FormField label="Venue">
                             <TextInput
@@ -76,12 +83,19 @@ export const AddTitle: FC<Props> = ({ dog, isVisible, hide }) => {
                             />
                         </FormField>
                     </Form>
-                </CardBody>
-                <CardFooter direction="row" justify="center" gap="small" background={'background-contrast'} pad="small">
+                </Box>
+                <Box
+                    direction="row"
+                    justify="center"
+                    gap="small"
+                    background={'background-contrast'}
+                    pad="small"
+                    border={{ color: 'black', side: 'top', size: 'small' }}
+                >
                     <TitleTrackerButton
                         label="Add"
                         disabled={!venue || !name || !dateReceived}
-                        onClick={() => {
+                        onClick={(event) => {
                             hide();
                             onAddClick();
                             setName('');
@@ -90,7 +104,7 @@ export const AddTitle: FC<Props> = ({ dog, isVisible, hide }) => {
                             setDateReceived('');
                         }}
                     />
-                </CardFooter>
+                </Box>
             </Box>
         </Modal>
     );

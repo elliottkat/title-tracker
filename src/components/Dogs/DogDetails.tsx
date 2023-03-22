@@ -24,13 +24,14 @@ interface Props {
 }
 
 export const DogDetails: FC<Props> = ({ dog, isShown, hide }) => {
+    const dispatch = useDispatch();
     const { id, name, breed, birthdate, sex } = dog;
     const [showEdit, setShowEdit] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
     const [showAddTitle, setShowAddTitle] = useState(false);
 
-    const dispatch = useDispatch();
     const allTitles = useSelector(getTitlesSelector) || [];
+
     useEffect(() => {
         dispatch({
             type: FETCH_TITLES_REQUEST,
@@ -41,6 +42,7 @@ export const DogDetails: FC<Props> = ({ dog, isShown, hide }) => {
         });
     }, [dispatch, id]);
 
+    console.log(allTitles);
     const titlesToDisplay = allTitles.filter((title) => title.dogId === id);
 
     const titleTableInfo = titlesToDisplay.map((title) => {
@@ -50,13 +52,19 @@ export const DogDetails: FC<Props> = ({ dog, isShown, hide }) => {
                 <TableCell key={title.id + title.name}>{title.name}</TableCell>
                 <TableCell key={title.id + title.dateReceived}>{title.dateReceived}</TableCell>
                 <TableCell key={`${title.id}-edit`}>
-                    <Button icon={<Edit />} onClick={() => setShowEdit(true)} />
+                    <Button
+                        icon={<Edit />}
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            setShowEdit(true);
+                        }}
+                    />
                     <EditTitle dog={dog} title={title} hide={() => setShowEdit(false)} isShown={showEdit} />
                 </TableCell>
                 <TableCell key={`${title.id}-delete`}>
                     <Button onClick={() => setShowDelete(true)} icon={<Trash />} />
                     <DeleteItemConfirm
-                        itemType="title"
+                        itemType="Title"
                         item={title}
                         isShown={showDelete}
                         hide={() => setShowDelete(false)}
@@ -67,7 +75,7 @@ export const DogDetails: FC<Props> = ({ dog, isShown, hide }) => {
     });
 
     const titleTable = (
-        <Box>
+        <Box width="500px">
             <Table>
                 <Box
                     direction="row"
@@ -81,8 +89,15 @@ export const DogDetails: FC<Props> = ({ dog, isShown, hide }) => {
                     <Text style={{ fontWeight: 'bold' }} margin="none">
                         Titles{titlesToDisplay && titlesToDisplay.length > 0 ? ':' : ''}
                     </Text>
-                    <Button className="header-button" onClick={() => setShowAddTitle(true)} icon={<AddCircle />} />
-                    <AddTitle dog={dog} hide={() => setShowAddTitle(false)} isVisible={showAddTitle} />
+                    <Button
+                        className="header-button"
+                        onClick={(event) => {
+                            event.stopPropagation();
+                            setShowAddTitle(true);
+                        }}
+                        icon={<AddCircle />}
+                    />
+                    <AddTitle dog={dog} hide={() => setShowAddTitle(false)} isShown={showAddTitle} />
                 </Box>
                 <TableBody>
                     {titlesToDisplay && titlesToDisplay.length > 0 ? (
@@ -114,7 +129,7 @@ export const DogDetails: FC<Props> = ({ dog, isShown, hide }) => {
 
     return (
         <Modal isShown={isShown} hide={hide}>
-            <Box margin="small">
+            <Box margin="small" width="800px">
                 <Box border={{ size: 'small', side: 'bottom', color: 'black' }}>
                     <Box
                         direction="row"
@@ -125,7 +140,12 @@ export const DogDetails: FC<Props> = ({ dog, isShown, hide }) => {
                         margin={{ bottom: 'small' }}
                     >
                         <Text style={{ fontWeight: 'bold', fontSize: '28px' }}>{name}</Text>
-                        <Button aria-label="Close" onClick={hide} icon={<FormClose size="34px" />} />
+                        <Button
+                            aria-label="Close"
+                            onClick={hide}
+                            icon={<FormClose size="34px" />}
+                            hoverIndicator={false}
+                        />
                     </Box>
                     <Box direction="row" margin={{ bottom: 'xsmall' }} align="center">
                         <Text style={{ fontWeight: 'bold', fontSize: '18px' }} margin={{ right: 'small' }}>
