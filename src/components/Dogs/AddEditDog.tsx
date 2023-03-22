@@ -72,14 +72,12 @@ export const AddEditDog: FC<Props> = ({ dog, hide, isShown }) => {
                     <Anchor
                         data-testid="add-edit-dog-modal-anchor"
                         icon={<FormClose size="30px" />}
-                        onClick={(event) => {
-                            hide();
-                        }}
+                        onClick={() => hide()}
                         margin={{ left: 'auto', right: '-8px' }}
                     />
                 </Box>
                 <Box pad={{ horizontal: 'small' }}>
-                    <Form value={sex}>
+                    <Form>
                         <FormField label="Name">
                             <TextInput value={name} onChange={(event) => setName(event.target.value)} plain />
                         </FormField>
