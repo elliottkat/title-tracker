@@ -22,7 +22,7 @@ export const TitlesTable: FC<Props> = ({ dog }) => {
     const [showDelete, setShowDelete] = useState(false);
     const [showAddTitle, setShowAddTitle] = useState(false);
 
-    const allTitles = useSelector(getTitlesSelector) || [];
+    const titles = useSelector(getTitlesSelector) || [];
 
     useEffect(() => {
         dispatch({
@@ -34,9 +34,7 @@ export const TitlesTable: FC<Props> = ({ dog }) => {
         });
     }, [dispatch, id]);
 
-    console.log(allTitles);
-    const titlesToDisplay = allTitles.filter((title) => title.dogId === id);
-    const titleTableInfo = titlesToDisplay.map((title) => {
+    const titleTableInfo = titles.map((title) => {
         return (
             <TableRow key={title.id}>
                 <TableCell key={title.id + title.venue}>{title.venue}</TableCell>
@@ -72,55 +70,52 @@ export const TitlesTable: FC<Props> = ({ dog }) => {
     });
 
     return (
-        <Box>
-            <Table>
-                <Box
-                    direction="row"
-                    justify="between"
-                    gap="xlarge"
-                    align="center"
-                    width="100%"
-                    margin={{ top: 'small' }}
-                    pad="none"
-                >
-                    <Text style={{ fontWeight: 'bold' }} margin="none">
-                        Titles{titlesToDisplay && titlesToDisplay.length > 0 ? ':' : ''}
-                    </Text>
-                    <Button
-                        className="header-button"
-                        onClick={(event) => {
-                            event.stopPropagation();
-                            setShowAddTitle(true);
-                        }}
-                        icon={<AddCircle />}
-                    />
-                    <AddTitle dog={dog} hide={() => setShowAddTitle(false)} isShown={showAddTitle} />
-                </Box>
-                <TableBody>
-                    {titlesToDisplay && titlesToDisplay.length > 0 ? (
-                        <TableRow>
-                            <TableCell className="table-header" align="left">
-                                <Text style={{ fontWeight: 'bold', fontSize: '16px' }} margin={{ left: 'none' }}>
-                                    Venue
-                                </Text>
-                            </TableCell>
-                            <TableCell className="table-header" align="left">
-                                <Text style={{ fontWeight: 'bold', fontSize: '16px' }} margin={{ left: 'none' }}>
-                                    Title
-                                </Text>
-                            </TableCell>
-                            <TableCell className="table-header" align="left">
-                                <Text style={{ fontWeight: 'bold', fontSize: '16px' }} margin={{ left: 'none' }}>
-                                    Date Received
-                                </Text>
-                            </TableCell>
-                            <th className="table-header" />
-                            <th className="table-header" />
-                        </TableRow>
-                    ) : null}
-                    {titlesToDisplay && titlesToDisplay.length > 0 ? titleTableInfo : null}
-                </TableBody>
-            </Table>
-        </Box>
+        <Table margin="none">
+            <Box
+                direction="row"
+                align="center"
+                margin={{ top: 'small', right: 'none' }}
+                justify="start"
+                gap="xlarge"
+                pad="none"
+            >
+                <Text style={{ fontWeight: 'bold' }}>
+                    Titles{titles && titles.length > 0 ? ` (Total: ${titles.length})` : ''}
+                </Text>
+                <Button
+                    className="header-button"
+                    onClick={(event) => {
+                        event.stopPropagation();
+                        setShowAddTitle(true);
+                    }}
+                    icon={<AddCircle />}
+                />
+                <AddTitle dog={dog} hide={() => setShowAddTitle(false)} isShown={showAddTitle} />
+            </Box>
+            <TableBody>
+                {titles && titles.length > 0 ? (
+                    <TableRow>
+                        <TableCell className="table-header" align="left">
+                            <Text style={{ fontWeight: 'bold', fontSize: '16px' }} margin={{ left: 'none' }}>
+                                Venue
+                            </Text>
+                        </TableCell>
+                        <TableCell className="table-header" align="left">
+                            <Text style={{ fontWeight: 'bold', fontSize: '16px' }} margin={{ left: 'none' }}>
+                                Title
+                            </Text>
+                        </TableCell>
+                        <TableCell className="table-header" align="left">
+                            <Text style={{ fontWeight: 'bold', fontSize: '16px' }} margin={{ left: 'none' }}>
+                                Date Received
+                            </Text>
+                        </TableCell>
+                        <th className="table-header" />
+                        <th className="table-header" />
+                    </TableRow>
+                ) : null}
+                {titles && titles.length > 0 ? titleTableInfo : null}
+            </TableBody>
+        </Table>
     );
 };

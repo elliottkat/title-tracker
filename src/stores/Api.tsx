@@ -1,6 +1,11 @@
-import { FetchSuccessPayload } from './CommonTypes';
+import store from './index';
 import { Dog } from './Dogs/DogTypes';
+import { FetchSuccessPayload } from './CommonTypes';
 import { Title } from './Titles/TitleTypes';
+// import { FETCH_TITLES_SUCCESS } from './Titles/TitleActionTypes';
+
+const { dispatch } = store;
+console.log(dispatch);
 
 const port = 9000;
 
@@ -71,6 +76,12 @@ export const addTitle = async (title: Title): Promise<any> => {
         method: 'POST',
         body,
     });
+    // const data = await fetchTitles(title.dogId);
+    // dispatch({
+    //     type: FETCH_TITLES_SUCCESS,
+    //     payload: { data: data },
+    // });
+
     return await response.json();
 };
 
