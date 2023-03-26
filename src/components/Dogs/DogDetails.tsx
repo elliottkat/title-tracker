@@ -15,7 +15,6 @@ interface Props {
     hide: () => void;
 }
 
-//
 export const DogDetails: FC<Props> = ({ dog, isShown, hide }) => {
     const { name, breed, birthdate, sex } = dog;
 
