@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import FocusLock from 'react-focus-lock';
 import { Wrapper, StyledModal, Content, Backdrop } from './Modal.style';
@@ -27,7 +27,7 @@ export const Modal: FC<Props> = ({ isShown, hide, autoHide = true, children }) =
     });
 
     const modal = (
-        <Fragment>
+        <>
             {autoHide ? (
                 <Backdrop onClick={hide} data-testid="backdrop" />
             ) : (
@@ -42,7 +42,7 @@ export const Modal: FC<Props> = ({ isShown, hide, autoHide = true, children }) =
                     </Wrapper>
                 </Grommet>
             </FocusLock>
-        </Fragment>
+        </>
     );
 
     return isShown ? ReactDOM.createPortal(modal, document.body) : null;

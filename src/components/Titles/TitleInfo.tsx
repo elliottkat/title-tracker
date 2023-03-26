@@ -1,10 +1,7 @@
 import React, { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { Title } from '../../stores/Titles/TitleTypes';
 import { Button, TableCell, TableRow } from 'grommet';
 import { Edit, Trash } from 'grommet-icons';
-import { setValue } from '../../stores/CommonActions';
-import { SET_TITLE } from '../../stores/Titles/TitleActionTypes';
 import { EditTitle } from './EditTitle';
 import { DeleteItemConfirm } from '../common/DeleteItemConfirm';
 
@@ -13,7 +10,6 @@ interface Props {
 }
 
 export const TitleInfo: FC<Props> = ({ title }) => {
-    const dispatch = useDispatch();
     const [showEditTitle, setShowEditTitle] = useState(false);
     const [showDeleteTitle, setShowDeleteTitle] = useState(false);
 
@@ -23,13 +19,7 @@ export const TitleInfo: FC<Props> = ({ title }) => {
             <TableCell key={title.id + title.name}>{title.name}</TableCell>
             <TableCell key={title.id + title.dateReceived}>{title.dateReceived}</TableCell>
             <TableCell key={`${title.id}-edit`}>
-                <Button
-                    icon={<Edit />}
-                    onClick={() => {
-                        dispatch(setValue(SET_TITLE, title));
-                        setShowEditTitle(true);
-                    }}
-                />
+                <Button icon={<Edit />} onClick={() => setShowEditTitle(true)} />
                 <EditTitle title={title} hide={() => setShowEditTitle(false)} isShown={showEditTitle} />
             </TableCell>
             <TableCell key={`${title.id}-delete`}>
