@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Anchor, Box, Form, FormField, Text, TextInput } from 'grommet';
 import { FormClose } from 'grommet-icons';
 
@@ -8,9 +8,7 @@ import * as Api from '../../stores/Api';
 import { fetchFailure, fetchSuccess } from '../../stores/CommonActions';
 import { Title } from '../../stores/Titles/TitleTypes';
 import { Modal } from '../common/Modal';
-import { AppFonts as fonts } from '../styling/AppFonts';
 import { TitleTrackerButton } from '../Elements/TitleTrackerButton';
-import { getTitlesSelector } from '../../stores/Titles/TitleSelector';
 
 interface Props {
     title: Title;
@@ -21,32 +19,10 @@ interface Props {
 export const EditTitle: FC<Props> = ({ title, isShown, hide }) => {
     const { id } = title;
 
-    const allTitles = useSelector(getTitlesSelector);
-    console.log(allTitles);
-    const thisTitle = allTitles?.filter((title) => title.id === id)[0] || {
-        venue: '',
-        name: '',
-        dateReceived: '',
-    };
-    console.log(thisTitle);
-
-    const [venue, setVenue] = useState(thisTitle.venue);
-    const [name, setName] = useState(thisTitle.name);
-    const [dateReceived, setDateReceived] = useState(thisTitle.dateReceived);
+    const [venue, setVenue] = useState(title.venue);
+    const [name, setName] = useState(title.name);
+    const [dateReceived, setDateReceived] = useState(title.dateReceived);
     const dispatch = useDispatch();
-
-    // useEffect(
-    //     () => {
-    //         dispatch({
-    //             type: FETCH_TITLE_REQUEST,
-    //             apiCb: Api.fetchTitle,
-    //             errorCb: fetchFailure,
-    //             successCb: fetchSuccess,
-    //             params: id,
-    //         });
-    //     }, // eslint-disable-next-line react-hooks/exhaustive-deps
-    //     [],
-    // );
 
     const onEditClick = () => {
         const params = { id, name, venue, dateReceived };
@@ -79,7 +55,7 @@ export const EditTitle: FC<Props> = ({ title, isShown, hide }) => {
                     background={'background-contrast'}
                     border={{ color: 'black', side: 'bottom', size: 'small' }}
                 >
-                    <Text size={fonts.title} margin="xxsmall">
+                    <Text style={{ fontWeight: 'bold', fontSize: '20px' }} margin="xxsmall">
                         Edit Title
                     </Text>
                     <Anchor
