@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Anchor, Box, Form, FormField, RadioButtonGroup, Text, TextInput } from 'grommet';
+import { Anchor, Box, Form, FormField, MaskedInput, RadioButtonGroup, Text, TextInput } from 'grommet';
 import { FormClose } from 'grommet-icons';
 
 import { TitleTrackerButton } from '../Elements/TitleTrackerButton';
@@ -21,14 +21,29 @@ interface Props {
 const sexOptions = ['Male', 'Female'];
 
 export const AddEditDog: FC<Props> = ({ dog, hide, isShown }) => {
+    const regex = new RegExp(/\d{2}/);
+    const testRegex = regex.test('10');
+    console.log(testRegex);
     const dispatch = useDispatch();
 
     const { id } = dog;
     const [name, setName] = useState(dog.name);
     const [breed, setBreed] = useState(dog.breed);
-    const [birthdate, setBirthdate] = useState(dog.birthdate);
+    const [birthdate, setBirthdate] = useState(dog.birthdate || '');
     const [sex, setSex] = useState(dog.sex);
     const buttonLabel = id ? 'Edit' : 'Add';
+
+    const clearFields = () => {
+        setName('');
+        setBreed('');
+        setBirthdate('');
+        setSex('');
+    };
+
+    const onBirthdaySelect = (event: any) => {
+        const value = event.target.value || '';
+        setBirthdate(value);
+    };
 
     const onAddEditClick = () => {
         if (id) {
@@ -52,10 +67,7 @@ export const AddEditDog: FC<Props> = ({ dog, hide, isShown }) => {
                 params,
             });
 
-            setName('');
-            setBreed('');
-            setBirthdate('');
-            setSex('');
+            clearFields();
         }
 
         hide();
@@ -63,7 +75,7 @@ export const AddEditDog: FC<Props> = ({ dog, hide, isShown }) => {
 
     return (
         <Modal isShown={isShown} hide={() => hide()} autoHide={true}>
-            <Box animation={{ type: 'zoomIn' }} width="800px" onClick={(event) => event.stopPropagation()}>
+            <Box animation={{ type: 'zoomIn' }} width="500px" onClick={(event) => event.stopPropagation()}>
                 <Box
                     pad={{ horizontal: 'small' }}
                     align="center"
@@ -79,11 +91,14 @@ export const AddEditDog: FC<Props> = ({ dog, hide, isShown }) => {
                     <Anchor
                         data-testid="add-edit-dog-modal-anchor"
                         icon={<FormClose size="30px" />}
-                        onClick={() => hide()}
+                        onClick={() => {
+                            clearFields();
+                            hide();
+                        }}
                         margin={{ left: 'auto', right: '-8px' }}
                     />
                 </Box>
-                <Box pad={{ horizontal: 'small' }}>
+                <Box pad={{ horizontal: 'small', vertical: 'none' }}>
                     <Form>
                         <FormField label="Name">
                             <TextInput value={name} onChange={(event) => setName(event.target.value)} plain />
@@ -91,18 +106,38 @@ export const AddEditDog: FC<Props> = ({ dog, hide, isShown }) => {
                         <FormField label="Breed">
                             <TextInput value={breed} onChange={(event) => setBreed(event.target.value)} plain />
                         </FormField>
-                        <FormField label="Birthdate">
-                            <TextInput value={birthdate} onChange={(event) => setBirthdate(event.target.value)} plain />
-                        </FormField>
                     </Form>
-                    <Box border round="4px" margin={{ bottom: 'small' }}>
+                    <Box border={false} margin={{ top: 'none', bottom: '18px' }}>
+                        <Text size="14px" margin={{ bottom: 'small' }}>
+                            Birthdate
+                        </Text>
+                        <MaskedInput
+                            mask={[
+                                {
+                                    regexp: /^[0-9]{1,2}$/,
+                                    placeholder: 'mm',
+                                },
+                                { fixed: '/' },
+                                {
+                                    regexp: /^[0-9]{1,2}$/,
+                                    placeholder: 'dd',
+                                },
+                                { fixed: '/' },
+                                {
+                                    regexp: /^[0-9]{1,4}$/,
+                                    placeholder: 'yyyy',
+                                },
+                            ]}
+                            value={birthdate}
+                            onChange={(event) => onBirthdaySelect(event)}
+                        />
+                    </Box>
+                    <Box border round="4px" margin={{ bottom: 'medium' }}>
                         <RadioButtonGroup
                             name="select-sex-radio"
                             options={sexOptions}
                             value={sex}
-                            onChange={(event) => {
-                                setSex(event.target.value);
-                            }}
+                            onChange={(event) => setSex(event.target.value)}
                         />
                     </Box>
                 </Box>
